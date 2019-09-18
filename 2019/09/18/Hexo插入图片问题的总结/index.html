@@ -21,21 +21,21 @@
     
     
     <meta name="keywords" content="笔记">
-    <meta name="description" content="经过一天的测试终于找出原因，为什么插入图片的时候hexo-asset-image 插件会在图片的路径前面自动添加/.io/                                                                                              1                问题1 Hexo版本以及插件不是最新 1hexo v">
+    <meta name="description" content="起因:插入图片的时候hexo-asset-image 插件会在图片的路径前面自动添加/.io/                                                                                              1               经过了一系列的测试找出了一下几个问题:  问题1 Hexo版本以及插件不是最新 1he">
 <meta name="keywords" content="笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo插入图片问题的总结">
 <meta property="og:url" content="https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/index.html">
 <meta property="og:site_name" content="Hu5k7&#39;s Blog">
-<meta property="og:description" content="经过一天的测试终于找出原因，为什么插入图片的时候hexo-asset-image 插件会在图片的路径前面自动添加/.io/                                                                                              1                问题1 Hexo版本以及插件不是最新 1hexo v">
+<meta property="og:description" content="起因:插入图片的时候hexo-asset-image 插件会在图片的路径前面自动添加/.io/                                                                                              1               经过了一系列的测试找出了一下几个问题:  问题1 Hexo版本以及插件不是最新 1he">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/io.png">
 <meta property="og:image" content="https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/hexo.PNG">
 <meta property="og:image" content="https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/1.PNG">
-<meta property="og:updated_time" content="2019-09-18T03:20:45.851Z">
+<meta property="og:updated_time" content="2019-09-18T03:23:52.089Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo插入图片问题的总结">
-<meta name="twitter:description" content="经过一天的测试终于找出原因，为什么插入图片的时候hexo-asset-image 插件会在图片的路径前面自动添加/.io/                                                                                              1                问题1 Hexo版本以及插件不是最新 1hexo v">
+<meta name="twitter:description" content="起因:插入图片的时候hexo-asset-image 插件会在图片的路径前面自动添加/.io/                                                                                              1               经过了一系列的测试找出了一下几个问题:  问题1 Hexo版本以及插件不是最新 1he">
 <meta name="twitter:image" content="https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/io.png">
     
     <link rel="shortcut icon" href="/img/favicon.ico">
@@ -145,8 +145,6 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/笔记/">笔记</a></li></ul>
-
             
         </h5>
     </div>
@@ -159,6 +157,13 @@
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#起因"><span class="post-toc-number">1.</span> <span class="post-toc-text">起因:</span></a></li></ol>
+        </nav>
+    </aside>
+
 
 <article id="post-Hexo插入图片问题的总结"
   class="post-article article-type-post fade" itemprop="blogPost">
@@ -169,8 +174,6 @@
             <time class="post-time" title="2019-09-18 00:00:00" datetime="2019-09-18T00:00:00.000Z"  itemprop="datePublished">2019-09-18</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/笔记/">笔记</a></li></ul>
-
 
 
             
@@ -181,7 +184,7 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>经过一天的测试终于找出原因，为什么插入图片的时候hexo-asset-image 插件会在图片的路径前面自动添加/.io/</p>
+            <h2 id="起因"><a href="#起因" class="headerlink" title="起因:"></a>起因:</h2><p>插入图片的时候hexo-asset-image 插件会在图片的路径前面自动添加/.io/</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -190,6 +193,7 @@
                 <div class="image-caption">1</div>
             </figure>
 
+<p>经过了一系列的测试找出了一下几个问题:</p>
 <ul>
 <li><p><strong>问题1</strong></p>
 <p>Hexo版本以及插件不是最新</p>
@@ -226,11 +230,11 @@
 <p><img src="1.PNG" alt></p>
 </li>
 <li><p><strong>最直接最接地气解决问题的办法:</strong></p>
-<p><strong>就是去修改插件源代码 **</strong></p>
-<p><strong>位置: node_modules\hexo-asset-image\index.js</strong></p>
+<p>就是去修改插件源代码</p>
+<p>位置: node_modules\hexo-asset-image\index.js</p>
 </li>
 </ul>
-<p><strong>tips: 这是我个人博客hexo插入图片时出错的问题,我用的Makedown是Typora</strong></p>
+<p><strong>tips: 这是我个人博客hexo插入图片时出错的问题,我用的Makedown是Typora，不同的主题有不一样的渲染图片路径的方式，根据不同的方式去修改插件代码。有能力可以自己写插件=w=</strong></p>
 <p><strong>转载请标明出处</strong></p>
 
         </div>
@@ -240,7 +244,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-09-18T03:20:45.851Z" itemprop="dateUpdated">2019-09-18 03:20:45</time>
+    Last updated: <time datetime="2019-09-18T03:23:52.089Z" itemprop="dateUpdated">2019-09-18 03:23:52</time>
 </span><br>
 
 
