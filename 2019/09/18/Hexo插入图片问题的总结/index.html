@@ -25,18 +25,18 @@
 <meta name="keywords" content="笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo插入图片问题的总结">
-<meta property="og:url" content="http://yoursite.com/2019/06/12/Hexo插入图片问题的总结/index.html">
+<meta property="og:url" content="https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/index.html">
 <meta property="og:site_name" content="Hu5k7&#39;s Blog">
 <meta property="og:description" content="经过一天的测试终于找出原因，为什么插入图片的时候hexo-asset-image 插件会在图片的路径前面自动添加/.io/                                                                                              1                问题1 Hexo版本以及插件不是最新 1hexo v">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://yoursite.com/2019/06/12/Hexo插入图片问题的总结/Hexo插入图片问题的总结/io.png">
-<meta property="og:image" content="http://yoursite.com/2019/06/12/Hexo插入图片问题的总结/Hexo%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/hexo.PNG">
-<meta property="og:image" content="http://yoursite.com/2019/06/12/Hexo插入图片问题的总结/Hexo%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/1.PNG">
-<meta property="og:updated_time" content="2019-06-17T01:30:57.815Z">
+<meta property="og:image" content="https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/io.png">
+<meta property="og:image" content="https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/hexo.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/1.PNG">
+<meta property="og:updated_time" content="2019-09-18T03:17:43.315Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo插入图片问题的总结">
 <meta name="twitter:description" content="经过一天的测试终于找出原因，为什么插入图片的时候hexo-asset-image 插件会在图片的路径前面自动添加/.io/                                                                                              1                问题1 Hexo版本以及插件不是最新 1hexo v">
-<meta name="twitter:image" content="http://yoursite.com/2019/06/12/Hexo插入图片问题的总结/Hexo插入图片问题的总结/io.png">
+<meta name="twitter:image" content="https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/io.png">
     
     <link rel="shortcut icon" href="/img/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
@@ -140,8 +140,8 @@
         <h1 class="title">Hexo插入图片问题的总结</h1>
         <h5 class="subtitle">
             
-                <time datetime="2019-06-12T01:26:50.000Z" itemprop="datePublished" class="page-time">
-  2019-06-12
+                <time datetime="2019-09-18T00:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-09-18
 </time>
 
 
@@ -166,7 +166,7 @@
     <div class="post-card">
         <h1 class="post-card-title">Hexo插入图片问题的总结</h1>
         <div class="post-meta">
-            <time class="post-time" title="2019-06-12 09:26:50" datetime="2019-06-12T01:26:50.000Z"  itemprop="datePublished">2019-06-12</time>
+            <time class="post-time" title="2019-09-18 00:00:00" datetime="2019-09-18T00:00:00.000Z"  itemprop="datePublished">2019-09-18</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/笔记/">笔记</a></li></ul>
@@ -185,7 +185,7 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="Hexo插入图片问题的总结/io.png" alt="1" title>
+                    <img src="io.png" alt="1" title>
                 </div>
                 <div class="image-caption">1</div>
             </figure>
@@ -206,7 +206,7 @@
 <p>会让hexo-asset-image插件 自动识别成，加一个名字</p>
 <p>正常的：BugKuCTF/xx.png</p>
 <p>错误的：BugKuCTF/BugKuCTFxx.png</p>
-<p><img src="Hexo%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/hexo.PNG" alt></p>
+<p><img src="hexo.PNG" alt></p>
 </li>
 </ul>
 <p>红色 是错的</p>
@@ -223,7 +223,11 @@
 <ul>
 <li><p><strong>问题5</strong></p>
 <p>这个问题我不知道是不是所有人都会。在makedown下，不区分路径大小写，在hexo上传后网页上区分大小写</p>
-<p><img src="Hexo%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/1.PNG" alt></p>
+<p><img src="1.PNG" alt></p>
+</li>
+<li><p><strong>问题6</strong></p>
+<p>*<em>最直接最接地气的办法就是去修改插件源代码 *</em></p>
+<p>​    <strong>位置: node_modules\hexo-asset-image\index.js</strong></p>
 </li>
 </ul>
 <p><strong>tips: 这是我个人博客hexo插入图片时出错的问题,我用的Makedown是Typora</strong></p>
@@ -236,7 +240,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-06-17T01:30:57.815Z" itemprop="dateUpdated">2019-06-17 09:30:57</time>
+    Last updated: <time datetime="2019-09-18T03:17:43.315Z" itemprop="dateUpdated">2019-09-18 03:17:43</time>
 </span><br>
 
 
@@ -246,7 +250,7 @@
     </div>
     
     <footer>
-        <a href="http://yoursite.com">
+        <a href="https://hu5k7.github.io">
             <img src="/img/avatar.jpg" alt="Hu5k7">
             Hu5k7
         </a>
@@ -268,7 +272,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/06/12/Hexo插入图片问题的总结/&title=《Hexo插入图片问题的总结》 — Hu5k7's Blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/&title=《Hexo插入图片问题的总结》 — Hu5k7's Blog&pic=https://hu5k7.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -278,22 +282,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/06/12/Hexo插入图片问题的总结/&title=《Hexo插入图片问题的总结》 — Hu5k7's Blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/&title=《Hexo插入图片问题的总结》 — Hu5k7's Blog&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/06/12/Hexo插入图片问题的总结/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hexo插入图片问题的总结》 — Hu5k7's Blog&url=http://yoursite.com/2019/06/12/Hexo插入图片问题的总结/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hexo插入图片问题的总结》 — Hu5k7's Blog&url=https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/&via=https://hu5k7.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/06/12/Hexo插入图片问题的总结/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -313,16 +317,16 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2019/06/20/本地NAS扫描/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Python脚本:搜索本地NAS</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/09/17/Shell脚本/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Shell脚本</h4>
+      </a>
+    </div>
   
 </nav>
 
@@ -392,7 +396,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/06/12/Hexo插入图片问题的总结/&title=《Hexo插入图片问题的总结》 — Hu5k7's Blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/&title=《Hexo插入图片问题的总结》 — Hu5k7's Blog&pic=https://hu5k7.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -402,22 +406,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/06/12/Hexo插入图片问题的总结/&title=《Hexo插入图片问题的总结》 — Hu5k7's Blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/&title=《Hexo插入图片问题的总结》 — Hu5k7's Blog&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/06/12/Hexo插入图片问题的总结/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hexo插入图片问题的总结》 — Hu5k7's Blog&url=http://yoursite.com/2019/06/12/Hexo插入图片问题的总结/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hexo插入图片问题的总结》 — Hu5k7's Blog&url=https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/&via=https://hu5k7.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/06/12/Hexo插入图片问题的总结/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -428,7 +432,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2019/06/12/Hexo插入图片问题的总结/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://hu5k7.github.io/2019/09/18/Hexo插入图片问题的总结/" alt="微信分享二维码">
 </div>
 
 
@@ -491,5 +495,5 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":200,"height":350},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"live2d-widget-model-z16"},"display":{"position":"right","width":200,"height":350},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>
