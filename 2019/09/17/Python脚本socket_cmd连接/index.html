@@ -21,18 +21,18 @@
     
     
     <meta name="keywords" content="Python脚本">
-    <meta name="description" content="一次性的 Server:  123456789101112131415161718192021import socket,osdef main():    global data, s    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)    s.bind((&apos;127.0.0.1&apos;,10001))    s.listen(5)    p">
+    <meta name="description" content="0x00 介绍为了给学弟上公开课刻意写了一个远控脚本，虽然不这么行xD  Server:  123456789101112131415161718192021import socket,osdef main():    global data, s    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)    s.bind((&apos;127.0.">
 <meta name="keywords" content="Python脚本">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python脚本:socket_cmd连接">
 <meta property="og:url" content="https://hu5k7.github.io/2019/09/17/Python脚本socket_cmd连接/index.html">
 <meta property="og:site_name" content="Hu5k7&#39;s Blog">
-<meta property="og:description" content="一次性的 Server:  123456789101112131415161718192021import socket,osdef main():    global data, s    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)    s.bind((&apos;127.0.0.1&apos;,10001))    s.listen(5)    p">
+<meta property="og:description" content="0x00 介绍为了给学弟上公开课刻意写了一个远控脚本，虽然不这么行xD  Server:  123456789101112131415161718192021import socket,osdef main():    global data, s    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)    s.bind((&apos;127.0.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-06-17T08:01:23.171Z">
+<meta property="og:updated_time" content="2019-09-24T17:09:01.707Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python脚本:socket_cmd连接">
-<meta name="twitter:description" content="一次性的 Server:  123456789101112131415161718192021import socket,osdef main():    global data, s    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)    s.bind((&apos;127.0.0.1&apos;,10001))    s.listen(5)    p">
+<meta name="twitter:description" content="0x00 介绍为了给学弟上公开课刻意写了一个远控脚本，虽然不这么行xD  Server:  123456789101112131415161718192021import socket,osdef main():    global data, s    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)    s.bind((&apos;127.0.">
     
     <link rel="shortcut icon" href="/img/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
@@ -158,7 +158,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#一次性的"><span class="post-toc-number">1.</span> <span class="post-toc-text">一次性的</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x00-介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">0x00 介绍</span></a></li></ol>
         </nav>
     </aside>
 
@@ -184,7 +184,8 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h5 id="一次性的"><a href="#一次性的" class="headerlink" title="一次性的"></a><code>一次性的</code></h5><ul>
+            <h1 id="0x00-介绍"><a href="#0x00-介绍" class="headerlink" title="0x00 介绍"></a>0x00 介绍</h1><p>为了给学弟上公开课刻意写了一个远控脚本，虽然不这么行xD</p>
+<ul>
 <li><strong>Server:</strong></li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket,os</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> data, s</span><br><span class="line">    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">    s.bind((<span class="string">'127.0.0.1'</span>,<span class="number">10001</span>))</span><br><span class="line">    s.listen(<span class="number">5</span>)</span><br><span class="line">    print(<span class="string">"等待连接中……"</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        conn,addr = s.accept()</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            print(<span class="string">'收到命令'</span>)</span><br><span class="line">            data = conn.recv(<span class="number">1024</span>)</span><br><span class="line">            cmd = os.popen(data.decode())</span><br><span class="line">            os_result = cmd.read()</span><br><span class="line">            conn.sendall(os_result.encode(<span class="string">'utf8'</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
@@ -203,7 +204,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-06-17T08:01:23.171Z" itemprop="dateUpdated">2019-06-17 08:01:23</time>
+    Last updated: <time datetime="2019-09-24T17:09:01.707Z" itemprop="dateUpdated">2019-09-24 17:09:01</time>
 </span><br>
 
 

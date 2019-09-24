@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="Hu5k7&#39;s Blog">
 <meta property="og:description" content="上个星期装的双系统,win10 &amp; MACOS,还把之前的win10搞崩了。害的我只能重装win10         我要总结的转载的简书都。。帮我一起总结了，所以我就懒的写了 嘻嘻   要点:  1、两系统共存则磁盘必须是GPT格式  2、安装mac要用适合机型的EFI文件和相应的安装配置，特别是显卡驱动&amp;lt;br&amp;gt;  3、安装完以后要把mac和win完整的EFI文件合并到一起并且放入电">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-06-07T06:02:41.195Z">
+<meta property="og:updated_time" content="2019-09-24T17:17:01.610Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【转载】黑苹果安装笔记">
 <meta name="twitter:description" content="上个星期装的双系统,win10 &amp; MACOS,还把之前的win10搞崩了。害的我只能重装win10         我要总结的转载的简书都。。帮我一起总结了，所以我就懒的写了 嘻嘻   要点:  1、两系统共存则磁盘必须是GPT格式  2、安装mac要用适合机型的EFI文件和相应的安装配置，特别是显卡驱动&amp;lt;br&amp;gt;  3、安装完以后要把mac和win完整的EFI文件合并到一起并且放入电">
@@ -228,7 +228,9 @@ BIOS设置：
  四、安装完成后，关机，插入 win7系统盘，同样UEFI安装用U盘引导，安装在ssd剩下的空间里，没有什么好说的。&lt;br&gt;这个时候windows和mac都安装好了，但是这个时候你拨掉U盘开机会发现直接进入了win10系统，说好的选择呢？ 不急，我们mac的efi也还没有替换呢。
 五、处理电脑EFI分区：首先，用U盘引导，进入mac,同时用工具挂载电脑和系统盘两个EFI分区，并把EFI文件夹删除，把我们下载好的EFI文件夹分别放进去，不做作何处理，就是说现在电脑里有mac需要的配置、驱动等都有了，关机，拨掉U盘，开机，进入win10系统，在win10下同样挂载电脑EFI分区，怎么挂载呢？， 插入win10的系统盘，把里边的efi文件夹里边的内容替换进去（注意是内容替换，不是把原来的efi删除，把这个放进去，因为原来的efi里边已经有mac的启动文件了）
  替换完了后，关机，拨掉win10系统盘，插入mac系统盘，开机，按F7,用U盘引导，在clover界面先择 boot option ,先择第一个挂载所有引导，忘了具体是什么了，大概是这个意思，如果你发现右下角的clover版本号变了，就成功了，这个时候restart，拨掉U盘，开机应该自动到clover选择界面，可以选择作意系统了。此时mac和win10双引导基本完成。
- 接下来就是安装各种驱动和完善了</code></pre><p>参考:<a href="https://www.jianshu.com/p/5db38511cc73" target="_blank" rel="noopener">https://www.jianshu.com/p/5db38511cc73</a></p>
+ 接下来就是安装各种驱动和完善了</code></pre><blockquote>
+<p><strong>参考</strong>:<a href="https://www.jianshu.com/p/5db38511cc73" target="_blank" rel="noopener">https://www.jianshu.com/p/5db38511cc73</a></p>
+</blockquote>
 
         </div>
 
@@ -237,7 +239,7 @@ BIOS设置：
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-06-07T06:02:41.195Z" itemprop="dateUpdated">2019-06-07 06:02:41</time>
+    Last updated: <time datetime="2019-09-24T17:17:01.610Z" itemprop="dateUpdated">2019-09-24 17:17:01</time>
 </span><br>
 
 

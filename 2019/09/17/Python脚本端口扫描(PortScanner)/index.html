@@ -21,18 +21,18 @@
     
     
     <meta name="keywords" content="Python脚本">
-    <meta name="description" content="12345678910111213141516171819import socketimport threadingfile=open(&quot;port.txt&quot;,&apos;w+&apos;)def portscan(port):    host=&apos;192.168.174.1&apos;    try:        s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)">
+    <meta name="description" content="0x00 介绍在实训室无聊的时候，随手写了一下端口扫描的Python脚本. 12345678910111213141516171819import socketimport threadingfile=open(&quot;port.txt&quot;,&apos;w+&apos;)def portscan(port):    host=&apos;192.168.174.1&apos;    try:        s = socket.socket(s">
 <meta name="keywords" content="Python脚本">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python脚本:端口扫描">
 <meta property="og:url" content="https://hu5k7.github.io/2019/09/17/Python脚本端口扫描(PortScanner)/index.html">
 <meta property="og:site_name" content="Hu5k7&#39;s Blog">
-<meta property="og:description" content="12345678910111213141516171819import socketimport threadingfile=open(&quot;port.txt&quot;,&apos;w+&apos;)def portscan(port):    host=&apos;192.168.174.1&apos;    try:        s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)">
+<meta property="og:description" content="0x00 介绍在实训室无聊的时候，随手写了一下端口扫描的Python脚本. 12345678910111213141516171819import socketimport threadingfile=open(&quot;port.txt&quot;,&apos;w+&apos;)def portscan(port):    host=&apos;192.168.174.1&apos;    try:        s = socket.socket(s">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-06-07T05:51:48.110Z">
+<meta property="og:updated_time" content="2019-09-24T17:07:51.715Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python脚本:端口扫描">
-<meta name="twitter:description" content="12345678910111213141516171819import socketimport threadingfile=open(&quot;port.txt&quot;,&apos;w+&apos;)def portscan(port):    host=&apos;192.168.174.1&apos;    try:        s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)">
+<meta name="twitter:description" content="0x00 介绍在实训室无聊的时候，随手写了一下端口扫描的Python脚本. 12345678910111213141516171819import socketimport threadingfile=open(&quot;port.txt&quot;,&apos;w+&apos;)def portscan(port):    host=&apos;192.168.174.1&apos;    try:        s = socket.socket(s">
     
     <link rel="shortcut icon" href="/img/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
@@ -155,6 +155,13 @@
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x00-介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">0x00 介绍</span></a></li></ol>
+        </nav>
+    </aside>
+
 
 <article id="post-Python脚本端口扫描(PortScanner)"
   class="post-article article-type-post fade" itemprop="blogPost">
@@ -177,7 +184,8 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line">file=open(<span class="string">"port.txt"</span>,<span class="string">'w+'</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">portscan</span><span class="params">(port)</span>:</span></span><br><span class="line">    host=<span class="string">'192.168.174.1'</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">        conn=s.connect_ex((host,port))</span><br><span class="line">        <span class="keyword">if</span> conn ==<span class="number">0</span>:</span><br><span class="line">            print(<span class="string">"HOST &gt; &#123;&#125; : OPEN : &#123;&#125;"</span>.format(host,post))</span><br><span class="line">            file.write(host+<span class="string">":"</span>+str(post)+<span class="string">"\n"</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">    excpet:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">for</span> port <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">65535</span>):</span><br><span class="line">    t=threading.Thread(target=portscan, args=(port, ))</span><br><span class="line">    t.start()</span><br></pre></td></tr></table></figure>
+            <h1 id="0x00-介绍"><a href="#0x00-介绍" class="headerlink" title="0x00 介绍"></a>0x00 介绍</h1><p>在实训室无聊的时候，随手写了一下端口扫描的Python脚本.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line">file=open(<span class="string">"port.txt"</span>,<span class="string">'w+'</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">portscan</span><span class="params">(port)</span>:</span></span><br><span class="line">    host=<span class="string">'192.168.174.1'</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">        conn=s.connect_ex((host,port))</span><br><span class="line">        <span class="keyword">if</span> conn ==<span class="number">0</span>:</span><br><span class="line">            print(<span class="string">"HOST &gt; &#123;&#125; : OPEN : &#123;&#125;"</span>.format(host,post))</span><br><span class="line">            file.write(host+<span class="string">":"</span>+str(post)+<span class="string">"\n"</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">    excpet:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">for</span> port <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">65535</span>):</span><br><span class="line">    t=threading.Thread(target=portscan, args=(port, ))</span><br><span class="line">    t.start()</span><br></pre></td></tr></table></figure>
 
 <p><strong>转载请标明出处</strong></p>
 
@@ -188,7 +196,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-06-07T05:51:48.110Z" itemprop="dateUpdated">2019-06-07 05:51:48</time>
+    Last updated: <time datetime="2019-09-24T17:07:51.715Z" itemprop="dateUpdated">2019-09-24 17:07:51</time>
 </span><br>
 
 
