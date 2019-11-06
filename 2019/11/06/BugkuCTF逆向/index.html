@@ -21,13 +21,13 @@
     
     
     <meta name="keywords" content="CTF-Reverse-Note">
-    <meta name="description" content="0x00 开言最近了解了点逆向，pwn，汇编，C，C#等知识，开始试着刷题实战一下。 0x00.1 需要注意的事项 tips:在windows下逆向需要注意，从windowsXP以上都有开启aslr保护， ASLR（Address space layout randomization）是一种针对缓冲区溢出的安全保护技术，通过对堆、栈、共享库映射等线性区布局的随机化，通过增加攻击者预测目的地址的难度">
+    <meta name="description" content="0x00 开言最近了解了点逆向，pwn，汇编，C，C#等知识，开始试着刷题实战一下。 0x00.1 环境&amp;amp;工具工具： IDA &amp;amp; OD  环境：Windows7 0x00.2 需要注意的事项 tips: 在windows下逆向需要注意，从windowsXP以上都有开启aslr保护， ​        ASLR（Address space layout randomization）是">
 <meta name="keywords" content="CTF-Reverse-Note">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BugkuCTF逆向">
 <meta property="og:url" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/index.html">
 <meta property="og:site_name" content="Hu5k7&#39;s Blog">
-<meta property="og:description" content="0x00 开言最近了解了点逆向，pwn，汇编，C，C#等知识，开始试着刷题实战一下。 0x00.1 需要注意的事项 tips:在windows下逆向需要注意，从windowsXP以上都有开启aslr保护， ASLR（Address space layout randomization）是一种针对缓冲区溢出的安全保护技术，通过对堆、栈、共享库映射等线性区布局的随机化，通过增加攻击者预测目的地址的难度">
+<meta property="og:description" content="0x00 开言最近了解了点逆向，pwn，汇编，C，C#等知识，开始试着刷题实战一下。 0x00.1 环境&amp;amp;工具工具： IDA &amp;amp; OD  环境：Windows7 0x00.2 需要注意的事项 tips: 在windows下逆向需要注意，从windowsXP以上都有开启aslr保护， ​        ASLR（Address space layout randomization）是">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/1.PNG">
 <meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/1-1573024106714.PNG">
@@ -52,10 +52,10 @@
 <meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/18.PNG">
 <meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/19.PNG">
 <meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/20.PNG">
-<meta property="og:updated_time" content="2019-11-06T07:48:20.832Z">
+<meta property="og:updated_time" content="2019-11-06T07:50:32.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BugkuCTF逆向">
-<meta name="twitter:description" content="0x00 开言最近了解了点逆向，pwn，汇编，C，C#等知识，开始试着刷题实战一下。 0x00.1 需要注意的事项 tips:在windows下逆向需要注意，从windowsXP以上都有开启aslr保护， ASLR（Address space layout randomization）是一种针对缓冲区溢出的安全保护技术，通过对堆、栈、共享库映射等线性区布局的随机化，通过增加攻击者预测目的地址的难度">
+<meta name="twitter:description" content="0x00 开言最近了解了点逆向，pwn，汇编，C，C#等知识，开始试着刷题实战一下。 0x00.1 环境&amp;amp;工具工具： IDA &amp;amp; OD  环境：Windows7 0x00.2 需要注意的事项 tips: 在windows下逆向需要注意，从windowsXP以上都有开启aslr保护， ​        ASLR（Address space layout randomization）是">
 <meta name="twitter:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/1.PNG">
     
     <link rel="shortcut icon" href="/img/favicon.ico">
@@ -189,7 +189,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x00-开言"><span class="post-toc-number">1.</span> <span class="post-toc-text">0x00 开言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x00-1-需要注意的事项"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">0x00.1 需要注意的事项</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x01-入门逆向"><span class="post-toc-number">2.</span> <span class="post-toc-text">0x01 入门逆向</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x02-Easy-vb"><span class="post-toc-number">3.</span> <span class="post-toc-text">0x02 Easy_vb</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x03-Easy-re"><span class="post-toc-number">4.</span> <span class="post-toc-text">0x03 Easy_re</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x04-游戏过关"><span class="post-toc-number">5.</span> <span class="post-toc-text">0x04 游戏过关</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x04-1-第一步-IDA"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">0x04.1 第一步 IDA</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x04-2-第二步-OD"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">0x04.2 第二步 OD</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x00-开言"><span class="post-toc-number">1.</span> <span class="post-toc-text">0x00 开言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x00-1-环境-amp-工具"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">0x00.1 环境&amp;工具</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x00-2-需要注意的事项"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">0x00.2 需要注意的事项</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x01-入门逆向"><span class="post-toc-number">2.</span> <span class="post-toc-text">0x01 入门逆向</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x02-Easy-vb"><span class="post-toc-number">3.</span> <span class="post-toc-text">0x02 Easy_vb</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x03-Easy-re"><span class="post-toc-number">4.</span> <span class="post-toc-text">0x03 Easy_re</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x04-游戏过关"><span class="post-toc-number">5.</span> <span class="post-toc-text">0x04 游戏过关</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x04-1-第一步-IDA"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">0x04.1 第一步 IDA</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x04-2-第二步-OD"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">0x04.2 第二步 OD</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -216,9 +216,11 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <h1 id="0x00-开言"><a href="#0x00-开言" class="headerlink" title="0x00 开言"></a>0x00 开言</h1><p>最近了解了点逆向，pwn，汇编，C，C#等知识，开始试着刷题实战一下。</p>
-<h2 id="0x00-1-需要注意的事项"><a href="#0x00-1-需要注意的事项" class="headerlink" title="0x00.1 需要注意的事项"></a>0x00.1 需要注意的事项</h2><blockquote>
-<p><strong>tips:在windows下逆向需要注意，从windowsXP以上都有开启aslr保护，</strong></p>
-<p><strong>ASLR（Address space layout randomization）是一种针对缓冲区溢出的安全保护技术，通过对堆、栈、共享库映射等线性区布局的随机化，通过增加攻击者预测目的地址的难度，防止攻击者直接定位攻击代码位置，达到阻止溢出攻击的目的。</strong></p>
+<h2 id="0x00-1-环境-amp-工具"><a href="#0x00-1-环境-amp-工具" class="headerlink" title="0x00.1 环境&amp;工具"></a>0x00.1 环境&amp;工具</h2><p>工具： IDA &amp; OD </p>
+<p>环境：Windows7</p>
+<h2 id="0x00-2-需要注意的事项"><a href="#0x00-2-需要注意的事项" class="headerlink" title="0x00.2 需要注意的事项"></a>0x00.2 需要注意的事项</h2><blockquote>
+<p><strong>tips: 在windows下逆向需要注意，从windowsXP以上都有开启aslr保护，</strong></p>
+<p>​        <strong>ASLR（Address space layout randomization）是一种针对缓冲区溢出的安全保护技术，通过对堆、栈、共享库映射等线性区布局的随机化，通过增加攻击者预测目的地址的难度，防止攻击者直接定位攻击代码位置，达到阻止溢出攻击的目的。</strong></p>
 </blockquote>
 <h1 id="0x01-入门逆向"><a href="#0x01-入门逆向" class="headerlink" title="0x01 入门逆向"></a>0x01 入门逆向</h1><p>使用ida打开发现没有任何值得，查看的。直接 按F5查看伪代码 再按R转码         就完事了.</p>
 <figure class="image-bubble">
@@ -452,7 +454,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-11-06T07:48:20.832Z" itemprop="dateUpdated">2019-11-06 07:48:20</time>
+    Last updated: <time datetime="2019-11-06T07:50:32.124Z" itemprop="dateUpdated">2019-11-06 07:50:32</time>
 </span><br>
 
 
