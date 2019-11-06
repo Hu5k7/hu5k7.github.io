@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>【BugKuCTF】靶场部分writeup | Hu5k7&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CTF-Web-Note">
+    <meta name="description" content="0x00 介绍开始做一些CTF题目了。打算在高职比赛玩玩CTFxD 地址:https://ctf.bugku.com/challenges  WEB篇[web2]这种类型直接看源码 F12或者Ctrl+U    [计算器]——————————————————试着算出来,然后发现只能输入一位数，就能猜测到他限制了长度，接着我们跑到F12里面去修改即可">
+<meta name="keywords" content="CTF-Web-Note">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【BugKuCTF】靶场部分writeup">
+<meta property="og:url" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/index.html">
+<meta property="og:site_name" content="Hu5k7&#39;s Blog">
+<meta property="og:description" content="0x00 介绍开始做一些CTF题目了。打算在高职比赛玩玩CTFxD 地址:https://ctf.bugku.com/challenges  WEB篇[web2]这种类型直接看源码 F12或者Ctrl+U    [计算器]——————————————————试着算出来,然后发现只能输入一位数，就能猜测到他限制了长度，接着我们跑到F12里面去修改即可">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/web2.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/计算器1.png">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/计算器2.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/$GET.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/$get1.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/$POST.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/矛盾.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/矛盾2.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/web3.png">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/web3-1.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/web3-2.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/域名解析.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/停下来.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/变量1.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/变量1-2.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/web5.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/web5-1.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/web5-2.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/头等舱.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/头等舱1.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/webshell1.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/webshell2.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/webshell3.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/20180813135625263.png">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/捕获.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/捕获1.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/捕获2.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/捕获3.PNG">
+<meta property="og:updated_time" content="2019-11-06T07:00:26.461Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【BugKuCTF】靶场部分writeup">
+<meta name="twitter:description" content="0x00 介绍开始做一些CTF题目了。打算在高职比赛玩玩CTFxD 地址:https://ctf.bugku.com/challenges  WEB篇[web2]这种类型直接看源码 F12或者Ctrl+U    [计算器]——————————————————试着算出来,然后发现只能输入一位数，就能猜测到他限制了长度，接着我们跑到F12里面去修改即可">
+<meta name="twitter:image" content="https://hu5k7.github.io/2019/05/20/BugKuCTF/web2.PNG">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/about" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Hu5k7</h5>
+          <a href="mailto:I'm god danm noob" title="I'm god danm noob" class="mail">I'm god danm noob</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/hu5k7" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About me
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/friends"  >
+                <i class="icon icon-lg icon-weibo"></i>
+                友情链接
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">【BugKuCTF】靶场部分writeup</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">【BugKuCTF】靶场部分writeup</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-05-20T00:00:00.000Z" itemprop="datePublished" class="page-time">
+  2019-05-20
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CTF-Web-Note/">CTF-Web-Note</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x00-介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">0x00 介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#WEB篇"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">WEB篇</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#web2"><span class="post-toc-number">1.0.1.1.</span> <span class="post-toc-text">[web2]</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#计算器-——————————————————"><span class="post-toc-number">1.0.1.2.</span> <span class="post-toc-text">[计算器]——————————————————</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#web基础-GET-——————————————————"><span class="post-toc-number">1.0.1.3.</span> <span class="post-toc-text">[web基础$_GET]——————————————————</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#web基础-POST-——————————————————"><span class="post-toc-number">1.0.1.4.</span> <span class="post-toc-text">[web基础$_POST]——————————————————</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#矛盾-——————————————————"><span class="post-toc-number">1.0.1.5.</span> <span class="post-toc-text">[矛盾]——————————————————</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#web3-—————————————————"><span class="post-toc-number">1.0.1.6.</span> <span class="post-toc-text">[web3]—————————————————</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#域名解析-————————————————"><span class="post-toc-number">1.0.1.7.</span> <span class="post-toc-text">[域名解析]————————————————-</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#你必须让他停下来-——————————————–"><span class="post-toc-number">1.0.1.8.</span> <span class="post-toc-text">[你必须让他停下来]——————————————–</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#本地文件包含-————————————————–"><span class="post-toc-number">1.0.1.9.</span> <span class="post-toc-text">[本地文件包含]————————————————–</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#变量1-——————————————————"><span class="post-toc-number">1.0.1.10.</span> <span class="post-toc-text">[变量1]——————————————————</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#web5-—————————————————"><span class="post-toc-number">1.0.1.11.</span> <span class="post-toc-text">[web5]—————————————————-</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#头等舱-——————————————————"><span class="post-toc-number">1.0.1.12.</span> <span class="post-toc-text">[头等舱]——————————————————</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#网站被黑-——————————————————"><span class="post-toc-number">1.0.1.13.</span> <span class="post-toc-text">[网站被黑]——————————————————</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#管理员系统-——————————————————"><span class="post-toc-number">1.0.1.14.</span> <span class="post-toc-text">[管理员系统]——————————————————</span></a></li></ol></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-BugKuCTF"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">【BugKuCTF】靶场部分writeup</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-05-20 00:00:00" datetime="2019-05-20T00:00:00.000Z"  itemprop="datePublished">2019-05-20</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CTF-Web-Note/">CTF-Web-Note</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="0x00-介绍"><a href="#0x00-介绍" class="headerlink" title="0x00 介绍"></a>0x00 介绍</h1><p>开始做一些CTF题目了。打算在高职比赛玩玩CTFxD</p>
+<p>地址:<a href="https://ctf.bugku.com/challenges" target="_blank" rel="noopener">https://ctf.bugku.com/challenges</a></p>
+<ul>
+<li><h3 id="WEB篇"><a href="#WEB篇" class="headerlink" title="WEB篇"></a><strong>WEB篇</strong></h3><h4 id="web2"><a href="#web2" class="headerlink" title="[web2]"></a>[<code>web2</code>]</h4><p>这种类型直接看源码 F12或者Ctrl+U</p>
+<p><img src="web2.PNG" alt></p>
+</li>
+</ul>
+<h4 id="计算器-——————————————————"><a href="#计算器-——————————————————" class="headerlink" title="[计算器]——————————————————"></a>[<code>计算器</code>]——————————————————</h4><p>试着算出来,然后发现只能输入一位数，就能猜测到他限制了长度，接着我们跑到F12里面去修改即可</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="计算器1.png" alt="计算器1" title>
+                </div>
+                <div class="image-caption">计算器1</div>
+            </figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="计算器2.PNG" alt="计算器2" title>
+                </div>
+                <div class="image-caption">计算器2</div>
+            </figure>
+
+<h4 id="web基础-GET-——————————————————"><a href="#web基础-GET-——————————————————" class="headerlink" title="[web基础$_GET]——————————————————"></a>[<code>web基础$_GET</code>]——————————————————</h4><p>不解释，直接看代码</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="$GET.PNG" alt="$GET" title>
+                </div>
+                <div class="image-caption">$GET</div>
+            </figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="$get1.PNG" alt="$get1" title>
+                </div>
+                <div class="image-caption">$get1</div>
+            </figure>
+
+<h4 id="web基础-POST-——————————————————"><a href="#web基础-POST-——————————————————" class="headerlink" title="[web基础$_POST]——————————————————"></a>[<code>web基础$_POST</code>]——————————————————</h4><p>也不解释，直接看代码，需要用到抓包软件</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="$POST.PNG" alt="$POST" title>
+                </div>
+                <div class="image-caption">$POST</div>
+            </figure>
+
+<h4 id="矛盾-——————————————————"><a href="#矛盾-——————————————————" class="headerlink" title="[矛盾]——————————————————"></a>[<code>矛盾</code>]——————————————————</h4><p>先看代码</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="矛盾.PNG" alt="矛盾" title>
+                </div>
+                <div class="image-caption">矛盾</div>
+            </figure>
+
+<p>问题出现在 <code>is_numeric</code> 这个函数,<code>is_numeric</code> 是判断 传入的字符串是否为数字。如果是则不输出,不是则输出<code>$num</code>。这个时候我们可以绕过这个函数。</p>
+<p>他判断的是数字那么我们给他加点字符串 <code>?num=1a</code>，则绕过了第一个<code>if</code>判断，并跳到了第二个<code>if</code>判断。</p>
+<p>然后他现在直接显示出了flag.</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="矛盾2.PNG" alt="矛盾2" title>
+                </div>
+                <div class="image-caption">矛盾2</div>
+            </figure>
+
+<h4 id="web3-—————————————————"><a href="#web3-—————————————————" class="headerlink" title="[web3]—————————————————"></a>[<code>web3</code>]—————————————————</h4><p>他会一直弹窗出来。不知道为什么我的Chrome不会跳出来。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="web3.png" alt="web3" title>
+                </div>
+                <div class="image-caption">web3</div>
+            </figure>
+
+<p>接着我们直接看源码F12  或者 Ctrl+U，发现最下面有一个被注释的html编码</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="web3-1.PNG" alt="web3-1" title>
+                </div>
+                <div class="image-caption">web3-1</div>
+            </figure>
+
+<p>我的方法是，编写到文本，换html格式打开。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="web3-2.PNG" alt="web3-2" title>
+                </div>
+                <div class="image-caption">web3-2</div>
+            </figure>
+
+<p>解码就出来了.</p>
+<h4 id="域名解析-————————————————"><a href="#域名解析-————————————————" class="headerlink" title="[域名解析]————————————————-"></a>[<code>域名解析</code>]————————————————-</h4><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="域名解析.PNG" alt="域名解析" title>
+                </div>
+                <div class="image-caption">域名解析</div>
+            </figure>
+
+<p>修改hosts访问 flag.baidu.com即可.</p>
+<ul>
+<li><p>hosts位置</p>
+<p>windows：</p>
+<p>C:\Windows\System32\drivers\etc</p>
+<p>linux:</p>
+<p>/etc/hosts</p>
+</li>
+</ul>
+<h4 id="你必须让他停下来-——————————————–"><a href="#你必须让他停下来-——————————————–" class="headerlink" title="[你必须让他停下来]——————————————–"></a>[<code>你必须让他停下来</code>]——————————————–</h4><p>打开网址发现他一直刷新。二话不说直接上Burpsuite抓包，并放到Repeater(Ctrl+R)。</p>
+<p>多Go几遍就能看到flag了</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="停下来.PNG" alt="停下来" title>
+                </div>
+                <div class="image-caption">停下来</div>
+            </figure>
+
+<h4 id="本地文件包含-————————————————–"><a href="#本地文件包含-————————————————–" class="headerlink" title="[本地文件包含]————————————————–"></a>[<code>本地文件包含</code>]————————————————–</h4><p><strong>网站进不去。放弃.</strong></p>
+<h4 id="变量1-——————————————————"><a href="#变量1-——————————————————" class="headerlink" title="[变量1]——————————————————"></a>[<code>变量1</code>]——————————————————</h4><p>先看审计代码，发现最下面有两个$$args</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="变量1.PNG" alt="变量1" title>
+                </div>
+                <div class="image-caption">变量1</div>
+            </figure>
+
+<p>$$   容易引发变量覆盖</p>
+<p>思考。我们直接让他全部值显示出来。使用全局变量<code>$GLOBALS</code></p>
+<p>我们直接给他 全局变量<code>$GLOBALS</code>传参进去,args=GLOBALS</p>
+<p>tips:关于全局变量<a href="https://www.runoob.com/php/php-superglobals.html" target="_blank" rel="noopener">https://www.runoob.com/php/php-superglobals.html</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="变量1-2.PNG" alt="变量1-2" title>
+                </div>
+                <div class="image-caption">变量1-2</div>
+            </figure>
+
+<h4 id="web5-—————————————————"><a href="#web5-—————————————————" class="headerlink" title="[web5]—————————————————-"></a>[<code>web5</code>]—————————————————-</h4><p>输入字符串,啥东西都没有</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="web5.PNG" alt="web5" title>
+                </div>
+                <div class="image-caption">web5</div>
+            </figure>
+
+<p>直接看看源码F12 或者 Ctrl+U</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="web5-1.PNG" alt="web5-1" title>
+                </div>
+                <div class="image-caption">web5-1</div>
+            </figure>
+
+<p>发现这一串看不懂的编码。这种编码是JSFUCK属于一直 加密方式</p>
+<p>tips:原理<a href="https://blog.csdn.net/qq_36539075/article/details/79946099" target="_blank" rel="noopener">https://blog.csdn.net/qq_36539075/article/details/79946099</a></p>
+<p>直接F12在Console里粘贴</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="web5-2.PNG" alt="web5-2" title>
+                </div>
+                <div class="image-caption">web5-2</div>
+            </figure>
+
+<h4 id="头等舱-——————————————————"><a href="#头等舱-——————————————————" class="headerlink" title="[头等舱]——————————————————"></a>[<code>头等舱</code>]——————————————————</h4><p>什么也没有。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="头等舱.PNG" alt="头等舱" title>
+                </div>
+                <div class="image-caption">头等舱</div>
+            </figure>
+
+<p>在看下头等舱。就能猜测到他flag肯定在 请求头那边，于是直接上抓包软件，并GO一遍看看</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="头等舱1.PNG" alt="头等舱1" title>
+                </div>
+                <div class="image-caption">头等舱1</div>
+            </figure>
+
+<p>拿到flag！</p>
+<h4 id="网站被黑-——————————————————"><a href="#网站被黑-——————————————————" class="headerlink" title="[网站被黑]——————————————————"></a>[<code>网站被黑</code>]——————————————————</h4><p>打开网站。好炫啊。还会跟着鼠标动，好！偷代码下来了</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="webshell1.PNG" alt="webshell1" title>
+                </div>
+                <div class="image-caption">webshell1</div>
+            </figure>
+
+<p>啥也没提示。直接上御剑扫描找到一个。<strong>shell的路径</strong> 123.206.87.240:8002/webshell/shell.php</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="webshell2.PNG" alt="webshell2" title>
+                </div>
+                <div class="image-caption">webshell2</div>
+            </figure>
+
+<p>二话不说直接上爆破Burp Suite</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="webshell3.PNG" alt="webshell3" title>
+                </div>
+                <div class="image-caption">webshell3</div>
+            </figure>
+
+<p>输入上去</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="20180813135625263.png" alt="20180813135625263" title>
+                </div>
+                <div class="image-caption">20180813135625263</div>
+            </figure>
+
+<p>GET到flag</p>
+<h4 id="管理员系统-——————————————————"><a href="#管理员系统-——————————————————" class="headerlink" title="[管理员系统]——————————————————"></a><strong>[<code>管理员系统</code>]——————————————————</strong></h4><p>打开发现是一个登入界面。尝试使用SQL万能密码登入</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="捕获.PNG" alt="捕获" title>
+                </div>
+                <div class="image-caption">捕获</div>
+            </figure>
+
+<p>失败了。IP被禁止访问。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="捕获1.PNG" alt="捕获1" title>
+                </div>
+                <div class="image-caption">捕获1</div>
+            </figure>
+
+<p>于是打开抓包软件在请求头上添加上<strong><code>X-Forwarded-For 127.0.0.1</code></strong></p>
+<p>再试试万能密码</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="捕获2.PNG" alt="捕获2" title>
+                </div>
+                <div class="image-caption">捕获2</div>
+            </figure>
+
+<p>密码错误。那么我们来看看源码F12</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="捕获3.PNG" alt="捕获3" title>
+                </div>
+                <div class="image-caption">捕获3</div>
+            </figure>
+
+<p>看到源码中有一个被注释的base64的编码。于是解密出来看是<strong>test123</strong>那么用户名是<strong><code>admin</code></strong>密码是<strong><code>test123</code></strong></p>
+<p><strong>tips:不定时更新。每更新十个题目</strong></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-11-06T07:00:26.461Z" itemprop="dateUpdated">2019-11-06 07:00:26</time>
+</span><br>
+
+
+        
+        转载请标明出处,本人是菜鸟一枚多多关照 :)
+        
+    </div>
+    
+    <footer>
+        <a href="https://hu5k7.github.io">
+            <img src="/img/avatar.jpg" alt="Hu5k7">
+            Hu5k7
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF-Web-Note/">CTF-Web-Note</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://hu5k7.github.io/2019/05/20/BugKuCTF/&title=《【BugKuCTF】靶场部分writeup》 — Hu5k7's Blog&pic=https://hu5k7.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://hu5k7.github.io/2019/05/20/BugKuCTF/&title=《【BugKuCTF】靶场部分writeup》 — Hu5k7's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://hu5k7.github.io/2019/05/20/BugKuCTF/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【BugKuCTF】靶场部分writeup》 — Hu5k7's Blog&url=https://hu5k7.github.io/2019/05/20/BugKuCTF/&via=https://hu5k7.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://hu5k7.github.io/2019/05/20/BugKuCTF/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/06/20/本地NAS扫描/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Python脚本:搜索本地NAS</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/02/02/Termux安装/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Termux安装笔记</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Hu5k7 &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://hu5k7.github.io/2019/05/20/BugKuCTF/&title=《【BugKuCTF】靶场部分writeup》 — Hu5k7's Blog&pic=https://hu5k7.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://hu5k7.github.io/2019/05/20/BugKuCTF/&title=《【BugKuCTF】靶场部分writeup》 — Hu5k7's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://hu5k7.github.io/2019/05/20/BugKuCTF/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【BugKuCTF】靶场部分writeup》 — Hu5k7's Blog&url=https://hu5k7.github.io/2019/05/20/BugKuCTF/&via=https://hu5k7.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://hu5k7.github.io/2019/05/20/BugKuCTF/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://hu5k7.github.io/2019/05/20/BugKuCTF/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":200,"height":350},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
