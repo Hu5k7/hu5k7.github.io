@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://hu5k7.github.io/2019/12/03/xxe/3.PNG">
 <meta property="og:image" content="https://hu5k7.github.io/2019/12/03/xxe/4.PNG">
 <meta property="og:image" content="https://hu5k7.github.io/2019/12/03/xxe/5.PNG">
-<meta property="og:updated_time" content="2019-12-03T02:22:57.226Z">
+<meta property="og:updated_time" content="2019-12-08T02:09:47.578Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XXE漏洞学习">
 <meta name="twitter:description" content="0x00 前言最近看到挺多XXE漏洞的，于是打算来浅入学习下。 0x01漏洞产生XXE漏洞全称XML External Entity Injection 即xml外部实体注入漏洞，XXE漏洞发生在应用程序解析XML输入时，没有禁止外部实体的加载，导致可加载恶意外部文件和代码，造成任意文件读取、命令执行、内网端口扫描、攻击内网网站、发起Dos攻击等危害。 XXE漏洞触发的点往往是可以上传xml文件的">
@@ -374,6 +374,9 @@
 
 <p>在evil.dtd中将%file实体的内容拼接到url后，然后利用burp等工具，查看url请求就能获得我们需要的内容</p>
 <h1 id="0x04-参考链接"><a href="#0x04-参考链接" class="headerlink" title="0x04 参考链接"></a>0x04 参考链接</h1><blockquote>
+<p>我个人认为讲的最好的链接：</p>
+<p><a href="http://xz.aliyun.com/t/6887" target="_blank" rel="noopener">http://xz.aliyun.com/t/6887</a></p>
+<hr>
 <p><a href="https://www.freebuf.com/articles/web/177979.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/177979.html</a></p>
 <p><a href="https://www.cnblogs.com/vincebye/p/7199290.html" target="_blank" rel="noopener">https://www.cnblogs.com/vincebye/p/7199290.html</a></p>
 <p><a href="https://www.jianshu.com/p/ec2888780308" target="_blank" rel="noopener">https://www.jianshu.com/p/ec2888780308</a></p>
@@ -388,7 +391,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-12-03T02:22:57.226Z" itemprop="dateUpdated">2019-12-03 02:22:57</time>
+    Last updated: <time datetime="2019-12-08T02:09:47.578Z" itemprop="dateUpdated">2019-12-08 02:09:47</time>
 </span><br>
 
 
