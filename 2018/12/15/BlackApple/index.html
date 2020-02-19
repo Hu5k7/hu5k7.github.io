@@ -1,512 +1,124 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.9.0">
-    
-
-    
-
-    
-
-
-
-    <meta charset="utf-8">
-    
-    
-    
-    
-    <title>【转载】黑苹果安装笔记 | Hu5k7&#39;s Blog</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="Note">
-    <meta name="description" content="上个星期装的双系统,win10 &amp; MACOS,还把之前的win10搞崩了。害的我只能重装win10         我要总结的转载的简书都。。帮我一起总结了，所以我就懒的写了 嘻嘻   要点:  1、两系统共存则磁盘必须是GPT格式  2、安装mac要用适合机型的EFI文件和相应的安装配置，特别是显卡驱动&amp;lt;br&amp;gt;  3、安装完以后要把mac和win完整的EFI文件合并到一起并且放入电">
-<meta name="keywords" content="Note">
-<meta property="og:type" content="article">
-<meta property="og:title" content="【转载】黑苹果安装笔记">
-<meta property="og:url" content="https://hu5k7.github.io/2018/12/15/BlackApple/index.html">
-<meta property="og:site_name" content="Hu5k7&#39;s Blog">
-<meta property="og:description" content="上个星期装的双系统,win10 &amp; MACOS,还把之前的win10搞崩了。害的我只能重装win10         我要总结的转载的简书都。。帮我一起总结了，所以我就懒的写了 嘻嘻   要点:  1、两系统共存则磁盘必须是GPT格式  2、安装mac要用适合机型的EFI文件和相应的安装配置，特别是显卡驱动&amp;lt;br&amp;gt;  3、安装完以后要把mac和win完整的EFI文件合并到一起并且放入电">
-<meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-25T08:21:34.949Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【转载】黑苹果安装笔记">
-<meta name="twitter:description" content="上个星期装的双系统,win10 &amp; MACOS,还把之前的win10搞崩了。害的我只能重装win10         我要总结的转载的简书都。。帮我一起总结了，所以我就懒的写了 嘻嘻   要点:  1、两系统共存则磁盘必须是GPT格式  2、安装mac要用适合机型的EFI文件和相应的安装配置，特别是显卡驱动&amp;lt;br&amp;gt;  3、安装完以后要把mac和win完整的EFI文件合并到一起并且放入电">
-    
-    <link rel="shortcut icon" href="/img/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
-
-    <!-- custom head -->
-    
+<html lang="zh">
+	<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>
+        Hu5k7&#39;s Blog
+    </title>
+    <link rel="stylesheet" href="/libs/highlight/styles/monokai-sublime.css">
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css">
 
 </head>
-
-<body>
-    <div id="loading" class="active"></div>
-
-    <aside id="menu"  >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
-      <div class="brand">
-        <a href="/about" class="avatar waves-effect waves-circle waves-light">
-          <img src="/img/avatar.jpg">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">Hu5k7</h5>
-          <a href="mailto:I'm god danm noob" title="I'm god danm noob" class="mail">I'm god danm noob</a>
-        </hgroup>
-      </div>
+<body id="bodyx">
+    <div class="hd posts">
+    <a href="/index.html"><i class="fa fa-reply replay-btn" aria-hidden="true"></i></a>
+    <div class="post-title">
+        <p>
+            【转载】黑苹果安装笔记
+        </p>
+        <hr>
     </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
-        
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                Home
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-archives"></i>
-                Archives
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/tags"  >
-                <i class="icon icon-lg icon-tags"></i>
-                Tags
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/hu5k7" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-link"></i>
-                About me
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/friends"  >
-                <i class="icon icon-lg icon-weibo"></i>
-                友情链接
-              </a>
-            </li>
-        
-      </ul>
-    </div>
-  </div>
-</aside>
+    <div class="post-content">
+        <h2>上个星期装的双系统,win10 & MACOS,还把之前的win10搞崩了。害的我只能重装win10</h2>
+		我要总结的转载的简书都。。帮我一起总结了，所以我就懒的写了 嘻嘻
+<pre><code>        要点:
+        1、两系统共存则磁盘必须是GPT格式
+        2、安装mac要用适合机型的EFI文件和相应的安装配置，特别是显卡驱动&lt;br&gt;
+        3、安装完以后要把mac和win完整的EFI文件合并到一起并且放入电脑安装时自动分好的EFI分区内&lt;br&gt;
+        4 、用clover挂载好所有的电脑内EFI引导文件（即mac 和 win的）
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">【转载】黑苹果安装笔记</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
-        </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
-    </div>
-</header>
-<header class="content-header post-header">
+        简略步骤:
+        远景：从GPT(GUID) 分区开始,EasyUEFI 双系统安装详解(install.wim + mac10.12.5)这是win7+mac10.12的帖子，比较复杂，可以看看，了解EFI分区。win10+mac10.12 直接看12楼的回复就可以了&lt;br&gt;
 
-    <div class="container fade-scale">
-        <h1 class="title">【转载】黑苹果安装笔记</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2018-12-15T00:00:00.000Z" itemprop="datePublished" class="page-time">
-  2018-12-15
-</time>
+        分区：PE下分一个ESP ，二个NT&lt;br&gt;
+        安装MAC：u盘安装
+        安装win10：PE下安装WIN的WIM镜像，在软件里选对系统分区，启动分区，引导类型
+        EFI引导：装好WIN后，COPY CLOVER进ESP，就完事了
+        把Mac efi里面CLOVER文件夹放到esp分区的efi文件夹里，然后用easyuefi添加EFI/CLOVER/CLOVERX64.efi引导
+
+        在此之前需要的准备：
+        硬件方面：
+        一台i7-7700k + Gigabyte Z270X-Gaming5 台式机
+        最好有一台可用的mac
+        2个以上空的8G或以上的U盘
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Note/">Note</a></li></ul>
+        软件方面：
+        准备好mac 10.11.3镜象
+        准备好在win上制作mac镜象的工具：transmac(自行百度）或者mac上制作mac镜像的工具：Unibeast
+        准备好在mac上挂载EFI分区的工具：Clover Configurator
 
-            
-        </h5>
-    </div>
+       BIOS设置：
+        启动方式：UEFI
+        硬盘模式：ACHI
 
-    
-
-
-</header>
-
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#null"><span class="post-toc-number">1.</span> <span class="post-toc-text">上个星期装的双系统,win10 &amp; MACOS,还把之前的win10搞崩了。害的我只能重装win10</span></a></li></ol>
-        </nav>
-    </aside>
-
-
-<article id="post-BlackApple"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">【转载】黑苹果安装笔记</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2018-12-15 00:00:00" datetime="2018-12-15T00:00:00.000Z"  itemprop="datePublished">2018-12-15</time>
-
-            
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Note/">Note</a></li></ul>
-
-
-
-            
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
-
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <h2>上个星期装的双系统,win10 & MACOS,还把之前的win10搞崩了。害的我只能重装win10</h2>
-        我要总结的转载的简书都。。帮我一起总结了，所以我就懒的写了 嘻嘻
-
-<pre><code> 要点:
- 1、两系统共存则磁盘必须是GPT格式
- 2、安装mac要用适合机型的EFI文件和相应的安装配置，特别是显卡驱动&lt;br&gt;
- 3、安装完以后要把mac和win完整的EFI文件合并到一起并且放入电脑安装时自动分好的EFI分区内&lt;br&gt;
- 4 、用clover挂载好所有的电脑内EFI引导文件（即mac 和 win的）
-
- 简略步骤:
- 远景：从GPT(GUID) 分区开始,EasyUEFI 双系统安装详解(install.wim + mac10.12.5)这是win7+mac10.12的帖子，比较复杂，可以看看，了解EFI分区。win10+mac10.12 直接看12楼的回复就可以了&lt;br&gt;
-
- 分区：PE下分一个ESP ，二个NT&lt;br&gt;
- 安装MAC：u盘安装
- 安装win10：PE下安装WIN的WIM镜像，在软件里选对系统分区，启动分区，引导类型
- EFI引导：装好WIN后，COPY CLOVER进ESP，就完事了
- 把Mac efi里面CLOVER文件夹放到esp分区的efi文件夹里，然后用easyuefi添加EFI/CLOVER/CLOVERX64.efi引导
-
- 在此之前需要的准备：
- 硬件方面：
- 一台i7-7700k + Gigabyte Z270X-Gaming5 台式机
- 最好有一台可用的mac
- 2个以上空的8G或以上的U盘
-
-
- 软件方面：
- 准备好mac 10.11.3镜象
- 准备好在win上制作mac镜象的工具：transmac(自行百度）或者mac上制作mac镜像的工具：Unibeast
- 准备好在mac上挂载EFI分区的工具：Clover Configurator
-
-BIOS设置：
- 启动方式：UEFI
- 硬盘模式：ACHI
-
- 家伙事准备得差不多了我们就可以开始了。
- 一、首先制作mac系统安装盘
- 1 win系统：在win里下载好mac 10.12系统并安装好transmac
- 2 Mac 系统：下载macOS Sierra 10.12 并安装Unibeast，制作mac安装盘
- 二、制作win10系统安装盘
- 三、安装mac，我们要实现mac和win10同时存在，并要双引导，所以必须要uefi引导方式，而win10要uefi引导就必须装在GPT格式的磁盘上，所以，首先，必须将磁盘设置为GPT格式，所以先用win10的系统盘插入电脑，开机，进入安装界面，在选择装在哪个盘的时候点击shift F10，然后在dos里操作，具体操作不再此说明
-设置磁盘格式为GPT以后，退出windows安装，我们先还是安装mac 的，把我们做好的mac系统盘插入电脑，开机，按F7，用U盘引导，选择install OS X EI Capitan,按照提示一步一步安装完成即可，大概20-25分钟，取决于你的U盘速度。这里有个分区的问题，你想给mac多少空间，就多少，其它的不用创建分区，等windows创建即可，我128固态给mac40G。之后mac安装完成
- 四、安装完成后，关机，插入 win7系统盘，同样UEFI安装用U盘引导，安装在ssd剩下的空间里，没有什么好说的。&lt;br&gt;这个时候windows和mac都安装好了，但是这个时候你拨掉U盘开机会发现直接进入了win10系统，说好的选择呢？ 不急，我们mac的efi也还没有替换呢。
-五、处理电脑EFI分区：首先，用U盘引导，进入mac,同时用工具挂载电脑和系统盘两个EFI分区，并把EFI文件夹删除，把我们下载好的EFI文件夹分别放进去，不做作何处理，就是说现在电脑里有mac需要的配置、驱动等都有了，关机，拨掉U盘，开机，进入win10系统，在win10下同样挂载电脑EFI分区，怎么挂载呢？， 插入win10的系统盘，把里边的efi文件夹里边的内容替换进去（注意是内容替换，不是把原来的efi删除，把这个放进去，因为原来的efi里边已经有mac的启动文件了）
- 替换完了后，关机，拨掉win10系统盘，插入mac系统盘，开机，按F7,用U盘引导，在clover界面先择 boot option ,先择第一个挂载所有引导，忘了具体是什么了，大概是这个意思，如果你发现右下角的clover版本号变了，就成功了，这个时候restart，拨掉U盘，开机应该自动到clover选择界面，可以选择作意系统了。此时mac和win10双引导基本完成。
- 接下来就是安装各种驱动和完善了</code></pre><blockquote>
+        家伙事准备得差不多了我们就可以开始了。
+        一、首先制作mac系统安装盘
+        1 win系统：在win里下载好mac 10.12系统并安装好transmac
+        2 Mac 系统：下载macOS Sierra 10.12 并安装Unibeast，制作mac安装盘
+        二、制作win10系统安装盘
+        三、安装mac，我们要实现mac和win10同时存在，并要双引导，所以必须要uefi引导方式，而win10要uefi引导就必须装在GPT格式的磁盘上，所以，首先，必须将磁盘设置为GPT格式，所以先用win10的系统盘插入电脑，开机，进入安装界面，在选择装在哪个盘的时候点击shift F10，然后在dos里操作，具体操作不再此说明
+       设置磁盘格式为GPT以后，退出windows安装，我们先还是安装mac 的，把我们做好的mac系统盘插入电脑，开机，按F7，用U盘引导，选择install OS X EI Capitan,按照提示一步一步安装完成即可，大概20-25分钟，取决于你的U盘速度。这里有个分区的问题，你想给mac多少空间，就多少，其它的不用创建分区，等windows创建即可，我128固态给mac40G。之后mac安装完成
+        四、安装完成后，关机，插入 win7系统盘，同样UEFI安装用U盘引导，安装在ssd剩下的空间里，没有什么好说的。&lt;br&gt;这个时候windows和mac都安装好了，但是这个时候你拨掉U盘开机会发现直接进入了win10系统，说好的选择呢？ 不急，我们mac的efi也还没有替换呢。
+       五、处理电脑EFI分区：首先，用U盘引导，进入mac,同时用工具挂载电脑和系统盘两个EFI分区，并把EFI文件夹删除，把我们下载好的EFI文件夹分别放进去，不做作何处理，就是说现在电脑里有mac需要的配置、驱动等都有了，关机，拨掉U盘，开机，进入win10系统，在win10下同样挂载电脑EFI分区，怎么挂载呢？， 插入win10的系统盘，把里边的efi文件夹里边的内容替换进去（注意是内容替换，不是把原来的efi删除，把这个放进去，因为原来的efi里边已经有mac的启动文件了）
+        替换完了后，关机，拨掉win10系统盘，插入mac系统盘，开机，按F7,用U盘引导，在clover界面先择 boot option ,先择第一个挂载所有引导，忘了具体是什么了，大概是这个意思，如果你发现右下角的clover版本号变了，就成功了，这个时候restart，拨掉U盘，开机应该自动到clover选择界面，可以选择作意系统了。此时mac和win10双引导基本完成。
+        接下来就是安装各种驱动和完善了
+</code></pre>
+<blockquote>
 <p><strong>参考</strong>:<a href="https://www.jianshu.com/p/5db38511cc73" target="_blank" rel="noopener">https://www.jianshu.com/p/5db38511cc73</a></p>
 </blockquote>
 
-        </div>
-
-        <blockquote class="post-copyright">
-    
-    <div class="content">
-        
-<span class="post-time">
-    Last updated: <time datetime="2019-10-25T08:21:34.949Z" itemprop="dateUpdated">2019-10-25 08:21:34</time>
-</span><br>
-
-
-        
-        转载请标明出处,本人是菜鸟一枚多多关照 :)
-        
     </div>
     
-    <footer>
-        <a href="https://hu5k7.github.io">
-            <img src="/img/avatar.jpg" alt="Hu5k7">
-            Hu5k7
-        </a>
-    </footer>
-</blockquote>
-
-        
-
-
-        <div class="post-footer">
+        <hr class="fhr">
+        <div id="vcomments"></div>
+    
+</div>
+    <div class="footer" id="footer">
+    <p>Copyright © 2020  Hexo-Hijack.
+        <label class="el-switch el-switch-green el-switch-sm" style="vertical-align: sub;">
+            <input type="checkbox" name="switch" id="update_style">
+            <span class="el-switch-style"></span>
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Note/">Note</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://hu5k7.github.io/2018/12/15/BlackApple/&title=《【转载】黑苹果安装笔记》 — Hu5k7's Blog&pic=https://hu5k7.github.io/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://hu5k7.github.io/2018/12/15/BlackApple/&title=《【转载】黑苹果安装笔记》 — Hu5k7's Blog&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://hu5k7.github.io/2018/12/15/BlackApple/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【转载】黑苹果安装笔记》 — Hu5k7's Blog&url=https://hu5k7.github.io/2018/12/15/BlackApple/&via=https://hu5k7.github.io" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://hu5k7.github.io/2018/12/15/BlackApple/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
+        </label>
+    </p>
 </div>
+<input type="hidden" id="web_style" value="black">
 
 
+<script src="/libs/jquery.min.js"></script>
+<script src="/libs/highlight/highlight.pack.js"></script>
+<script src='//cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script src="/js/js.js"></script>
+<style type="text/css">
+.v * {
+    color: #698fca;
+}
 
-        </div>
-    </div>
+.v .vlist .vcard .vhead .vsys {
+    color: #3a3e4a;
+}
 
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2019/02/02/Termux安装/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Termux安装笔记</h4>
-      </a>
-    </div>
-  
+.v .vlist .vcard .vh .vmeta .vat {
+    color: #638fd5;
+}
 
-  
-    <div class="waves-block waves-effect next">
-      <a href="/2018/12/05/Daily01/" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">一周8个精选文章:第一章</h4>
-      </a>
-    </div>
-  
-</nav>
+.v .vlist .vcard .vhead .vnick {
+    color: #6ba1ff;
+}
 
+.v a {
+    color: #8696b1;
+}
 
+.v .vlist .vcard .vhead .vnick:hover {
+    color: #669bfc;
+}
+</style>
+</body>
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</article>
-
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>Hu5k7 &copy; 2017 - 2019</span>
-            <span>
-                
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
-    </div>
-</footer>
-
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
-
-
-
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://hu5k7.github.io/2018/12/15/BlackApple/&title=《【转载】黑苹果安装笔记》 — Hu5k7's Blog&pic=https://hu5k7.github.io/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://hu5k7.github.io/2018/12/15/BlackApple/&title=《【转载】黑苹果安装笔记》 — Hu5k7's Blog&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://hu5k7.github.io/2018/12/15/BlackApple/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【转载】黑苹果安装笔记》 — Hu5k7's Blog&url=https://hu5k7.github.io/2018/12/15/BlackApple/&via=https://hu5k7.github.io" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://hu5k7.github.io/2018/12/15/BlackApple/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://hu5k7.github.io/2018/12/15/BlackApple/" alt="微信分享二维码">
-</div>
-
-
-
-
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
-
-
-</script>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
-
-
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
-
-
-
-
-
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '死鬼去哪里了！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '(つェ⊂)咦!又好了!';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
-
-
-
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":200,"height":350},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>

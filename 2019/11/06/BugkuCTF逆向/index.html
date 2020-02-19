@@ -1,720 +1,151 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.9.0">
-    
-
-    
-
-    
-
-
-
-    <meta charset="utf-8">
-    
-    
-    
-    
-    <title>BugkuCTF逆向 | Hu5k7&#39;s Blog</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="CTF-Reverse-Note">
-    <meta name="description" content="0x00 开言最近了解了点逆向，pwn，汇编，C，C#等知识，开始试着刷题实战一下。 0x00.1 环境&amp;amp;工具工具： IDA &amp;amp; OD  环境：Windows7 0x00.2 需要注意的事项 tips: 在windows下逆向需要注意，从windowsXP以上都有开启aslr保护， ​        ASLR（Address space layout randomization）是">
-<meta name="keywords" content="CTF-Reverse-Note">
-<meta property="og:type" content="article">
-<meta property="og:title" content="BugkuCTF逆向">
-<meta property="og:url" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/index.html">
-<meta property="og:site_name" content="Hu5k7&#39;s Blog">
-<meta property="og:description" content="0x00 开言最近了解了点逆向，pwn，汇编，C，C#等知识，开始试着刷题实战一下。 0x00.1 环境&amp;amp;工具工具： IDA &amp;amp; OD  环境：Windows7 0x00.2 需要注意的事项 tips: 在windows下逆向需要注意，从windowsXP以上都有开启aslr保护， ​        ASLR（Address space layout randomization）是">
-<meta property="og:locale" content="en">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/1.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/1-1573024106714.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/1-1573024191980.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/1-1573024519658.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/2.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/3.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/4.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/5.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/6.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/7.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/8.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/9.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/10.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/11.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/12.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/13.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/14.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/15.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/16.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/17-1573025913557.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/18.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/19.PNG">
-<meta property="og:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/20.PNG">
-<meta property="og:updated_time" content="2019-11-06T07:50:32.124Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="BugkuCTF逆向">
-<meta name="twitter:description" content="0x00 开言最近了解了点逆向，pwn，汇编，C，C#等知识，开始试着刷题实战一下。 0x00.1 环境&amp;amp;工具工具： IDA &amp;amp; OD  环境：Windows7 0x00.2 需要注意的事项 tips: 在windows下逆向需要注意，从windowsXP以上都有开启aslr保护， ​        ASLR（Address space layout randomization）是">
-<meta name="twitter:image" content="https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/1.PNG">
-    
-    <link rel="shortcut icon" href="/img/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
-
-    <!-- custom head -->
-    
+<html lang="zh">
+	<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>
+        Hu5k7&#39;s Blog
+    </title>
+    <link rel="stylesheet" href="/libs/highlight/styles/monokai-sublime.css">
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css">
 
 </head>
-
-<body>
-    <div id="loading" class="active"></div>
-
-    <aside id="menu"  >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
-      <div class="brand">
-        <a href="/about" class="avatar waves-effect waves-circle waves-light">
-          <img src="/img/avatar.jpg">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">Hu5k7</h5>
-          <a href="mailto:I'm god danm noob" title="I'm god danm noob" class="mail">I'm god danm noob</a>
-        </hgroup>
-      </div>
+<body id="bodyx">
+    <div class="hd posts">
+    <a href="/index.html"><i class="fa fa-reply replay-btn" aria-hidden="true"></i></a>
+    <div class="post-title">
+        <p>
+            BugkuCTF逆向
+        </p>
+        <hr>
     </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
-        
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                Home
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-archives"></i>
-                Archives
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/tags"  >
-                <i class="icon icon-lg icon-tags"></i>
-                Tags
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/hu5k7" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-link"></i>
-                About me
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/friends"  >
-                <i class="icon icon-lg icon-weibo"></i>
-                友情链接
-              </a>
-            </li>
-        
-      </ul>
-    </div>
-  </div>
-</aside>
-
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">BugkuCTF逆向</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
-        </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
-    </div>
-</header>
-<header class="content-header post-header">
-
-    <div class="container fade-scale">
-        <h1 class="title">BugkuCTF逆向</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2019-11-06T14:59:26.000Z" itemprop="datePublished" class="page-time">
-  2019-11-06
-</time>
-
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CTF-Reverse-Note/">CTF-Reverse-Note</a></li></ul>
-
-            
-        </h5>
-    </div>
-
-    
-
-
-</header>
-
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x00-开言"><span class="post-toc-number">1.</span> <span class="post-toc-text">0x00 开言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x00-1-环境-amp-工具"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">0x00.1 环境&amp;工具</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x00-2-需要注意的事项"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">0x00.2 需要注意的事项</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x01-入门逆向"><span class="post-toc-number">2.</span> <span class="post-toc-text">0x01 入门逆向</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x02-Easy-vb"><span class="post-toc-number">3.</span> <span class="post-toc-text">0x02 Easy_vb</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x03-Easy-re"><span class="post-toc-number">4.</span> <span class="post-toc-text">0x03 Easy_re</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#0x04-游戏过关"><span class="post-toc-number">5.</span> <span class="post-toc-text">0x04 游戏过关</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x04-1-第一步-IDA"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">0x04.1 第一步 IDA</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#0x04-2-第二步-OD"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">0x04.2 第二步 OD</span></a></li></ol></li></ol>
-        </nav>
-    </aside>
-
-
-<article id="post-BugkuCTF逆向"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">BugkuCTF逆向</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2019-11-06 14:59:26" datetime="2019-11-06T14:59:26.000Z"  itemprop="datePublished">2019-11-06</time>
-
-            
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CTF-Reverse-Note/">CTF-Reverse-Note</a></li></ul>
-
-
-
-            
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
-
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="0x00-开言"><a href="#0x00-开言" class="headerlink" title="0x00 开言"></a>0x00 开言</h1><p>最近了解了点逆向，pwn，汇编，C，C#等知识，开始试着刷题实战一下。</p>
-<h2 id="0x00-1-环境-amp-工具"><a href="#0x00-1-环境-amp-工具" class="headerlink" title="0x00.1 环境&amp;工具"></a>0x00.1 环境&amp;工具</h2><p>工具： IDA &amp; OD </p>
+    <div class="post-content">
+        <h1 id="0x00-开言">0x00 开言</h1>
+<p>最近了解了点逆向，pwn，汇编，C，C#等知识，开始试着刷题实战一下。</p>
+<h2 id="0x00-1-环境-工具">0x00.1 环境&amp;工具</h2>
+<p>工具： IDA &amp; OD</p>
 <p>环境：Windows7</p>
-<h2 id="0x00-2-需要注意的事项"><a href="#0x00-2-需要注意的事项" class="headerlink" title="0x00.2 需要注意的事项"></a>0x00.2 需要注意的事项</h2><blockquote>
+<h2 id="0x00-2-需要注意的事项">0x00.2 需要注意的事项</h2>
+<blockquote>
 <p><strong>tips: 在windows下逆向需要注意，从windowsXP以上都有开启aslr保护，</strong></p>
-<p>​        <strong>ASLR（Address space layout randomization）是一种针对缓冲区溢出的安全保护技术，通过对堆、栈、共享库映射等线性区布局的随机化，通过增加攻击者预测目的地址的难度，防止攻击者直接定位攻击代码位置，达到阻止溢出攻击的目的。</strong></p>
+<p>​		<strong>ASLR（Address space layout randomization）是一种针对缓冲区溢出的安全保护技术，通过对堆、栈、共享库映射等线性区布局的随机化，通过增加攻击者预测目的地址的难度，防止攻击者直接定位攻击代码位置，达到阻止溢出攻击的目的。</strong></p>
 </blockquote>
-<h1 id="0x01-入门逆向"><a href="#0x01-入门逆向" class="headerlink" title="0x01 入门逆向"></a>0x01 入门逆向</h1><p>使用ida打开发现没有任何值得，查看的。直接 按F5查看伪代码 再按R转码         就完事了.</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="1.PNG" alt="1" title>
-                </div>
-                <div class="image-caption">1</div>
-            </figure>
-
-
-
-<h1 id="0x02-Easy-vb"><a href="#0x02-Easy-vb" class="headerlink" title="0x02 Easy_vb"></a>0x02 Easy_vb</h1><p>ida打开 直接往下看。看到flag</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="1-1573024106714.PNG" alt="1" title>
-                </div>
-                <div class="image-caption">1</div>
-            </figure>
-
-
-
-<h1 id="0x03-Easy-re"><a href="#0x03-Easy-re" class="headerlink" title="0x03 Easy_re"></a>0x03 Easy_re</h1><p>这次使用 od工具 。直接上只能搜索看看。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="1-1573024191980.PNG" alt="1" title>
-                </div>
-                <div class="image-caption">1</div>
-            </figure>
-
-
-
-<h1 id="0x04-游戏过关"><a href="#0x04-游戏过关" class="headerlink" title="0x04 游戏过关"></a>0x04 游戏过关</h1><p> 这一题比较难。</p>
+<h1 id="0x01-入门逆向">0x01 入门逆向</h1>
+<p>使用ida打开发现没有任何值得，查看的。直接 按F5查看伪代码 再按R转码         就完事了.</p>
+<p><img src="1.PNG" alt="1"></p>
+<h1 id="0x02-Easy-vb">0x02 Easy_vb</h1>
+<p>ida打开 直接往下看。看到flag</p>
+<p><img src="1-1573024106714.PNG" alt="1"></p>
+<h1 id="0x03-Easy-re">0x03 Easy_re</h1>
+<p>这次使用 od工具 。直接上只能搜索看看。</p>
+<p><img src="1-1573024191980.PNG" alt="1"></p>
+<h1 id="0x04-游戏过关">0x04 游戏过关</h1>
+<p>这一题比较难。</p>
 <blockquote>
 <p>需要用到的工具:</p>
 <p>ida &amp; od</p>
 </blockquote>
-<h2 id="0x04-1-第一步-IDA"><a href="#0x04-1-第一步-IDA" class="headerlink" title="0x04.1 第一步 IDA"></a>0x04.1 第一步 IDA</h2><p><strong>我们先用 ida 和 od 打开 程序</strong></p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="1-1573024519658.PNG" alt="1" title>
-                </div>
-                <div class="image-caption">1</div>
-            </figure>
-
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="2.PNG" alt="2" title>
-                </div>
-                <div class="image-caption">2</div>
-            </figure>
-
+<h2 id="0x04-1-第一步-IDA">0x04.1 第一步 IDA</h2>
+<p><strong>我们先用 ida 和 od 打开 程序</strong></p>
+<p><img src="1-1573024519658.PNG" alt="1"></p>
+<p><img src="2.PNG" alt="2"></p>
 <p><strong>我们先看ida这边，先看shift+f12看看字符串</strong></p>
 <p>发现字符串窗口有个 <strong>done!!!the flag is</strong>  这里是最后得出flag的地方，我们先不看他，往下翻</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="3.PNG" alt="3" title>
-                </div>
-                <div class="image-caption">3</div>
-            </figure>
-
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="4.PNG" alt="4" title>
-                </div>
-                <div class="image-caption">4</div>
-            </figure>
-
+<p><img src="3.PNG" alt="3"></p>
+<p><img src="4.PNG" alt="4"></p>
 <p>这次我们看到 <strong>Play a game\n</strong> 这里是程序的 开头言的地方。我们双击跳过去看看。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="5.PNG" alt="5" title>
-                </div>
-                <div class="image-caption">5</div>
-            </figure>
-
+<p><img src="5.PNG" alt="5"></p>
 <p>这里有调用<strong>aPlayAGameTheNI</strong>函数。我们按<strong>x</strong>跳到，调用他的地方。</p>
 <p>他跳到了最上面的窗口。我们往下翻</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="6.PNG" alt="6" title>
-                </div>
-                <div class="image-caption">6</div>
-            </figure>
-
+<p><img src="6.PNG" alt="6"></p>
 <p>看到 <strong>input n,n 这里 是让用户输入(1-8)的地方</strong>。我们按<strong>F5</strong>看看伪代码</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="7.PNG" alt="7" title>
-                </div>
-                <div class="image-caption">7</div>
-            </figure>
-
+<p><img src="7.PNG" alt="7"></p>
 <p>分析一下伪代码。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="8.PNG" alt="8" title>
-                </div>
-                <div class="image-caption">8</div>
-            </figure>
-
+<p><img src="8.PNG" alt="8"></p>
 <p>我们看到这里是给用户循环输入的地方 有个断点sub_459418();。就是我们要跳转的地方.</p>
 <p>我们现在回到之前看到 <strong>done!!! the flag is</strong> 地方 跳转过去看一看。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="9.PNG" alt="9" title>
-                </div>
-                <div class="image-caption">9</div>
-            </figure>
-
+<p><img src="9.PNG" alt="9"></p>
 <p>看到有一个函数为 <strong>aDoneTheFlagIs</strong>,</p>
 <p>我们打开一个选项，能直接查看到这个的 <strong>基址</strong></p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="10.PNG" alt="10" title>
-                </div>
-                <div class="image-caption">10</div>
-            </figure>
-
+<p><img src="10.PNG" alt="10"></p>
 <p>我们往上翻，找到这个的Top位置</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="11.PNG" alt="11" title>
-                </div>
-                <div class="image-caption">11</div>
-            </figure>
-
+<p><img src="11.PNG" alt="11"></p>
 <p>这里。<strong>0045E940</strong>我们记下来这个<strong>基址</strong></p>
 <p>再把</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="12.PNG" alt="12" title>
-                </div>
-                <div class="image-caption">12</div>
-            </figure>
-
+<p><img src="12.PNG" alt="12"></p>
 <p>sub_459418();这里的基址记下来。</p>
-<h2 id="0x04-2-第二步-OD"><a href="#0x04-2-第二步-OD" class="headerlink" title="0x04.2 第二步 OD"></a>0x04.2 第二步 OD</h2><p>现在我们回到 od</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="13.PNG" alt="13" title>
-                </div>
-                <div class="image-caption">13</div>
-            </figure>
-
+<h2 id="0x04-2-第二步-OD">0x04.2 第二步 OD</h2>
+<p>现在我们回到 od</p>
+<p><img src="13.PNG" alt="13"></p>
 <p>先这个程序运行起来。点播放键(左上角)</p>
 <p>然后我们点<strong>Ctrl+G</strong> 来跳转地址到<strong>0045E940</strong>地方。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="14.PNG" alt="14" title>
-                </div>
-                <div class="image-caption">14</div>
-            </figure>
-
+<p><img src="14.PNG" alt="14"></p>
 <p>按F2设置断点。然后到程序里随便输入个数字(1-8),发现该程序运行到了</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="15.PNG" alt="15" title>
-                </div>
-                <div class="image-caption">15</div>
-            </figure>
-
+<p><img src="15.PNG" alt="15"></p>
 <p><strong>0045f515地址</strong>这里停住了，接下来我们用<strong>0045e940</strong>这个地址</p>
 <p>双击0045f515地址，写上jmp 0045e940(jmp为汇编码，意思跳转)</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="16.PNG" alt="16" title>
-                </div>
-                <div class="image-caption">16</div>
-            </figure>
-
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="17-1573025913557.PNG" alt="17" title>
-                </div>
-                <div class="image-caption">17</div>
-            </figure>
-
+<p><img src="16.PNG" alt="16"></p>
+<p><img src="17-1573025913557.PNG" alt="17"></p>
 <p>更新程序运行。点到该程序的循环位置，为止。(0045EB51)</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="18.PNG" alt="18" title>
-                </div>
-                <div class="image-caption">18</div>
-            </figure>
-
-<p>白框的位置便是　ｗｈｉｌｅ循环的地方<br>我们在0045EBC1地址设置断点　使这个程序直接跳过ｗｈｉｌｅ循环<br>设置断点后　点继续运行程序</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="19.PNG" alt="19" title>
-                </div>
-                <div class="image-caption">19</div>
-            </figure>
-
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="20.PNG" alt="20" title>
-                </div>
-                <div class="image-caption">20</div>
-            </figure>
-
+<p><img src="18.PNG" alt="18"></p>
+<p>白框的位置便是　ｗｈｉｌｅ循环的地方<br>
+我们在0045EBC1地址设置断点　使这个程序直接跳过ｗｈｉｌｅ循环<br>
+设置断点后　点继续运行程序</p>
+<p><img src="19.PNG" alt="19"></p>
+<p><img src="20.PNG" alt="20"></p>
 <p>拿到flag!</p>
 <p><strong>转载请标明出处</strong></p>
 
-        </div>
-
-        <blockquote class="post-copyright">
-    
-    <div class="content">
-        
-<span class="post-time">
-    Last updated: <time datetime="2019-11-06T07:50:32.124Z" itemprop="dateUpdated">2019-11-06 07:50:32</time>
-</span><br>
-
-
-        
-        转载请标明出处,本人是菜鸟一枚多多关照 :)
-        
     </div>
     
-    <footer>
-        <a href="https://hu5k7.github.io">
-            <img src="/img/avatar.jpg" alt="Hu5k7">
-            Hu5k7
-        </a>
-    </footer>
-</blockquote>
-
-        
-
-
-        <div class="post-footer">
+        <hr class="fhr">
+        <div id="vcomments"></div>
+    
+</div>
+    <div class="footer" id="footer">
+    <p>Copyright © 2020  Hexo-Hijack.
+        <label class="el-switch el-switch-green el-switch-sm" style="vertical-align: sub;">
+            <input type="checkbox" name="switch" id="update_style">
+            <span class="el-switch-style"></span>
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF-Reverse-Note/">CTF-Reverse-Note</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/&title=《BugkuCTF逆向》 — Hu5k7's Blog&pic=https://hu5k7.github.io/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/&title=《BugkuCTF逆向》 — Hu5k7's Blog&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《BugkuCTF逆向》 — Hu5k7's Blog&url=https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/&via=https://hu5k7.github.io" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
+        </label>
+    </p>
 </div>
+<input type="hidden" id="web_style" value="black">
 
 
+<script src="/libs/jquery.min.js"></script>
+<script src="/libs/highlight/highlight.pack.js"></script>
+<script src='//cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script src="/js/js.js"></script>
+<style type="text/css">
+.v * {
+    color: #698fca;
+}
 
-        </div>
-    </div>
+.v .vlist .vcard .vhead .vsys {
+    color: #3a3e4a;
+}
 
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2019/12/03/xxe/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">XXE漏洞学习</h4>
-      </a>
-    </div>
-  
+.v .vlist .vcard .vh .vmeta .vat {
+    color: #638fd5;
+}
 
-  
-    <div class="waves-block waves-effect next">
-      <a href="/2019/11/01/pwn学习笔记-00/" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">【Pwn】学习笔记第零期:开端</h4>
-      </a>
-    </div>
-  
-</nav>
+.v .vlist .vcard .vhead .vnick {
+    color: #6ba1ff;
+}
 
+.v a {
+    color: #8696b1;
+}
 
+.v .vlist .vcard .vhead .vnick:hover {
+    color: #669bfc;
+}
+</style>
+</body>
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</article>
-
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>Hu5k7 &copy; 2017 - 2019</span>
-            <span>
-                
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
-    </div>
-</footer>
-
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
-
-
-
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/&title=《BugkuCTF逆向》 — Hu5k7's Blog&pic=https://hu5k7.github.io/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/&title=《BugkuCTF逆向》 — Hu5k7's Blog&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《BugkuCTF逆向》 — Hu5k7's Blog&url=https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/&via=https://hu5k7.github.io" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://hu5k7.github.io/2019/11/06/BugkuCTF逆向/" alt="微信分享二维码">
-</div>
-
-
-
-
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
-
-
-</script>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
-
-
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
-
-
-
-
-
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '死鬼去哪里了！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '(つェ⊂)咦!又好了!';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
-
-
-
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":200,"height":350},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>
