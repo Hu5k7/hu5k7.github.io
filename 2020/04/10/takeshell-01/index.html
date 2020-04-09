@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>
+        Hu5k7&#39;s Blog
+    </title>
+    <link rel="stylesheet" href="/libs/highlight/styles/monokai-sublime.css">
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body id="bodyx">
+    <div class="hd posts">
+    <a href="/index.html"><i class="fa fa-reply replay-btn" aria-hidden="true"></i></a>
+    <div class="post-title">
+        <p>
+            Mark-once-WebShell_01
+        </p>
+        <hr>
+    </div>
+    <div class="post-content">
+        <h1 id="0x01-起因🏴">0x01 起因🏴</h1>
+<p>在做SRC活动的时候。扫描到一个 网站源码备份的网站，于是就打算进一步渗透。看看能不能拿SHELL</p>
+<h1 id="0x02-网站SQL注入">0x02 网站SQL注入</h1>
+<p>代码审计功底不太熟，就简单分析了一下文件内容。</p>
+<p>知道了后台管理是/**system/下。然后就去网站看看能不能发现其他的漏洞</p>
+<p><img src="image1.jpeg" alt="image1"></p>
+<p>先走个流程信息收集下。</p>
+<p><img src="E:%5CWeb%5CphpStudy16%5Cblog%5Cblg%5Csource_posts%5Ctakeshell-01%5Cimage3.jpeg" alt="image3"><img src="image2-1586436949788.jpeg" alt="image2"></p>
+<p>惊了。Iis8.5 惹不起惹不起。</p>
+<p>在一个地方找到了一个SQL注入</p>
+<p><img src="image4.jpeg" alt="image4"></p>
+<p><img src="image5.jpeg" alt="image5"></p>
+<p>得劲🔥</p>
+<p><img src="image6.jpeg" alt="image6"></p>
+<p>发现sqlmap跑不出 密码❔于是 我上手工了</p>
+<p><img src="image7.jpeg" alt="image7"></p>
+<p>🖤得嘞。。直接扔进SOMD5里解密。</p>
+<p>登录后台看看</p>
+<p><img src="image8.jpeg" alt="image8"></p>
+<p><img src="image9.jpeg" alt="image9"></p>
+<p>。。。</p>
+<p>。。。</p>
+<p>。。。</p>
+<p>找了一些。能上传的地方，但是都失败了。经验不足不太会。😩</p>
+<p>正思考咋办的时候。突然灵光一闪🌞,咱们不是还有SQL注入嘛。还是MSSQL的数据库</p>
+<p>直接上OS-SHELL</p>
+<h1 id="0x03-WEBSHELL-🌄">0x03 WEBSHELL 🌄</h1>
+<p><img src="image10.jpeg" alt="image10"></p>
+<p>权限有点低嗷。🉑</p>
+<p>上传一句话aspx小马</p>
+<p><img src="image11.jpeg" alt="image11"></p>
+<p><img src="image12.jpeg" alt="image12"></p>
+<p><img src="image13.jpeg" alt="image13"></p>
+<p>百度云的主机，惹不起</p>
+<p>。。</p>
+<p>。。</p>
+<p>。。</p>
+<p>到这里我也就不继续深究了。该删木马的都删了</p>
+<p>本人菜鸟经验不足。提权那些。240个补丁，提不上。也没python环境，</p>
+
+    </div>
+    
+        <hr class="fhr">
+        <div id="vcomments"></div>
+    
+</div>
+    <div class="footer" id="footer">
+    <p>Copyright © 2020  Hexo-Hijack.
+        <label class="el-switch el-switch-green el-switch-sm" style="vertical-align: sub;">
+            <input type="checkbox" name="switch" id="update_style">
+            <span class="el-switch-style"></span>
+            
+        </label>
+    </p>
+</div>
+<input type="hidden" id="web_style" value="black">
+
+<script src="/js/logo_title.js"></script>
+<script src="/libs/jquery.min.js"></script>
+<script src="/libs/highlight/highlight.pack.js"></script>
+<script src='//cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script src="/js/js.js"></script>
+<style type="text/css">
+.v * {
+    color: #698fca;
+}
+
+.v .vlist .vcard .vhead .vsys {
+    color: #3a3e4a;
+}
+
+.v .vlist .vcard .vh .vmeta .vat {
+    color: #638fd5;
+}
+
+.v .vlist .vcard .vhead .vnick {
+    color: #6ba1ff;
+}
+
+.v a {
+    color: #8696b1;
+}
+
+.v .vlist .vcard .vhead .vnick:hover {
+    color: #669bfc;
+}
+</style>
+</body>
+
+</html>
