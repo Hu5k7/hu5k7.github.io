@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>
+        Hu5k7&#39;s Blog
+    </title>
+    <link rel="stylesheet" href="/libs/highlight/styles/monokai-sublime.css">
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body id="bodyx">
+    <div class="hd posts">
+    <a href="/index.html"><i class="fa fa-reply replay-btn" aria-hidden="true"></i></a>
+    <div class="post-title">
+        <p>
+            iseacms代码审计入门级
+        </p>
+        <hr>
+    </div>
+    <div class="post-content">
+        <h1 id="0x01-iseacms-熊海CMS-介绍🅰️">0x01 iseacms 熊海CMS 介绍🅰️</h1>
+<p>熊海CMS是由熊海开发的一款可广泛应用于个人博客，个人网站，企业网站的一套网站综合管理系统。</p>
+<p>简的来说，就非常合适刚刚入门的 代码审计案例（简单到会看一点点php代码的人都会的审计），今天来复盘一下</p>
+<p><img src="1.jpg" alt="1"></p>
+<p>（其实已经复盘过了，只是再复盘一遍来充实blog，嘻嘻😄）</p>
+<h1 id="0x02-实战">0x02 实战</h1>
+<p>需要用到 seay源代码审计系统</p>
+<p><img src="2.jpg" alt="2"></p>
+<p>个人喜欢直接上 自动审计所以，走一波</p>
+<p><img src="3.jpg" alt="3"></p>
+<p>seay自动审计出来的，一般不一定100%存在漏洞，它原理是正则去匹配那些函数，比如 eval() 可能就 会写上关于eval() 函数的正则匹配。嘛。不过比起手动慢慢的看，能省去很多麻烦。有能力的也可以先<strong>代码通读</strong> 再自动化审计，每个人方法不一，我就 用我的方法。</p>
+<p><img src="4.jpg" alt="4"></p>
+<p>点过去看到，带有正则匹配和转义的函数。</p>
+<p>正则匹配**\W** 写死了。</p>
+<p><img src="5.jpg" alt="5"></p>
+<p>接着往上看</p>
+<p>/seacmseditor/php/controller.php：11行</p>
+<p><img src="6.jpg" alt="6"></p>
+<p>这三个存在漏洞且能利用。</p>
+<p>需要GET传参 action, <strong>switch 多选函数.</strong></p>
+<p>先第一个uploadfile 上传打开抓包上传试一下。</p>
+<p><img src="7.jpg" alt="7"></p>
+<p>unicode 解码看一下\u672a\u77e5\u9519\u8bef =&gt; 未知错误 🙅</p>
+<p>完美，未知错误</p>
+<p>下一个，SQL注入</p>
+<h1 id="0x03-多处SQL注入">0x03 多处SQL注入</h1>
+<p>/files/content.php：19行</p>
+<p><img src="8.jpg" alt="8"></p>
+<p>加了 转义函数</p>
+<p>可以使用 宽字节注入(有条件)</p>
+<p>报错注入</p>
+<p>这里就使用 报错注入 把</p>
+<p><img src="9.jpg" alt="9"></p>
+<p>宽字节注入需要 GBK编码</p>
+<p><img src="10.jpg" alt="10"></p>
+<p>白盒审计 源代码 里明显没有单独设置 编码所以是不行的。</p>
+<p><img src="11.jpg" alt="11"></p>
+<p>成功报出数据库</p>
+<p>同样存在SQL注入的文件:</p>
+<p>/files/software.php</p>
+<p>/admin/files/reply.php</p>
+<p>/admin/files/newlink.php</p>
+
+    </div>
+    
+        <hr class="fhr">
+        <div id="vcomments"></div>
+    
+</div>
+    <div class="footer" id="footer">
+    <p>Copyright © 2020  Hexo-Hijack.
+        <label class="el-switch el-switch-green el-switch-sm" style="vertical-align: sub;">
+            <input type="checkbox" name="switch" id="update_style">
+            <span class="el-switch-style"></span>
+            
+        </label>
+    </p>
+</div>
+<input type="hidden" id="web_style" value="black">
+
+<script src="/js/logo_title.js"></script>
+<script src="/libs/jquery.min.js"></script>
+<script src="/libs/highlight/highlight.pack.js"></script>
+<script src='//cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script src="/js/js.js"></script>
+<style type="text/css">
+.v * {
+    color: #698fca;
+}
+
+.v .vlist .vcard .vhead .vsys {
+    color: #3a3e4a;
+}
+
+.v .vlist .vcard .vh .vmeta .vat {
+    color: #638fd5;
+}
+
+.v .vlist .vcard .vhead .vnick {
+    color: #6ba1ff;
+}
+
+.v a {
+    color: #8696b1;
+}
+
+.v .vlist .vcard .vhead .vnick:hover {
+    color: #669bfc;
+}
+</style>
+</body>
+
+</html>
