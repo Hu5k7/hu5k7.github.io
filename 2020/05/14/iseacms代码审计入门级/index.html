@@ -1,31 +1,131 @@
 <!DOCTYPE html>
-<html lang="zh">
-	<head><meta name="generator" content="Hexo 3.9.0">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="renderer" content="webkit">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>
-        Hu5k7&#39;s Blog
-    </title>
-    <link rel="stylesheet" href="/libs/highlight/styles/monokai-sublime.css">
-    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+<html>
 
-</head>
-<body id="bodyx">
-    <div class="hd posts">
-    <a href="/index.html"><i class="fa fa-reply replay-btn" aria-hidden="true"></i></a>
-    <div class="post-title">
-        <p>
-            iseacms代码审计入门级
-        </p>
-        <hr>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    
+    <title>iseacms代码审计入门级 | Hu5k7&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/dist/build.css?v=1.5.0">
+
+    <script>
+        window.aomori = {
+            
+        }
+    </script>
+
+</head></html>
+
+<body>
+
+  <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="Hu5k7">
+            </div>
+            
+            <a href="/">Hu5k7&#39;s Blog</a>
+            
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">Home</a>
+                
+                <a href="/archives">Archives</a>
+                
+                <a href="/friends">Friends</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">Home</a>
+                    
+                    <a href="/archives">Archives</a>
+                    
+                    <a href="/friends">Friends</a>
+                    
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="post-content">
-        <h1 id="0x01-iseacms-熊海CMS-介绍🅰️">0x01 iseacms 熊海CMS 介绍🅰️</h1>
+
+</div>
+
+  <div class="container">
+    <div class="main">
+      <section class="inner">
+        <section class="inner-main">
+          <div class="post">
+    <article id="post-ckcfshseh001plkmozakaqobf" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      iseacms代码审计入门级
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2020-05-13T17:38:00.000Z" itemprop="datePublished">2020-05-13</time>
+</div>
+
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/code/">code</a></li></ul>
+            </div>
+            
+
+            
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h1 id="0x01-iseacms-熊海CMS-介绍🅰️">0x01 iseacms 熊海CMS 介绍🅰️</h1>
 <p>熊海CMS是由熊海开发的一款可广泛应用于个人博客，个人网站，企业网站的一套网站综合管理系统。</p>
 <p>简的来说，就非常合适刚刚入门的 代码审计案例（简单到会看一点点php代码的人都会的审计），今天来复盘一下</p>
+<a id="more"></a>
 <p><img src="1.jpg" alt="1"></p>
 <p>（其实已经复盘过了，只是再复盘一遍来充实blog，嘻嘻😄）</p>
 <h1 id="0x02-实战">0x02 实战</h1>
@@ -66,53 +166,171 @@
 <p>/admin/files/reply.php</p>
 <p>/admin/files/newlink.php</p>
 
+        </div>
+
     </div>
+
     
-        <hr class="fhr">
-        <div id="vcomments"></div>
+
     
+
+    
+
+    
+<div class="article-copyright hairline">
+  <p>
+    本作品采用 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a> 进行许可。
+  </p>
 </div>
-    <div class="footer" id="footer">
-    <p>Copyright © 2020  Hexo-Hijack.
-        <label class="el-switch el-switch-green el-switch-sm" style="vertical-align: sub;">
-            <input type="checkbox" name="switch" id="update_style">
-            <span class="el-switch-style"></span>
-            
-        </label>
-    </p>
+
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2020/07/10/Mark-OnceBuild-CrossC2Object/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          Mark_OnceBuild_CrossC2Object
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/04/10/takeshell-01/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Mark-once-WebShell_01</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=iseacms代码审计入门级 - Hu5k7's Blog&url=https://hu5k7.github.io/2020/05/14/iseacms代码审计入门级/">
+            <box-icon type='logo' name='twitter'></box-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=iseacms代码审计入门级 - Hu5k7's Blog&u=https://hu5k7.github.io/2020/05/14/iseacms代码审计入门级/">
+            <box-icon name='facebook-square' type='logo' ></box-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=iseacms代码审计入门级 - Hu5k7's Blog&url=https://hu5k7.github.io/2020/05/14/iseacms代码审计入门级/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
 </div>
-<input type="hidden" id="web_style" value="black">
+        </section>
+      </section>
+      <aside class="sidebar">
+        <div class="widget">
+          
 
-<script src="/js/logo_title.js"></script>
-<script src="/libs/jquery.min.js"></script>
-<script src="/libs/highlight/highlight.pack.js"></script>
-<script src='//cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
-<script src="/js/js.js"></script>
-<style type="text/css">
-.v * {
-    color: #698fca;
-}
+  
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/10007/06/07/index/">Home</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/10/Mark-OnceBuild-CrossC2Object/">Mark_OnceBuild_CrossC2Object</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/14/iseacms代码审计入门级/">iseacms代码审计入门级</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/10/takeshell-01/">Mark-once-WebShell_01</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/24/MSSQL盲注/">MSSQL_Blind_Injection</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 
-.v .vlist .vcard .vhead .vsys {
-    color: #3a3e4a;
-}
 
-.v .vlist .vcard .vh .vmeta .vat {
-    color: #638fd5;
-}
+  
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Bash/">Bash</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/CTF-Pwn-Note/">CTF-Pwn-Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/CTF-Reverse-Note/">CTF-Reverse-Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/CTF-Web-Note/">CTF-Web-Note</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Note/">Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vulnhub/">vulnhub</a></li></ul>
+    </div>
+  </div>
 
-.v .vlist .vcard .vhead .vnick {
-    color: #6ba1ff;
-}
 
-.v a {
-    color: #8696b1;
-}
 
-.v .vlist .vcard .vhead .vnick:hover {
-    color: #669bfc;
-}
-</style>
+  
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/10007/06/">10007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">2018</a></li></ul>
+    </div>
+  </div>
+
+
+
+        </div>
+        <div id="backtop"><i class="icon icon-arrow-up"></i></div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-info">
+            <span>&copy; 2013 - 2020 Hu5k7&#39;s Blog</span>
+        </div>
+        <div class="footer-powered">
+            <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Aomori</a> Theme · Powered By Hexo
+        </div>
+    </div>
+</footer>
+
+
+
+<script src="/dist/build.js?1.5.0"></script>
+<script src="/dist/custom.js?1.5.0"></script>
+
+
+<!-- 百度链接提交 -->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+
+
+
 </body>
-
 </html>

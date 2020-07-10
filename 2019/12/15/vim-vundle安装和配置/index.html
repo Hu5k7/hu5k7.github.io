@@ -1,102 +1,351 @@
 <!DOCTYPE html>
-<html lang="zh">
-	<head><meta name="generator" content="Hexo 3.9.0">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="renderer" content="webkit">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>
-        Hu5k7&#39;s Blog
-    </title>
-    <link rel="stylesheet" href="/libs/highlight/styles/monokai-sublime.css">
-    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+<html>
 
-</head>
-<body id="bodyx">
-    <div class="hd posts">
-    <a href="/index.html"><i class="fa fa-reply replay-btn" aria-hidden="true"></i></a>
-    <div class="post-title">
-        <p>
-            vim-vundle安装和配置
-        </p>
-        <hr>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    
+    <title>vim-vundle install and configuration | Hu5k7&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/dist/build.css?v=1.5.0">
+
+    <script>
+        window.aomori = {
+            
+        }
+    </script>
+
+</head></html>
+
+<body>
+
+  <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="Hu5k7">
+            </div>
+            
+            <a href="/">Hu5k7&#39;s Blog</a>
+            
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">Home</a>
+                
+                <a href="/archives">Archives</a>
+                
+                <a href="/friends">Friends</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">Home</a>
+                    
+                    <a href="/archives">Archives</a>
+                    
+                    <a href="/friends">Friends</a>
+                    
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="post-content">
-        <h1 id="0x00-前言">0x00 前言</h1>
+
+</div>
+
+  <div class="container">
+    <div class="main">
+      <section class="inner">
+        <section class="inner-main">
+          <div class="post">
+    <article id="post-ckcfshsem0024lkmol5fp0vxk" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      vim-vundle install and configuration
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2019-12-15T15:53:01.000Z" itemprop="datePublished">2019-12-15</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/Note/">Note</a>
+            </div>
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Note/">Note</a></li></ul>
+            </div>
+            
+
+            
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h1 id="0x00-前言">0x00 前言</h1>
 <p>想在pycharm使用 pwntools 但是 pwntools不支持windows。只能跑到Linux搞，但是Vim没有补全于是打算装个 补全插件。顺便写个笔记</p>
+<a id="more"></a>
 <p><strong>环境：Kali</strong></p>
 <h1 id="0x01-Vundle插件管理安装">0x01 Vundle插件管理安装</h1>
 <p>我用的是kali和普通安装有些不同。</p>
 <p>第一步 git：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+</code></pre>
 <p>在 用户 下<strong>建立.vimrc文件</strong> 例子：</p>
 <p>user:	/user/.vimrc</p>
 <p>root:	/root/.vimrc</p>
 <p>写上以下的句子</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> nocompatible              <span class="string">" be iMproved, required</span></span><br><span class="line"><span class="string">filetype off                  "</span> required</span><br><span class="line"></span><br><span class="line"><span class="string">" set the runtime path to include Vundle and initialize</span></span><br><span class="line"><span class="string">set rtp+=~/.vim/bundle/Vundle.vim</span></span><br><span class="line"><span class="string">call vundle#begin()</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Plugin 'VundleVim/Vundle.vim'</span></span><br><span class="line"><span class="string">Plugin 'tpope/vim-fugitive'</span></span><br><span class="line"><span class="string">Plugin 'L9'</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">call vundle#end()            "</span> required</span><br><span class="line">filetype plugin indent on    <span class="string">" required</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">set nocompatible              &quot; be iMproved, required
+filetype off                  &quot; required
+
+&quot; set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'L9'
+
+call vundle#end()            &quot; required
+filetype plugin indent on    &quot; required
+</code></pre>
 <p>打开VIM 直接打开不用配合其他文件什么的。</p>
 <p>输入 :PluginInstall。安装完后更新一下 :PluginUpdate</p>
 <p>等显示Done！的字的时候就代表的 安装/更新 成功</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">call vundle#begin()</span><br><span class="line"></span><br><span class="line">'''				#插件名称位置</span><br><span class="line"></span><br><span class="line">call vundle#end()</span><br></pre></td></tr></table></figure>
+<pre><code class="language-shell">call vundle#begin()
+
+'''				#插件名称位置
+
+call vundle#end()
+</code></pre>
 <p>如果我这里不详细，可以去github看原版的档案</p>
 <p>地址：<a href="https://github.com/VundleVim/" target="_blank" rel="noopener">https://github.com/VundleVim/</a></p>
 <h1 id="0x02-vim安装molokai配色方案">0x02 vim安装molokai配色方案</h1>
 <p>我安装完插件后，字体没了颜色。我也没看出问题所在。字体颜色脚本都没有加载。所以我打算直接使用vim的插件。不使用自带的颜色脚本</p>
 <p>直接git 下来</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/tomasr/molokai.git</span><br></pre></td></tr></table></figure>
+<pre><code class="language-shell">git clone https://github.com/tomasr/molokai.git
+</code></pre>
 <p>然后 mv molokai/ /usr/share/(你的vim版本)/colors/ 下。</p>
 <p>并在.vimrc文件 后面加上</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">colorsheme molokai</span><br><span class="line">let g:molokai_original=1</span><br><span class="line">set t_Co=256</span><br><span class="line">set background=drak</span><br><span class="line">syntax on</span><br><span class="line">set nu!</span><br></pre></td></tr></table></figure>
+<pre><code class="language-shell">colorsheme molokai
+let g:molokai_original=1
+set t_Co=256
+set background=drak
+syntax on
+set nu!
+</code></pre>
 <p>保存并退出。过会就会生效了。</p>
 
+        </div>
+
     </div>
+
     
-        <hr class="fhr">
-        <div id="vcomments"></div>
+
     
+
+    
+
+    
+<div class="article-copyright hairline">
+  <p>
+    本作品采用 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a> 进行许可。
+  </p>
 </div>
-    <div class="footer" id="footer">
-    <p>Copyright © 2020  Hexo-Hijack.
-        <label class="el-switch el-switch-green el-switch-sm" style="vertical-align: sub;">
-            <input type="checkbox" name="switch" id="update_style">
-            <span class="el-switch-style"></span>
-            
-        </label>
-    </p>
+
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2020/02/20/MSSQL注入/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          MSSQL Injection
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/12/15/vulnhub靶机-sunrise/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">vulnhub_sunrise</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=vim-vundle install and configuration - Hu5k7's Blog&url=https://hu5k7.github.io/2019/12/15/vim-vundle安装和配置/">
+            <box-icon type='logo' name='twitter'></box-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=vim-vundle install and configuration - Hu5k7's Blog&u=https://hu5k7.github.io/2019/12/15/vim-vundle安装和配置/">
+            <box-icon name='facebook-square' type='logo' ></box-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=vim-vundle install and configuration - Hu5k7's Blog&url=https://hu5k7.github.io/2019/12/15/vim-vundle安装和配置/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
 </div>
-<input type="hidden" id="web_style" value="black">
+        </section>
+      </section>
+      <aside class="sidebar">
+        <div class="widget">
+          
 
-<script src="/js/logo_title.js"></script>
-<script src="/libs/jquery.min.js"></script>
-<script src="/libs/highlight/highlight.pack.js"></script>
-<script src='//cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
-<script src="/js/js.js"></script>
-<style type="text/css">
-.v * {
-    color: #698fca;
-}
+  
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/10007/06/07/index/">Home</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/10/Mark-OnceBuild-CrossC2Object/">Mark_OnceBuild_CrossC2Object</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/14/iseacms代码审计入门级/">iseacms代码审计入门级</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/10/takeshell-01/">Mark-once-WebShell_01</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/24/MSSQL盲注/">MSSQL_Blind_Injection</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 
-.v .vlist .vcard .vhead .vsys {
-    color: #3a3e4a;
-}
 
-.v .vlist .vcard .vh .vmeta .vat {
-    color: #638fd5;
-}
+  
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Bash/">Bash</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/CTF-Pwn-Note/">CTF-Pwn-Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/CTF-Reverse-Note/">CTF-Reverse-Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/CTF-Web-Note/">CTF-Web-Note</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Note/">Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vulnhub/">vulnhub</a></li></ul>
+    </div>
+  </div>
 
-.v .vlist .vcard .vhead .vnick {
-    color: #6ba1ff;
-}
 
-.v a {
-    color: #8696b1;
-}
 
-.v .vlist .vcard .vhead .vnick:hover {
-    color: #669bfc;
-}
-</style>
+  
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/10007/06/">10007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">2018</a></li></ul>
+    </div>
+  </div>
+
+
+
+        </div>
+        <div id="backtop"><i class="icon icon-arrow-up"></i></div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-info">
+            <span>&copy; 2013 - 2020 Hu5k7&#39;s Blog</span>
+        </div>
+        <div class="footer-powered">
+            <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Aomori</a> Theme · Powered By Hexo
+        </div>
+    </div>
+</footer>
+
+
+
+<script src="/dist/build.js?1.5.0"></script>
+<script src="/dist/custom.js?1.5.0"></script>
+
+
+<!-- 百度链接提交 -->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+
+
+
 </body>
-
 </html>
