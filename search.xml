@@ -227,11 +227,11 @@
     
     
     <entry>
-      <title>【Pwn】学习笔记第零期:开端</title>
-      <link href="/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-00/"/>
-      <url>/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-00/</url>
+      <title>【Pwn】学习笔记第一期:栈知识</title>
+      <link href="/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-01/"/>
+      <url>/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-01/</url>
       
-        <content type="html"><![CDATA[<h1 id="0x00-起因">0x00 起因</h1><p>有一次已经上了深职院的学长告诉我，深职院那边非常缺pwn选手。我一直挺头疼pwn题的，耗眼力。入门难。 而且这方面的资料也相对较少，所以学习pwn的人也是相对较少的。 不过为了多累计一些知识，硬着头皮尝试的往上顶。冲冲冲！！！</p><a id="more"></a><h1 id="0x01-需要具备的知识">0x01 需要具备的知识</h1><p>1.扎实的C基础<br>2.基本DS：链表、队列、栈<br>3.基本linux配置与命令<br>4.会汇编更好，不会的话现学几个常用的也可以救急。</p><h1 id="0x02-环境搭建">0x02 环境搭建</h1><p>使用的系统: ubuntu19</p><p>工具: python - pwntools</p><p>​  pwndbg</p><p>​  ida</p><p>​  gcc-multilib</p><p><strong>转载请标明出处</strong></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="0x00-需要具备的知识">0x00 需要具备的知识</h1><a id="more"></a><h3 id="编译程序的内存分配">编译程序的内存分配</h3><h4 id="栈区-stack">栈区 (stack)</h4><p>函数运行时分配，函数结束时释放。由编译器自动分配释放 ，存放为运行函数而分配的局部变量、函数参数、返回数据、返回地址等。其操作方式类似于数据结构中的栈。</p><h4 id="堆区-heap">堆区 (heap)</h4><p>一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS（操作系统）回收。分配方式类似于链表。</p><h4 id="全局区-静态区static">全局区(静态区static)</h4><p>存放全局变量、静态数据、常量。程序结束后由系统释放。全局区分为已初始化全局区（data）和未初始化全局区（bss）。</p><h4 id="常量区-文字常量区">常量区(文字常量区)</h4><p>存放常量字符串，程序结束后有系统释放。</p><h4 id="代码区">代码区</h4><p>存放函数体（类成员函数和全局区）的二进制代码。</p><h1 id="0x01-堆栈-stack-知识">0x01 堆栈(stack)知识</h1><p><img src="%E5%A0%86%E6%A0%88.jpg" alt="堆栈"></p><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
@@ -254,11 +254,11 @@
     
     
     <entry>
-      <title>【Pwn】学习笔记第一期:栈知识</title>
-      <link href="/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-01/"/>
-      <url>/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-01/</url>
+      <title>【Pwn】学习笔记第零期:开端</title>
+      <link href="/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-00/"/>
+      <url>/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-00/</url>
       
-        <content type="html"><![CDATA[<h1 id="0x00-需要具备的知识">0x00 需要具备的知识</h1><a id="more"></a><h3 id="编译程序的内存分配">编译程序的内存分配</h3><h4 id="栈区-stack">栈区 (stack)</h4><p>函数运行时分配，函数结束时释放。由编译器自动分配释放 ，存放为运行函数而分配的局部变量、函数参数、返回数据、返回地址等。其操作方式类似于数据结构中的栈。</p><h4 id="堆区-heap">堆区 (heap)</h4><p>一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS（操作系统）回收。分配方式类似于链表。</p><h4 id="全局区-静态区static">全局区(静态区static)</h4><p>存放全局变量、静态数据、常量。程序结束后由系统释放。全局区分为已初始化全局区（data）和未初始化全局区（bss）。</p><h4 id="常量区-文字常量区">常量区(文字常量区)</h4><p>存放常量字符串，程序结束后有系统释放。</p><h4 id="代码区">代码区</h4><p>存放函数体（类成员函数和全局区）的二进制代码。</p><h1 id="0x01-堆栈-stack-知识">0x01 堆栈(stack)知识</h1><p><img src="%E5%A0%86%E6%A0%88.jpg" alt="堆栈"></p><p><strong>转载请标明出处</strong></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="0x00-起因">0x00 起因</h1><p>有一次已经上了深职院的学长告诉我，深职院那边非常缺pwn选手。我一直挺头疼pwn题的，耗眼力。入门难。 而且这方面的资料也相对较少，所以学习pwn的人也是相对较少的。 不过为了多累计一些知识，硬着头皮尝试的往上顶。冲冲冲！！！</p><a id="more"></a><h1 id="0x01-需要具备的知识">0x01 需要具备的知识</h1><p>1.扎实的C基础<br>2.基本DS：链表、队列、栈<br>3.基本linux配置与命令<br>4.会汇编更好，不会的话现学几个常用的也可以救急。</p><h1 id="0x02-环境搭建">0x02 环境搭建</h1><p>使用的系统: ubuntu19</p><p>工具: python - pwntools</p><p>​  pwndbg</p><p>​  ida</p><p>​  gcc-multilib</p><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
@@ -583,31 +583,6 @@
     
     
     <entry>
-      <title>【PythonScript】:PortScanner</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%AC%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F(PortScanner)/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%AC%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F(PortScanner)/</url>
-      
-        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>在实训室无聊的时候，随手写了一下端口扫描的Python脚本.</p><a id="more"></a><pre><code class="language-Python">import socketimport threadingfile=open(&quot;port.txt&quot;,'w+')def portscan(port):    host='192.168.174.1'    try:        s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)        conn=s.connect_ex((host,port))        if conn ==0:            print(&quot;HOST &gt; {} : OPEN : {}&quot;.format(host,post))            file.write(host+&quot;:&quot;+str(post)+&quot;\n&quot;)        else:            pass    excpet:        passfor port in range(1,65535):    t=threading.Thread(target=portscan, args=(port, ))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>【PythonScript】:Web_Dirs_Scnnaer</title>
       <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWeb_Dirs_Scanner/"/>
       <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWeb_Dirs_Scanner/</url>
@@ -638,6 +613,31 @@
       <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACsocket_cmd%E8%BF%9E%E6%8E%A5/</url>
       
         <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>为了给学弟上公开课刻意写了一个远控脚本，虽然不这么行xD</p><a id="more"></a><ul><li><strong>Server:</strong></li></ul><pre><code class="language-Python">import socket,osdef main():    global data, s    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)    s.bind(('127.0.0.1',10001))    s.listen(5)    print(&quot;等待连接中……&quot;)    while True:        conn,addr = s.accept()        while True:            print('收到命令')            data = conn.recv(1024)            cmd = os.popen(data.decode())            os_result = cmd.read()            conn.sendall(os_result.encode('utf8'))if __name__ == '__main__':    main()</code></pre><ul><li><strong>Client:</strong></li></ul><pre><code class="language-Python">import  socketServerIP=('127.0.0.1',10001)try:    s = socket.socket(socket.AF_INET,socket.SOCK_STREAM,0)    s.connect(ServerIP)    print('[+]连接成功')except:    print('[-]服务器无响应')    exit(0)while True:    data=input('[CMD]&gt;&gt;')    s.sendto(bytes(data,encoding='utf8'),ServerIP)    data = s.recv(1024)    print('[+]回显成功')    print(data.decode())</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【PythonScript】:PortScanner</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%AC%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F(PortScanner)/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%AC%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F(PortScanner)/</url>
+      
+        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>在实训室无聊的时候，随手写了一下端口扫描的Python脚本.</p><a id="more"></a><pre><code class="language-Python">import socketimport threadingfile=open(&quot;port.txt&quot;,'w+')def portscan(port):    host='192.168.174.1'    try:        s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)        conn=s.connect_ex((host,port))        if conn ==0:            print(&quot;HOST &gt; {} : OPEN : {}&quot;.format(host,post))            file.write(host+&quot;:&quot;+str(post)+&quot;\n&quot;)        else:            pass    excpet:        passfor port in range(1,65535):    t=threading.Thread(target=portscan, args=(port, ))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
